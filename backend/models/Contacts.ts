@@ -7,4 +7,5 @@ export interface Contacts {
   phone: string
   title: string
   location: string
+  createdAt: string
 }

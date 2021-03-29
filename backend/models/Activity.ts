@@ -4,4 +4,5 @@ export interface Activity {
   type: string
   start: string
   end: string
+  createdAt: string
 }

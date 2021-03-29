@@ -8,4 +8,5 @@ export interface Jobs {
   location: string
   description: string
   platform: string
+  createdAt: string
 }
