@@ -81,19 +81,20 @@ export class ActivityDataAccess {
   }
 
   //Get All Activities Associated with a User by Type
-  async getAllActivitiesByType(userId: string, type: string): Promise<Activity[]> {
+  async getAllActivitiesByType(
+    userId: string,
+    type: string
+  ): Promise<Activity[]> {
     logger.info(
       `Getting all activities from the ${this.activityTable} associated with this user: ${userId}`
     )
     const result = await this.docClient
       .query({
         TableName: this.activityTable,
-        Key: {
-          userId
-        },
-        KeyConditionExpression: 'type = :type',
+        KeyConditionExpression: 'userId = :userId and type = :type',
         ExpressionAttributeValues: {
           ':type': type,
+          ':userId': userId,
         },
       })
       .promise()
@@ -106,9 +107,6 @@ export class ActivityDataAccess {
 
     return activity as Activity[]
   }
-
-
-  
 
   //GET Activity
   async getActivity(activityId: string, userId: string): Promise<Activity> {
@@ -145,7 +143,7 @@ export class ActivityDataAccess {
     activityId: string,
     activityUpdate: ActivityUpdate
   ) {
-    logger.info(`Updating activity for user: ${userId}`)
+    logger.info(`Updating activity for job: ${jobId}`)
     await this.docClient
       .update({
         TableName: this.activityTable,
@@ -179,6 +177,4 @@ export class ActivityDataAccess {
       },
     })
   }
-
-
 }

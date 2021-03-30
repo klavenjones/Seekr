@@ -31,7 +31,7 @@ export class ResumeDataAccess {
     return resume as Resume
   }
 
-    //Get All Resumes
+  //Get All Resumes
   async getAllResumes(userId: string, resumeId: string): Promise<Resume[]> {
     logger.info(`Getting resume for this user: ${userId}`)
 
@@ -40,7 +40,7 @@ export class ResumeDataAccess {
         TableName: this.resumeTable,
         Key: {
           userId,
-          resumeId
+          resumeId,
         },
       })
       .promise()
@@ -49,7 +49,7 @@ export class ResumeDataAccess {
     return resume as Resume[]
   }
 
-//Get Resume Associated with the job
+  //Get Resume Associated with the job
   async getJobResume(jobId: string, resumeId: string): Promise<Resume> {
     logger.info(`Getting resume for this job: ${jobId}`)
 
@@ -58,7 +58,7 @@ export class ResumeDataAccess {
         TableName: this.resumeTable,
         Key: {
           jobId,
-          resumeId
+          resumeId,
         },
       })
       .promise()
@@ -77,7 +77,7 @@ export class ResumeDataAccess {
       })
       .promise()
   }
-  
+
   //Update Resume
   async updateResume(userId: string, resumeUpdate: ResumeUpdate) {
     logger.info(`Updating resume for user: ${userId}`)
@@ -88,7 +88,7 @@ export class ResumeDataAccess {
           userId,
         },
         UpdateExpression:
-          'set #name = :name, #jobTitle = :jobTitle, #url = :url'
+          'set #name = :name, #jobTitle = :jobTitle, #url = :url',
         ExpressionAttributeNames: {
           '#name': 'name',
         },
@@ -108,14 +108,13 @@ export class ResumeDataAccess {
       TableName: this.resumeTable,
       Key: {
         userId,
+        resumeId,
       },
     })
   }
   //Update Photo
   async updateAttachmentURL(userId: string, url: string) {
-    logger.info(
-      `Update resume url from ${this.resumeTable}`
-    )
+    logger.info(`Update resume url from ${this.resumeTable}`)
     await this.docClient
       .update({
         TableName: this.resumeTable,
