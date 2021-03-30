@@ -16,10 +16,16 @@ export class ActivityDataAccess {
 
   //Get All Activities
   async getAllActivities(userId: string): Promise<Activity[]> {
-    logger.info(`Getting all activity from the ${this.activityTable}`)
+    logger.info(
+      `Getting all activities from the ${this.activityTable} associated with this user: ${userId}`
+    )
     const result = await this.docClient
       .query({
         TableName: this.activityTable,
+        KeyConditionExpression: 'userId = :userId',
+        ExpressionAttributeValues: {
+          ':userId': userId,
+        },
       })
       .promise()
 
@@ -32,7 +38,7 @@ export class ActivityDataAccess {
     return activity as Activity[]
   }
 
-  //Get All Jobs Associated with a job
+  //Get All Activities Associated with a job
   async getAllJobActivities(jobId: string): Promise<Activity[]> {
     logger.info(
       `Getting all activities from the ${this.activityTable} associated with this job: ${jobId}`
@@ -51,30 +57,6 @@ export class ActivityDataAccess {
 
     logger.info(
       `Found ${activity?.length} from ${this.activityTable} associated with the user: ${jobId}`
-    )
-
-    return activity as Activity[]
-  }
-
-  //Get All Activities Associated with a User
-  async getAllUserActivities(userId: string): Promise<Activity[]> {
-    logger.info(
-      `Getting all activities from the ${this.activityTable} associated with this user: ${userId}`
-    )
-    const result = await this.docClient
-      .query({
-        TableName: this.activityTable,
-        KeyConditionExpression: 'userId = :userId',
-        ExpressionAttributeValues: {
-          ':userId': userId,
-        },
-      })
-      .promise()
-
-    const activity = result.Items
-
-    logger.info(
-      `Found ${activity?.length} from ${this.activityTable} for the user: ${userId}`
     )
 
     return activity as Activity[]
@@ -109,7 +91,7 @@ export class ActivityDataAccess {
   }
 
   //GET Activity
-  async getActivity(activityId: string, userId: string): Promise<Activity> {
+  async getActivity(userId: string, activityId: string): Promise<Activity> {
     logger.info(`Getting activity from this user: ${userId}`)
 
     const result = await this.docClient
@@ -127,7 +109,7 @@ export class ActivityDataAccess {
   }
 
   //Create Activity
-  async createJobActivity(activity: Activity) {
+  async createActivity(activity: Activity) {
     logger.info(`Putting activity (${activity}) into ${this.activityTable}`)
     await this.docClient
       .put({
@@ -138,7 +120,7 @@ export class ActivityDataAccess {
   }
 
   //Update Activity
-  async updateJobActivity(
+  async updateActivity(
     jobId: string,
     activityId: string,
     activityUpdate: ActivityUpdate
@@ -167,13 +149,13 @@ export class ActivityDataAccess {
   }
 
   //Delete Activity
-  async deleteActivity(jobId: string, activityId: string) {
-    logger.info(`Deleting Activity from job: ${jobId}`)
+  async deleteActivity(userId: string, activityId: string) {
+    logger.info(`Deleting Activity from job: ${activityId}`)
     await this.docClient.delete({
       TableName: this.activityTable,
       Key: {
         activityId,
-        jobId,
+        userId,
       },
     })
   }

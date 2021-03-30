@@ -1,4 +1,4 @@
-export interface ActivityUpdate {
+export interface UpdateActivityRequest {
   type?: string
   start: string
   end?: string

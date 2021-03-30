@@ -46,6 +46,7 @@ export async function createContact(
     const newItem: Contacts = {
       userId,
       contactId,
+      jobId,
       createdAt: new Date().toISOString(),
       ...createContactRequest,
     }
