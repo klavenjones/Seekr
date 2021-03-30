@@ -1,12 +1,8 @@
-export interface Contacts {
-  userId: string
-  contactId: string
-  jobId: string,
+export interface ContactsUpdate {
   company: string
   email: string
   name: string
   phone: string
   title: string
   location: string
-  createdAt: string
 }
