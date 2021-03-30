@@ -40,6 +40,7 @@ export class ProfileDataAccess {
       })
       .promise()
   }
+  
   //Update Profile
   async updateProfile(userId: string, profileUpdate: ProfileUpdate) {
     logger.info(`Updating profile for user: ${userId}`)
