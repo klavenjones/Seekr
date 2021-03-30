@@ -11,7 +11,7 @@ const logger = createLogger('ActivityDataAccess')
 export class ActivityDataAccess {
   constructor(
     private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
-    private readonly activityTable: 'ActivityTable'
+    private readonly activityTable = process.env.ACTIVITY_TABLE
   ) {}
 
   //Get All Activities

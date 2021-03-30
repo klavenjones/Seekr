@@ -11,7 +11,7 @@ const logger = createLogger('profileDataAccess')
 export class ProfileDataAccess {
   constructor(
     private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
-    private readonly profileTable: 'ProfileTable'
+    private readonly profileTable = process.env.PROFILE_TABLE
   ) {}
 
   //GET PROFILE
@@ -75,9 +75,7 @@ export class ProfileDataAccess {
   }
   //Update Photo
   async updateAttachmentURL(userId: string, url: string) {
-    logger.info(
-      `Uploading photo attachment in todo into ${this.profileTable}`
-    )
+    logger.info(`Uploading photo attachment in todo into ${this.profileTable}`)
 
     await this.docClient
       .update({

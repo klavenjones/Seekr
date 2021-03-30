@@ -11,7 +11,7 @@ const logger = createLogger('JobsDataAccess')
 export class JobsDataAccess {
   constructor(
     private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
-    private readonly jobsTable: 'JobsTable'
+    private readonly jobsTable = process.env.JOBS_TABLE
   ) {}
 
   async getAllJobs(userId: string): Promise<Jobs[]> {
