@@ -1,4 +1,4 @@
-export interface ContactsUpdate {
+export interface UpdateContactsRequest {
   name: string
   company?: string
   email?: string

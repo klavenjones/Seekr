@@ -1,4 +1,3 @@
-import * as uuid from 'uuid'
 
 import { ProfileDataAccess } from '../dataLayer/ProfileDataAccess'
 import { UserBucketStorage } from '../dataLayer/BucketStorage'
@@ -65,6 +64,7 @@ export async function updateTodo(
   dataAccess.updateProfile(userId, updateProfileRequest as ProfileUpdate)
 }
 
+
 export async function deleteTodo(userId: string) {
   logger.info(`Deleting profile for user ${userId}`, { userId })
 
@@ -103,7 +103,6 @@ export async function updateAttachmentUrl(
   }
   await dataAccess.updateAttachmentURL(userId, attachmentUrl)
 }
-
 
 export async function generateUploadUrl(attachmentId: string): Promise<string> {
   logger.info(`Generating upload URL for attachment ${attachmentId}`)

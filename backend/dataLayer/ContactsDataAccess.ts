@@ -57,8 +57,8 @@ export class ContactsDataAccess {
     return contacts as Contacts[]
   }
 
-  //GET Contacts
-  async getContacts(contactId: string, userId: string): Promise<Contacts> {
+  //GET Contact
+  async getContact(contactId: string, userId: string): Promise<Contacts> {
     logger.info(`Getting contacts from this user: ${userId}`)
 
     const result = await this.docClient
@@ -118,7 +118,7 @@ export class ContactsDataAccess {
   }
 
   //Delete Contacts
-  async deleteContact(jobId: string, contactId: string, userId: string) {
+  async deleteContact(contactId: string, userId: string, jobId?: string) {
     logger.info(`Deleting Contacts from job: ${jobId}`)
     await this.docClient.delete({
       TableName: this.contactsTable,
