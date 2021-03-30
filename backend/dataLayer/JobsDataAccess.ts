@@ -68,7 +68,7 @@ export class JobsDataAccess {
       .promise()
   }
   //Update Jobs
-  async updateJobs(userId: string, jobId: string, jobsUpdate: JobsUpdate) {
+  async updateJob(userId: string, jobId: string, jobsUpdate: JobsUpdate) {
     logger.info(`Updating jobs for user: ${userId}`)
     await this.docClient
       .update({
@@ -95,7 +95,7 @@ export class JobsDataAccess {
       .promise()
   }
   //Delete Jobs
-  async deleteJobs(userId: string, jobId: string) {
+  async deleteJob(userId: string, jobId: string) {
     logger.info(`Deleting Jobs for user: ${userId}`)
     await this.docClient.delete({
       TableName: this.jobsTable,

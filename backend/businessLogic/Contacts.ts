@@ -31,7 +31,7 @@ export async function getContact(
   userId: string
 ): Promise<Contacts> {
   logger.info(`Retrieving a single contacts for user ${userId}`, { userId })
-  return await dataAccess.getContact(contactId, userId)
+  return await dataAccess.getContact(userId, contactId)
 }
 
 //Create Contact
@@ -92,7 +92,7 @@ export async function updateContact(
     contactUpdate: updateContactsRequest,
   })
 
-  const item = await dataAccess.getContact(contactId, userId)
+  const item = await dataAccess.getContact(userId, contactId)
 
   if (!item) throw new Error('Item not found') //404
 
@@ -120,7 +120,7 @@ export async function deleteContact(
     contactId,
   })
 
-  const item = await dataAccess.getContact(contactId, userId)
+  const item = await dataAccess.getContact(userId, contactId)
 
   if (!item) throw new Error('Item not found') // FIXME: 404?
 
@@ -131,5 +131,5 @@ export async function deleteContact(
     throw new Error('User is not authorized to delete item') // FIXME: 403?
   }
 
-  dataAccess.deleteContact(contactId, userId, jobId)
+  dataAccess.deleteContact(userId, contactId, jobId)
 }

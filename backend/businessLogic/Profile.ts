@@ -8,7 +8,7 @@ import { CreateProfileRequest } from '../requests/CreateProfileRequest'
 import { UpdateProfileRequest } from '../requests/UpdateProfileRequest'
 import { createLogger } from '../utils/logger'
 
-const logger = createLogger('Todos')
+const logger = createLogger('Profile')
 
 const dataAccess = new ProfileDataAccess()
 const storage = new UserBucketStorage()
