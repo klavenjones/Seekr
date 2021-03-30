@@ -4,4 +4,6 @@ export interface Profile {
   email: string
   location: string
   title: string
+  createdAt: string
+  profilePhotoUrl?: string
 }

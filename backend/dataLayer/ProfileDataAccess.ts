@@ -3,6 +3,7 @@ import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 //Import Models
 import { Profile } from '../models/Profile'
+import { ProfileUpdate } from '../models/ProfileUpdate'
 //Import Logger
 import { createLogger } from '../utils/logger'
 
@@ -36,6 +37,58 @@ export class ProfileDataAccess {
       .put({
         TableName: this.profileTable,
         Item: profile,
+      })
+      .promise()
+  }
+  //Update Profile
+  async updateProfile(userId: string, profileUpdate: ProfileUpdate) {
+    logger.info(`Updating profile for user: ${userId}`)
+    await this.docClient
+      .update({
+        TableName: this.profileTable,
+        Key: {
+          userId,
+        },
+        UpdateExpression:
+          'set #name = :name, #email = :email, #location = :location, #title = :title',
+        ExpressionAttributeNames: {
+          '#name': 'name',
+        },
+        ExpressionAttributeValues: {
+          ':name': profileUpdate.name,
+          ':email': profileUpdate.email,
+          ':location': profileUpdate.location,
+          ':title': profileUpdate.title,
+        },
+      })
+      .promise()
+  }
+  //Delete Profile
+  async deleteProfile(userId: string) {
+    logger.info(`Deleting Profile for user: ${userId}`)
+    await this.docClient.delete({
+      TableName: this.profileTable,
+      Key: {
+        userId,
+      },
+    })
+  }
+  //Update Photo
+  async updateAttachmentURL(userId: string, url: string) {
+    logger.info(
+      `Uploading photo attachment in todo into ${this.profileTable}`
+    )
+
+    await this.docClient
+      .update({
+        TableName: this.profileTable,
+        Key: {
+          userId,
+        },
+        UpdateExpression: 'set profilePhotoUrl = :url',
+        ExpressionAttributeValues: {
+          ':url': url,
+        },
       })
       .promise()
   }
