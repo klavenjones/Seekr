@@ -1,111 +1,77 @@
-service:
-  name: seekr-app
+service: seekr-job-application-tracker
+
+frameworkVersion: ">=1.1.0 <2.0.0"
 
 plugins:
-  - serverless-webpack
   - serverless-iam-roles-per-function
- 
+
 provider:
   name: aws
   runtime: nodejs12.x
-
-  stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-2'}
-
+  region: us-east-2
   environment:
-    S3_BUCKET: klavenj-attachments-${self:provider.stage}
-    URL_EXPIRATION: 3000
-    ACTIVITY_TABLE: ACTIVITY-${self:provider.stage}
-    JWKS_URL_AUTH_0: https://pixaqode.us.auth0.com/.well-known/jwks.json
-    
+    ACTIVITY_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    PROFILE_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    CONTACT_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    JOBS_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    RESUME_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
-
-  # Auth:
-  #   handler: src/lambda/auth/authAuthorizer.handler
-
-  # TODO: Configure this function
-  GetActivities:
-    handler: src/lambda/http/activity/getAllActivities.handler
+  create:
+    handler: todos/create.create
     events:
       - http:
-          method: get
-          path: activities
+          path: todos
+          method: post
           cors: true
-          # authorizer: AUTH
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACTIVITY_TABLE}
+
+  list:
+    handler: todos/list.list
+    events:
+      - http:
+          path: todos
+          method: get
+          cors: true
+        
+  get:
+    handler: todos/get.get
+    events:
+      - http:
+          path: todos/{id}
+          method: get
+          cors: true
+        
+  update:
+    handler: todos/update.update
+    events:
+      - http:
+          path: todos/{id}
+          method: put
+          cors: true        
 
 resources:
   Resources:
-    # API Gateway
-    GatewayResponseDefault4XX:
-      Type: AWS::ApiGateway::GatewayResponse
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
-        ResponseType: DEFAULT_4XX
-        RestApiId:
-          Ref: ApiGatewayRestApi
-
-    # S3 Bucket
-    AttachmentsBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:provider.environment.S3_BUCKET}
-        CorsConfiguration:
-          CorsRules:
-            - AllowedOrigins:
-                - '*'
-              AllowedHeaders:
-                - '*'
-              AllowedMethods:
-                - GET
-                - PUT
-                - POST
-                - DELETE
-                - HEAD
-              MaxAge: 3000
-
-    AttachmentsBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        PolicyDocument:
-          Id: MyPolicy
-          Version: "2012-10-17"
-          Statement:
-            - Sid: PublicReadForGetBucketObjects
-              Effect: Allow
-              Principal: '*'
-              Action: 's3:GetObject'
-              Resource: 'arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*'
-        Bucket: !Ref AttachmentsBucket
-
-
-    # DynamoDB
-    ActivityTable:
-      Type: AWS::DynamoDB::Table
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
-          - AttributeName: activityId
-            AttributeType: S
-          - AttributeName: userId
-            AttributeType: S
-          - AttributeName: createdAt
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
+          - AttributeName: id
             KeyType: HASH
-          - AttributeName: activityId
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.ACTIVITY_TABLE}
-     
-
-    
-      
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}

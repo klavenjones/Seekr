@@ -1,17 +1,13 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2017"
-    ],
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "sourceMap": true,
-    "target": "es2017",
-    "outDir": "lib"
+    "target": "es6",
+    "module": "commonjs"
   },
   "exclude": [
     "node_modules"
+  ],
+  "types": [
+    "node",
+    "aws-sdk"
   ]
 }
-
