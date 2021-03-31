@@ -110,7 +110,7 @@ export async function updateContact(
     updateContactsRequest as ContactsUpdate
   )
 }
-
+//Delete Contact
 export async function deleteContact(
   userId: string,
   contactId: string,

@@ -13,7 +13,7 @@ const logger = createLogger('Profile')
 const dataAccess = new ProfileDataAccess()
 const storage = new UserBucketStorage()
 
-export async function getTodos(userId: string): Promise<Profile> {
+export async function getProfile(userId: string): Promise<Profile> {
   logger.info(`Retrieving user profilefor user ${userId}`, { userId })
   return await dataAccess.getProfile(userId)
 }

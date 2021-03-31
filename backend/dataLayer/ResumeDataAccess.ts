@@ -15,7 +15,7 @@ export class ResumeDataAccess {
   ) {}
 
   //GET Resume
-  async getResume(userId: string): Promise<Resume> {
+  async getResume(userId: string, resumeId: string): Promise<Resume> {
     logger.info(`Getting resume for this user: ${userId}`)
 
     const result = await this.docClient
@@ -23,6 +23,7 @@ export class ResumeDataAccess {
         TableName: this.resumeTable,
         Key: {
           userId,
+          resumeId
         },
       })
       .promise()
@@ -112,14 +113,16 @@ export class ResumeDataAccess {
       },
     })
   }
+
   //Update Photo
-  async updateAttachmentURL(userId: string, url: string) {
+  async updateAttachmentURL(userId: string, resumeId: string, url: string) {
     logger.info(`Update resume url from ${this.resumeTable}`)
     await this.docClient
       .update({
         TableName: this.resumeTable,
         Key: {
           userId,
+          resumeId,
         },
         UpdateExpression: 'set #url = :url',
         ExpressionAttributeValues: {

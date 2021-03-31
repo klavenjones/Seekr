@@ -1,9 +1,9 @@
 export interface Resume {
   resumeId: string
-  jobId: string
   userId: string
-  url: string
+  jobId?: string
+  url?: string
   name: string
-  jobTitle: string
+  jobTitle?: string
   createdAt: string
 }

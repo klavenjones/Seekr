@@ -119,7 +119,7 @@ export async function updateActivity(
     updateActivityRequest as ActivityUpdate
   )
 }
-
+//Delete Activity
 export async function deleteActivity(userId: string, activityId: string) {
   logger.info(`Deleting activity ${activityId} for user ${userId}`, {
     userId,
