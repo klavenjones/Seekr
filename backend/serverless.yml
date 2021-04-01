@@ -1,77 +1,138 @@
 service: seekr-job-application-tracker
 
-frameworkVersion: ">=1.1.0 <2.0.0"
-
 plugins:
   - serverless-iam-roles-per-function
 
 provider:
   name: aws
   runtime: nodejs12.x
-  region: us-east-2
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-2'}
   environment:
-    ACTIVITY_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    PROFILE_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    CONTACT_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    JOBS_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    RESUME_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-  
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    ACTIVITY_TABLE: ACTIVITY-${self:service}-${opt:stage, self:provider.stage}
+    PROFILE_TABLE: PROFILE-${self:service}-${opt:stage, self:provider.stage}
+    CONTACT_TABLE: CONTACT-${self:service}-${opt:stage, self:provider.stage}
+    JOBS_TABLE: JOBS-${self:service}-${opt:stage, self:provider.stage}
+    RESUME_TABLE: RESUME-${self:service}-${opt:stage, self:provider.stage}
+    S3_BUCKET: seekr-klavenj-attachments-${self:provider.stage}
+
 
 functions:
-  create:
-    handler: todos/create.create
+  CreateJob:
+    handler: src/lambda/jobs/createJobs.handler
     events:
       - http:
-          path: todos
+          path: jobs
           method: post
           cors: true
-
-  list:
-    handler: todos/list.list
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+  GetJobs:
+    handler: src/lambda/jobs/getAllJobs.handler
     events:
       - http:
-          path: todos
+          path: jobs
           method: get
           cors: true
-        
-  get:
-    handler: todos/get.get
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+  UpdateJobs:
+    handler: src/lambda/jobs/updateJobs.handler
     events:
       - http:
-          path: todos/{id}
-          method: get
+          path: jobs/{userId}/{jobId}
+          method: patch
           cors: true
-        
-  update:
-    handler: todos/update.update
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+  
+  DeleteJob:
+    handler: src/lambda/jobs/deleteJobs.handler
     events:
       - http:
-          path: todos/{id}
-          method: put
-          cors: true        
+          path: jobs/{userId}/{jobId}
+          method: delete
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+     
 
 resources:
   Resources:
-    TodosDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
+
+     GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
       Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
+    # S3 Bucket
+  AttachmentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+
+  AttachmentsBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Id: MyPolicy
+          Version: "2012-10-17"
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*'
+        Bucket: !Ref AttachmentsBucket
+
+
+
+
+  JobsTable:
+        Type: 'AWS::DynamoDB::Table'
+        Properties:
+          AttributeDefinitions:
+            - AttributeName: jobId
+              AttributeType: S
+            - AttributeName: userId
+              AttributeType: S
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            - AttributeName: jobId
+              KeyType: RANGE
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+          TableName: ${self:provider.environment.JOBS_TABLE}
