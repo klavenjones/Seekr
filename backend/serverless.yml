@@ -6,8 +6,11 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
+  profile: serverless
+
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-2'}
+
   environment:
     ACTIVITY_TABLE: ACTIVITY-${self:service}-${opt:stage, self:provider.stage}
     PROFILE_TABLE: PROFILE-${self:service}-${opt:stage, self:provider.stage}
@@ -30,6 +33,7 @@ functions:
         Action:
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+ 
   GetJobs:
     handler: src/lambda/jobs/getAllJobs.handler
     events:
@@ -68,11 +72,10 @@ functions:
           - dynamodb:DeleteItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
      
-
 resources:
   Resources:
-
-     GatewayResponseDefault4XX:
+    #API GATEWAY
+    GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
         ResponseParameters:
@@ -82,14 +85,13 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: ApiGatewayRestApi
-
-    # S3 Bucket
-  AttachmentsBucket:
+    #S3 Bucket
+    AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.S3_BUCKET}
         CorsConfiguration:
-          CorsRules:
+           CorsRules:
             - AllowedOrigins:
                 - '*'
               AllowedHeaders:
@@ -101,8 +103,8 @@ resources:
                 - DELETE
                 - HEAD
               MaxAge: 3000
-
-  AttachmentsBucketPolicy:
+    
+    AttachmentsBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
         PolicyDocument:
@@ -116,23 +118,38 @@ resources:
               Resource: 'arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*'
         Bucket: !Ref AttachmentsBucket
 
+    #Dynamo DB
+    #Jobs Table
+    JobsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+         AttributeDefinitions:
+          - AttributeName: jobId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+         KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: jobId
+            KeyType: RANGE
+         BillingMode: PAY_PER_REQUEST
+         TableName: ${self:provider.environment.JOBS_TABLE}
+    #ACTIVITY TABLE
+    ActivityTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+         AttributeDefinitions:
+          - AttributeName: activityId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+         KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: activityId
+            KeyType: RANGE
+         BillingMode: PAY_PER_REQUEST
+         TableName: ${self:provider.environment.ACTIVITY_TABLE}
 
-
-
-  JobsTable:
-        Type: 'AWS::DynamoDB::Table'
-        Properties:
-          AttributeDefinitions:
-            - AttributeName: jobId
-              AttributeType: S
-            - AttributeName: userId
-              AttributeType: S
-          KeySchema:
-            - AttributeName: userId
-              KeyType: HASH
-            - AttributeName: jobId
-              KeyType: RANGE
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
-          TableName: ${self:provider.environment.JOBS_TABLE}
+ 
