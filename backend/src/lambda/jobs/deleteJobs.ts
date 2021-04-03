@@ -1,5 +1,6 @@
-
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
+
+import 'source-map-support/register'
 
 import { deleteJob } from '../../businessLogic/Jobs'
 import { createLogger } from '../../utils/logger'
@@ -14,7 +15,7 @@ export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     logger.info('Processing deleteJob event', { event })
     // const userId = getUserId(event)
-    const userId = event.pathParameters.userId
+    const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
     const jobId = event.pathParameters.jobId
 
     // TODO: Remove a TODO item by id

@@ -1,4 +1,5 @@
 
+import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as uuid from 'uuid'
 import { CreateActivityRequest } from '../../requests/CreateActivityRequest'

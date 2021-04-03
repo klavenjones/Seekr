@@ -1,3 +1,5 @@
+import 'source-map-support/register'
+
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
 import { getAllJobs } from '../../businessLogic/Jobs'
@@ -14,7 +16,7 @@ export const handler = middy(
     logger.info('Processing getTodos event', { event })
     // TODO: Get all TODO items for a current user
     // const userId = getUserId(event)
-    const userId = event.pathParameters.userId
+    const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
     const jobs = await getAllJobs(userId)
     return {
       statusCode: 200,

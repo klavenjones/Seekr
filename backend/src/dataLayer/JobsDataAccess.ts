@@ -39,9 +39,9 @@ export class JobsDataAccess {
     return jobs as Jobs[]
   }
 
-  //GET Job
+  //GET Jobs
   async getJob(userId: string, jobId: string): Promise<Jobs> {
-    logger.info(`Getting jobs from this user: ${userId}`)
+    logger.info(`Getting job ${jobId} from this user: ${userId}`)
 
     const result = await this.docClient
       .get({
@@ -52,7 +52,7 @@ export class JobsDataAccess {
         },
       })
       .promise()
-
+    logger.info(`Result from ${jobId}: ${result.Item}`)
     const jobs = result.Item
     return jobs as Jobs
   }
@@ -67,42 +67,55 @@ export class JobsDataAccess {
       })
       .promise()
   }
+
   //Update Jobs
   async updateJob(userId: string, jobId: string, jobsUpdate: JobsUpdate) {
-    logger.info(`Updating jobs for user: ${userId}`)
-    await this.docClient
-      .update({
-        TableName: this.jobsTable,
-        Key: {
-          userId,
-          jobId,
-        },
-        UpdateExpression:
-          'set #company = :company, #location = :location, #title = :title, #url = :url, #description = :description, #platform = :platform, #status = :status',
-        ExpressionAttributeNames: {
-          '#title': 'title',
-        },
-        ExpressionAttributeValues: {
-          ':company': jobsUpdate.company,
-          ':description': jobsUpdate.description,
-          ':location': jobsUpdate.location,
-          ':title': jobsUpdate.title,
-          ':url': jobsUpdate.url,
-          ':platform': jobsUpdate.platform,
-          ':status': jobsUpdate.status,
-        },
-      })
-      .promise()
+    logger.info(`Updating jobs for user: ${userId} with ${jobsUpdate}`)
+    try {
+      await this.docClient
+        .update({
+          TableName: this.jobsTable,
+          Key: {
+            userId: userId,
+            jobId: jobId,
+          },
+          UpdateExpression:
+            'set company = :company, #location = :location, #title = :title, #url = :url, #description = :description, platform = :platform, #status = :status, #deadline = :deadline',
+          ExpressionAttributeNames: {
+            '#location': 'location',
+            '#url': 'url',
+            '#status': 'status',
+            '#title': 'title',
+            '#description': 'description',
+            '#deadline': 'deadline',
+          },
+          ExpressionAttributeValues: {
+            ':company': jobsUpdate.company,
+            ':description': jobsUpdate.description,
+            ':location': jobsUpdate.location,
+            ':title': jobsUpdate.title,
+            ':url': jobsUpdate.url,
+            ':platform': jobsUpdate.platform,
+            ':status': jobsUpdate.status,
+            ':deadline': jobsUpdate.deadline,
+          },
+        })
+        .promise()
+    } catch (error) {
+      logger.info(`ERROR was found: ${error}`)
+    }
   }
   //Delete Jobs
   async deleteJob(userId: string, jobId: string) {
     logger.info(`Deleting Jobs for user: ${userId}`)
-    await this.docClient.delete({
-      TableName: this.jobsTable,
-      Key: {
-        userId,
-        jobId,
-      },
-    })
+    await this.docClient
+      .delete({
+        TableName: this.jobsTable,
+        Key: {
+          userId: userId,
+          jobId: jobId,
+        },
+      })
+      .promise()
   }
 }

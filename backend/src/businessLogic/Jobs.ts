@@ -35,6 +35,13 @@ export async function createJob(
   const newItem: Jobs = {
     userId,
     jobId,
+    status: null,
+    url: null,
+    salary: null,
+    deadline: null,
+    location: null,
+    description: null,
+    platform: null,
     createdAt: new Date().toISOString(),
     ...createJobRequest,
   }
@@ -72,7 +79,13 @@ export async function updateJob(
     throw new Error('User is not authorized to update item') // 403
   }
 
-  dataAccess.updateJob(userId, jobId, updateJobsRequest as JobsUpdate)
+  let updatedItem = {
+    ...item,
+    ...updateJobsRequest,
+  }
+
+  dataAccess.updateJob(userId, jobId, updatedItem as JobsUpdate)
+  return updatedItem
 }
 
 //Delete Job

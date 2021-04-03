@@ -1,6 +1,7 @@
 service: seekr-job-application-tracker
 
 plugins:
+  - serverless-webpack
   - serverless-iam-roles-per-function
 
 provider:
@@ -12,6 +13,7 @@ provider:
   region: ${opt:region, 'us-east-2'}
 
   environment:
+    USER_TABLE: USERS
     ACTIVITY_TABLE: ACTIVITY-${self:service}-${opt:stage, self:provider.stage}
     PROFILE_TABLE: PROFILE-${self:service}-${opt:stage, self:provider.stage}
     CONTACT_TABLE: CONTACT-${self:service}-${opt:stage, self:provider.stage}
@@ -33,7 +35,7 @@ functions:
         Action:
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
- 
+  
   GetJobs:
     handler: src/lambda/jobs/getAllJobs.handler
     events:
@@ -46,30 +48,33 @@ functions:
         Action:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+
   UpdateJobs:
     handler: src/lambda/jobs/updateJobs.handler
     events:
       - http:
-          path: jobs/{userId}/{jobId}
-          method: patch
+          path: jobs/{jobId}
+          method: put
           cors: true
     iamRoleStatements:
       - Effect: Allow
         Action:
           - dynamodb:UpdateItem
+          - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
   
   DeleteJob:
     handler: src/lambda/jobs/deleteJobs.handler
     events:
       - http:
-          path: jobs/{userId}/{jobId}
+          path: jobs/{jobId}
           method: delete
           cors: true
     iamRoleStatements:
       - Effect: Allow
         Action:
           - dynamodb:DeleteItem
+          - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
      
 resources:
@@ -151,5 +156,18 @@ resources:
             KeyType: RANGE
          BillingMode: PAY_PER_REQUEST
          TableName: ${self:provider.environment.ACTIVITY_TABLE}
+    
+    UserTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+         AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+         KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+         BillingMode: PAY_PER_REQUEST
+         TableName: ${self:provider.environment.USER_TABLE}
+
 
  

@@ -1,5 +1,4 @@
-
-
+import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
 import { UpdateActivityRequest } from '../../requests/UpdateActivityRequest'

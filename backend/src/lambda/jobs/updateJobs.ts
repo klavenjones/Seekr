@@ -1,3 +1,5 @@
+import 'source-map-support/register'
+
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
 import { UpdateJobsRequest } from '../../requests/UpdateJobsRequest'
@@ -16,18 +18,21 @@ export const handler = middy(
 
     // TODO: Update a TODO item with the provided id using values in the "updatedTodo" object
     // const userId = getUserId(event)
-    const userId = event.pathParameters.userId
+    const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
     const jobId = event.pathParameters.jobId
-    const updatedTodo: UpdateJobsRequest = JSON.parse(event.body)
+    const updatedJob: UpdateJobsRequest = JSON.parse(event.body)
+    logger.info('Processing updateTodo request', { ...updatedJob })
 
-    await updateJob(userId, jobId, updatedTodo)
+    let updatedItem = await updateJob(userId, jobId, updatedJob)
 
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: '',
+      body: JSON.stringify({
+        item: updatedItem,
+      }),
     }
   }
 )
