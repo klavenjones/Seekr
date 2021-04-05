@@ -1,8 +1,7 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
-import { DynamoDBAdapter } from 'next-auth-dynamodb-adapter'
 
-console.log(process.env)
+
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -16,17 +15,5 @@ export default NextAuth({
   session: {
     jwt: true,
     maxAge: 10 * 60,
-  },
-  adapter: new DynamoDBAdapter(
-    {
-      region: 'us-east-2',
-      credentials: {
-        accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
-      },
-    },
-    {
-      usersTable: 'USERS',
-    }
-  ),
+  }
 })
