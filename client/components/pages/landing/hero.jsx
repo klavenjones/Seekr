@@ -43,7 +43,7 @@ export default function Hero() {
                   Keep track of every detail about your job opportunities
                   regardless of where you found them. Track contacts, notes,
                   dates, tasks, job descriptions, salaries, locations, company
-                  data and more. It's like a CRM for your job search.
+                  data and more. 
                 </p>
                 <div className='mt-10 sm:mt-12'>
                   <div className='sm:max-w-xl sm:mx-auto lg:mx-0'>
