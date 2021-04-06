@@ -1,8 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 
-
-
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -15,5 +13,13 @@ export default NextAuth({
   session: {
     jwt: true,
     maxAge: 10 * 60,
-  }
+  },
+  callbacks: {
+    async signIn(user, account, profile) {
+      console.log('USER', user)
+      console.log('account', account)
+      console.log('profile', profile)
+      return true
+    },
+  },
 })
