@@ -3,7 +3,6 @@ import React from 'react'
 function FeatureWithPhoto() {
   return (
     <>
-      {' '}
       <div className='relative bg-gray-50 pt-16 sm:pt-24 lg:pt-32'>
         <div className='mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl'>
           <div>
@@ -48,7 +47,7 @@ function FeatureGrid() {
           <div className='mt-12'>
             <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
               <div className='pt-6'>
-                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8 h-56'>
                   <div className='-mt-6'>
                     <div>
                       <span className='inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg'>
@@ -81,7 +80,7 @@ function FeatureGrid() {
                 </div>
               </div>
               <div className='pt-6'>
-                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8 h-56'>
                   <div className='-mt-6'>
                     <div>
                       <span className='inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg'>
@@ -115,7 +114,7 @@ function FeatureGrid() {
                 </div>
               </div>
               <div className='pt-6'>
-                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8 h-56'>
                   <div className='-mt-6'>
                     <div>
                       <span className='inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg'>
@@ -148,7 +147,7 @@ function FeatureGrid() {
                 </div>
               </div>
               <div className='pt-6'>
-                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8 h-56'>
                   <div className='-mt-6'>
                     <div>
                       <span className='inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg'>
@@ -181,7 +180,7 @@ function FeatureGrid() {
                 </div>
               </div>
               <div className='pt-6'>
-                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8 h-56'>
                   <div className='-mt-6'>
                     <div>
                       <span className='inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg'>
@@ -220,7 +219,7 @@ function FeatureGrid() {
                 </div>
               </div>
               <div className='pt-6'>
-                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8 h-56'>
                   <div className='-mt-6'>
                     <div>
                       <span className='inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg'>

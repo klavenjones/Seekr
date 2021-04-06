@@ -8,8 +8,8 @@ export default function Page() {
   const [session, loading] = useSession()
 
   return (
-    <div>
+    <>
       <LandingPage />
-    </div>
+    </>
   )
 }

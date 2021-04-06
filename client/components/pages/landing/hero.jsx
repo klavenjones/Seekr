@@ -43,15 +43,15 @@ export default function Hero() {
                   Keep track of every detail about your job opportunities
                   regardless of where you found them. Track contacts, notes,
                   dates, tasks, job descriptions, salaries, locations, company
-                  data and more. 
+                  data and more.
                 </p>
                 <div className='mt-10 sm:mt-12'>
                   <div className='sm:max-w-xl sm:mx-auto lg:mx-0'>
                     <div className='sm:flex'>
-                      <div className='mt-3 sm:mt-0 sm:ml-3'>
+                      <div className='mt-3 mx-auto sm:mt-0 lg:mx-0'>
                         <button
                           type='submit'
-                          className='block w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900'
+                          className='block py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900'
                         >
                           Get Started
                         </button>
@@ -67,7 +67,7 @@ export default function Hero() {
                 <img
                   className='w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none'
                   src='https://tailwindui.com/img/component-images/cloud-illustration-teal-cyan.svg'
-                  alt
+                  alt='Hero Image'
                 />
               </div>
             </div>
