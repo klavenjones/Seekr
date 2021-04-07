@@ -30,8 +30,8 @@ export default function Jobs() {
         <div className='hidden sm:block'>
           <nav className='flex space-x-4' aria-label='Tabs'>
             {/* Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" */}
-            <a
-              href='#'
+            <button
+              onClick={() => setTab('Wishlist')}
               className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
                 tabs === 'Wishlist'
                   ? 'bg-indigo-100 text-indigo-700'
@@ -39,9 +39,9 @@ export default function Jobs() {
               }`}
             >
               Wishlist
-            </a>
-            <a
-              href='#'
+            </button>
+            <button
+              onClick={() => setTab('Applied')}
               className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
                 tabs === 'Applied'
                   ? 'bg-indigo-100 text-indigo-700'
@@ -49,9 +49,9 @@ export default function Jobs() {
               }`}
             >
               Applied
-            </a>
-            <a
-              href='#'
+            </button>
+            <button
+              onClick={() => setTab('Interviews')}
               className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
                 tabs === 'Interviews'
                   ? 'bg-indigo-100 text-indigo-700'
@@ -60,9 +60,9 @@ export default function Jobs() {
               aria-current='page'
             >
               Interviews
-            </a>
-            <a
-              href='#'
+            </button>
+            <button
+              onClick={() => setTab('Offers')}
               className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
                 tabs === 'Offers'
                   ? 'bg-indigo-100 text-indigo-700'
@@ -70,9 +70,9 @@ export default function Jobs() {
               }`}
             >
               Offers
-            </a>
-            <a
-              href='#'
+            </button>
+            <button
+              onClick={() => setTab('Rejected')}
               className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
                 tabs === 'Rejected'
                   ? 'bg-indigo-100 text-indigo-700'
@@ -80,9 +80,9 @@ export default function Jobs() {
               }`}
             >
               Rejected
-            </a>
-            <a
-              href='#'
+            </button>
+            <button
+              onClick={() => setTab('Ghosted')}
               className={`px-3 py-2 font-medium text-sm rounded-md ${
                 tabs === 'Ghosted'
                   ? 'bg-indigo-100 text-indigo-700'
@@ -90,7 +90,7 @@ export default function Jobs() {
               }`}
             >
               Ghosted
-            </a>
+            </button>
           </nav>
         </div>
       </div>
