@@ -4,22 +4,11 @@ export default function SideNavigation() {
   const [show, setShow] = useState(true)
   return (
     <>
-      <div className='h-screen flex bg-gray-50 overflow-hidden'>
-        {/* Off-canvas menu for mobile, show/hide based on off-canvas menu state. */}
+      <div className='h-screen flex bg-gray-50 overflow-hidden '>
+      
         <div className='lg:hidden'>
-          <div
-            className={`fixed inset-0 flex ${show ? 'visible' : 'invisible'}`}
-          >
-            {/*
-    Off-canvas menu overlay, show/hide based on off-canvas menu state.
-  
-    Entering: "transition-opacity ease-linear duration-300"
-      From: "opacity-0"
-      To: "opacity-100"
-    Leaving: "transition-opacity ease-linear duration-300"
-      From: "opacity-100"
-      To: "opacity-0"
-  */}
+          <div className={`fixed inset-0 flex z-40`}>
+ 
             <div
               className={`fixed inset-0 transition-opacity ease-linear duration-300  ${
                 show ? 'opacity-100' : 'opacity-0'
@@ -376,10 +365,12 @@ export default function SideNavigation() {
                   alt='Workflow'
                 />
               </div>
-              <div>
+              <div className={`${show ? 'z-0' : 'z-100'}`}>
                 <button
                   type='button'
-                  className='-mr-3 h-12 w-12 inline-flex items-center justify-center bg-indigo-600 rounded-md text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
+                  className={
+                    '-mr-3 h-12 w-12 inline-flex items-center justify-center bg-indigo-600 rounded-md text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white '
+                  }
                   onClick={() => setShow(!show)}
                 >
                   <span className='sr-only'>Open sidebar</span>
