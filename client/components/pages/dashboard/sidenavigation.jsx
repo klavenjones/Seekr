@@ -5,10 +5,8 @@ export default function SideNavigation() {
   return (
     <>
       <div className='h-screen flex bg-gray-50 overflow-hidden '>
-      
         <div className='lg:hidden'>
           <div className={`fixed inset-0 flex z-40`}>
- 
             <div
               className={`fixed inset-0 transition-opacity ease-linear duration-300  ${
                 show ? 'opacity-100' : 'opacity-0'
@@ -206,7 +204,7 @@ export default function SideNavigation() {
         </div>
         {/* Static sidebar for desktop */}
         <div className='hidden lg:flex lg:flex-shrink-0'>
-          <div className='flex flex-col w-20'>
+          <div className='flex flex-col w-28'>
             <div className='flex flex-col h-0 flex-1 overflow-y-auto bg-indigo-600'>
               <div className='flex-1 flex flex-col'>
                 <div className='flex-shrink-0 bg-indigo-700 py-4 flex items-center justify-center'>
@@ -216,7 +214,7 @@ export default function SideNavigation() {
                     alt='Workflow'
                   />
                 </div>
-                <nav
+                {/* <nav
                   aria-label='Sidebar'
                   className='py-6 flex flex-col items-center space-y-3'
                 >
@@ -224,7 +222,7 @@ export default function SideNavigation() {
                     href='#'
                     className='flex items-center p-4 rounded-lg text-indigo-200 hover:bg-indigo-700'
                   >
-                    {/* Heroicon name: outline/home */}
+                    
                     <svg
                       className='h-6 w-6'
                       xmlns='http://www.w3.org/2000/svg'
@@ -246,7 +244,7 @@ export default function SideNavigation() {
                     href='#'
                     className='flex items-center p-4 rounded-lg text-indigo-200 hover:bg-indigo-700'
                   >
-                    {/* Heroicon name: outline/fire */}
+                   
                     <svg
                       className='h-6 w-6'
                       xmlns='http://www.w3.org/2000/svg'
@@ -274,7 +272,7 @@ export default function SideNavigation() {
                     href='#'
                     className='flex items-center p-4 rounded-lg text-indigo-200 hover:bg-indigo-700'
                   >
-                    {/* Heroicon name: outline/bookmark-alt */}
+                 
                     <svg
                       className='h-6 w-6'
                       xmlns='http://www.w3.org/2000/svg'
@@ -296,7 +294,7 @@ export default function SideNavigation() {
                     href='#'
                     className='flex items-center p-4 rounded-lg text-indigo-200 hover:bg-indigo-700'
                   >
-                    {/* Heroicon name: outline/inbox */}
+                 
                     <svg
                       className='h-6 w-6'
                       xmlns='http://www.w3.org/2000/svg'
@@ -318,7 +316,7 @@ export default function SideNavigation() {
                     href='#'
                     className='flex items-center p-4 rounded-lg text-indigo-200 hover:bg-indigo-700'
                   >
-                    {/* Heroicon name: outline/user */}
+
                     <svg
                       className='h-6 w-6'
                       xmlns='http://www.w3.org/2000/svg'
@@ -336,8 +334,110 @@ export default function SideNavigation() {
                     </svg>
                     <span className='sr-only'>Profile</span>
                   </a>
-                </nav>
+                </nav> */}
+
+
+
+                <div className='flex-1 mt-6 w-full px-2 space-y-1'>
+                  {/* Current: "bg-indigo-800 text-white", Default: "text-indigo-100 hover:bg-indigo-800 hover:text-white" */}
+                  <a
+                    href='#'
+                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                  >
+                    {/*
+      Heroicon name: outline/home
+     Current: "text-white", Default: "text-indigo-300 group-hover:text-white"
+    */}
+                    <svg
+                      className='text-indigo-300 group-hover:text-white h-6 w-6'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
+                      />
+                    </svg>
+                    <span className='mt-2'>Jobs</span>
+                  </a>
+                  <a
+                    href='#'
+                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                  >
+                    {/* Heroicon name: outline/view-grid */}
+                    <svg
+                      className='text-indigo-300 group-hover:text-white h-6 w-6'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z'
+                      />
+                    </svg>
+                    <span className='mt-2'>Activities</span>
+                  </a>
+                  <a
+                    href='#'
+                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                    aria-current='page'
+                  >
+                    {/* Heroicon name: outline/photograph */}
+                    <svg
+                      className='text-indigo-300 h-6 w-6'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
+                      />
+                    </svg>
+                    <span className='mt-2'>Contacts</span>
+                  </a>
+                  <a
+                    href='#'
+                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                    aria-current='page'
+                  >
+                    {/* Heroicon name: outline/photograph */}
+                    <svg
+                      className='text-indigo-300 h-6 w-6'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
+                      />
+                    </svg>
+                    <span className='mt-2'>Logout</span>
+                  </a>
+                </div>
               </div>
+
+
+
               <div className='flex-shrink-0 flex pb-5'>
                 <a href='#' className='flex-shrink-0 w-full'>
                   <img
