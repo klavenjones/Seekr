@@ -3,7 +3,7 @@ import { IoBriefcaseOutline, IoListOutline } from 'react-icons/io5'
 import { FaUsers, FaPowerOff } from 'react-icons/fa'
 
 export default function SideNavigation({ children }) {
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   return (
     <>
       <div className='h-screen flex bg-gray-50 overflow-hidden '>
