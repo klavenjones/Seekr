@@ -8,9 +8,7 @@ export default function SideNavigation() {
         {/* Off-canvas menu for mobile, show/hide based on off-canvas menu state. */}
         <div className='lg:hidden'>
           <div
-            className={`fixed inset-0 flex z-40 ${
-              show ? 'visible' : 'invisible'
-            }`}
+            className={`fixed inset-0 flex ${show ? 'visible' : 'invisible'}`}
           >
             {/*
     Off-canvas menu overlay, show/hide based on off-canvas menu state.
@@ -24,7 +22,7 @@ export default function SideNavigation() {
   */}
             <div
               className={`fixed inset-0 transition-opacity ease-linear duration-300  ${
-                show ? 'opacity-100' : 'opacity-0 invisible'
+                show ? 'opacity-100' : 'opacity-0'
               }`}
               aria-hidden='true'
             >
@@ -33,7 +31,7 @@ export default function SideNavigation() {
             <div
               tabIndex={0}
               className={`relative flex-1 flex flex-col max-w-xs w-full bg-white focus:outline-none transition ease-in-out duration-300 transform ${
-                show ? 'translate-x-0' : '-translate-x-full'
+                show ? 'translate-x-0' : '-translate-x-1000'
               }`}
             >
               <div className='absolute top-0 right-0 -mr-12 pt-4'>

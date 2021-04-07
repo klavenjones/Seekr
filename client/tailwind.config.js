@@ -9,6 +9,12 @@ module.exports = {
         teal: colors.teal,
         cyan: colors.cyan,
       },
+      zIndex: {
+        '-10': '-10',
+      },
+      spacing: {
+        '1000': '62.5rem',
+      },
     },
   },
   variants: {
