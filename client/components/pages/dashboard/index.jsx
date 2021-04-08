@@ -2,11 +2,15 @@ import { useState } from 'react'
 import SideNavigation from './sidenavigation'
 import Jobs from './jobs'
 import Activities from './activities'
+import Contacts from './contacts'
 
 function renderPage(page) {
   switch (page) {
     case 'Activities':
       return <Activities />
+      break
+    case 'Contacts':
+      return <Contacts />
       break
 
     default:
