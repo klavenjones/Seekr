@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { IoBriefcaseOutline, IoListOutline } from 'react-icons/io5'
 import { FaUsers, FaPowerOff } from 'react-icons/fa'
+import { signOut } from 'next-auth/client'
 
 export default function SideNavigation({ children, handlePage, page }) {
   const [show, setShow] = useState(false)
@@ -96,7 +97,7 @@ export default function SideNavigation({ children, handlePage, page }) {
                     </button>
 
                     <button
-                      onClick={() => console.log('Log Out')}
+                      onClick={() => signOut()}
                       className='group w-full p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     >
                       <FaPowerOff className='mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500' />
@@ -182,15 +183,15 @@ export default function SideNavigation({ children, handlePage, page }) {
                     <FaUsers className='h-6 w-6' />
                     <span className='mt-2'>Contacts</span>
                   </button>
-                  <a
-                    href='#'
+                  <button
+                    onClick={() => signOut()}
                     className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
                     aria-current='page'
                   >
                     {/* Heroicon name: outline/photograph */}
                     <FaPowerOff className='text-indigo-300 h-6 w-6' />
                     <span className='mt-2'>Logout</span>
-                  </a>
+                  </button>
                 </div>
               </div>
 

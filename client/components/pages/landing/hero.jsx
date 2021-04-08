@@ -1,3 +1,4 @@
+import { signIn } from 'next-auth/client'
 import React from 'react'
 
 export default function Hero() {
@@ -50,7 +51,7 @@ export default function Hero() {
                     <div className='sm:flex'>
                       <div className='mt-3 mx-auto sm:mt-0 lg:mx-0'>
                         <button
-                          type='submit'
+                          onClick={() => signIn('auth0')}
                           className='block py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900'
                         >
                           Get Started

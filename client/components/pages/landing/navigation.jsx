@@ -1,3 +1,4 @@
+import { signIn } from 'next-auth/client'
 import { useState } from 'react'
 
 export default function HomeNavigation() {
@@ -75,12 +76,12 @@ export default function HomeNavigation() {
             </div> */}
           </div>
           <div className='hidden md:flex md:items-center md:space-x-6'>
-            <a
-              href='#'
+            <button
+              onClick={() => signIn('auth0')}
               className='inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700'
             >
               Sign up free
-            </a>
+            </button>
           </div>
         </nav>
       </div>

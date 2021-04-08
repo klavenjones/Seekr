@@ -4,6 +4,7 @@ import Features from './features'
 import Testimonial from './testimonial'
 import Blog from './blog'
 import Footer from './footer'
+import CTA from './cta'
 
 export default function LandingPage() {
   return (
@@ -15,6 +16,7 @@ export default function LandingPage() {
           <Features />
           <Testimonial />
           <Blog />
+          <CTA />
         </main>
         <Footer />
       </div>
