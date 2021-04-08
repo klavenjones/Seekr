@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IoBriefcaseOutline, IoListOutline } from 'react-icons/io5'
 import { FaUsers, FaPowerOff } from 'react-icons/fa'
 
-export default function SideNavigation({ children }) {
+export default function SideNavigation({ children, handlePage, page }) {
   const [show, setShow] = useState(false)
   return (
     <>
@@ -64,36 +64,44 @@ export default function SideNavigation({ children }) {
                 </div>
                 <nav aria-label='Sidebar' className='mt-5'>
                   <div className='px-2 space-y-1'>
-                    <a
-                      href='#'
-                      className='group p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    <button
+                      onClick={() => handlePage('Jobs')}
+                      className={`group p-2 rounded-md flex w-full items-center text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 ${
+                        page === 'Jobs' ? 'bg-gray-100' : 'bg-transparent'
+                      }`}
                     >
                       {/* Heroicon name: outline/home */}
                       <IoBriefcaseOutline className='mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500' />
                       Jobs
-                    </a>
-                    <a
-                      href='#'
-                      className='group p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    </button>
+                    <button
+                      onClick={() => handlePage('Activities')}
+                      className={`group p-2 rounded-md flex w-full items-center text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 ${
+                        page === 'Activities' ? 'bg-gray-100' : 'bg-transparent'
+                      }`}
                     >
                       {/* Heroicon name: outline/fire */}
                       <IoListOutline className='mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500' />
                       Activities
-                    </a>
-                    <a
-                      href='#'
-                      className='group p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    </button>
+
+                    <button
+                      onClick={() => handlePage('Contacts')}
+                      className={`group p-2 rounded-md flex w-full items-center text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 ${
+                        page === 'Contacts' ? 'bg-gray-100' : 'bg-transparent'
+                      }`}
                     >
                       <FaUsers className='mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500' />
                       Contacts
-                    </a>
-                    <a
-                      href='#'
-                      className='group p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    </button>
+
+                    <button
+                      onClick={() => console.log('Log Out')}
+                      className='group w-full p-2 rounded-md flex items-center text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     >
                       <FaPowerOff className='mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500' />
                       Logout
-                    </a>
+                    </button>
                   </div>
                 </nav>
               </div>
@@ -138,34 +146,42 @@ export default function SideNavigation({ children }) {
                 </div>
                 <div className='flex-1 mt-6 w-full px-2 space-y-1'>
                   {/* Current: "bg-indigo-800 text-white", Default: "text-indigo-100 hover:bg-indigo-800 hover:text-white" */}
-                  <a
-                    href='#'
-                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                  <button
+                    onClick={() => handlePage('Jobs')}
+                    className={`text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium ${
+                      page === 'Jobs'
+                        ? 'bg-indigo-800 text-white'
+                        : 'text-indigo-100'
+                    }`}
                   >
-                    {/*
-      Heroicon name: outline/home
-     Current: "text-white", Default: "text-indigo-300 group-hover:text-white"
-    */}
-                    <IoBriefcaseOutline className='text-indigo-300 group-hover:text-white h-6 w-6' />
+                    <IoBriefcaseOutline className={'h-6 w-6'} />
                     <span className='mt-2'>Jobs</span>
-                  </a>
-                  <a
-                    href='#'
-                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                  </button>
+                  <button
+                    onClick={() => handlePage('Activities')}
+                    className={`text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium ${
+                      page === 'Activities'
+                        ? 'bg-indigo-800 text-white'
+                        : 'text-indigo-100'
+                    }`}
                   >
                     {/* Heroicon name: outline/view-grid */}
-                    <IoListOutline className='text-indigo-300 group-hover:text-white h-6 w-6' />
+                    <IoListOutline className='h-6 w-6' />
 
                     <span className='mt-2'>Activities</span>
-                  </a>
-                  <a
-                    href='#'
-                    className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                  </button>
+                  <button
+                    onClick={() => handlePage('Contacts')}
+                    className={`text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium ${
+                      page === 'Contacts'
+                        ? 'bg-indigo-800 text-white'
+                        : 'text-indigo-100'
+                    }`}
                     aria-current='page'
                   >
-                    <FaUsers className='text-indigo-300 h-6 w-6' />
+                    <FaUsers className='h-6 w-6' />
                     <span className='mt-2'>Contacts</span>
-                  </a>
+                  </button>
                   <a
                     href='#'
                     className='text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
@@ -194,6 +210,7 @@ export default function SideNavigation({ children }) {
             </div>
           </div>
         </div>
+
         <div className='flex-1 min-w-0 flex flex-col overflow-hidden'>
           {/* Mobile top navigation */}
           <div className='lg:hidden'>
