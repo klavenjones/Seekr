@@ -1,4 +1,4 @@
-import { Children, useState } from 'react'
+import { useState } from 'react'
 import { IoBriefcaseOutline, IoListOutline } from 'react-icons/io5'
 import { FaUsers, FaPowerOff } from 'react-icons/fa'
 
@@ -8,18 +8,24 @@ export default function SideNavigation({ children }) {
     <>
       <div className='h-screen flex bg-gray-50 overflow-hidden '>
         <div className='lg:hidden'>
-          <div className={`fixed inset-0 flex z-40`}>
+          <div
+            className={`fixed inset-0 flex transition-all delay-400 ease-linear duration-300 ${
+              show ? 'z-30' : '-z-10'
+            }`}
+          >
             <div
-              className={`fixed inset-0 transition-opacity ease-linear duration-300  ${
-                show ? 'opacity-100' : 'opacity-0'
+              className={`fixed inset-0 transition-opacity ease-linear duration-300 i  ${
+                show ? 'opacity-100 ' : 'opacity-0'
               }`}
               aria-hidden='true'
             >
-              <div className='absolute inset-0 bg-gray-600 opacity-75' />
+              <div
+                className={'absolute inset-0 bg-gray-600 opacity-75 invisible'}
+              />
             </div>
             <div
               tabIndex={0}
-              className={`relative flex-1 flex flex-col max-w-xs w-full bg-white focus:outline-none transition ease-in-out duration-300 transform ${
+              className={`relative flex-1 flex flex-col max-w-xs w-full bg-white focus:outline-none transition ease-in-out duration-300 transform  ${
                 show ? 'translate-x-0' : '-translate-x-1000'
               }`}
             >
