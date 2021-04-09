@@ -86,7 +86,7 @@ export default function HomeNavigation() {
         </nav>
       </div>
       {/* <div
-        className={`absolute top-0 inset-x-0 p-2 transition transition-all transform origin-top md:hidden ${
+        className={`absolute top-0 inset-x-0 p-2 transition transform origin-top md:hidden ${
           show
             ? 'duration-150 ease-out opacity-100 scale-100'
             : 'duration-100 ease-in opacity-0 scale-95 delay-100'
