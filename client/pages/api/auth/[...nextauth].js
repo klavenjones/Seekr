@@ -1,5 +1,12 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+const AWS = require('aws-sdk')
+
+const docClient = new AWS.DynamoDB.DocumentClient({
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+})
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -16,9 +23,30 @@ export default NextAuth({
   },
   callbacks: {
     async signIn(user, account, profile) {
-      console.log('USER', user)
-      console.log('account', account)
-      console.log('profile', profile)
+      try {
+        let params = {
+          TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
+          Key: { userId: user.id },
+        }
+        const currentUser = await docClient.get(params).promise()
+
+        if (Object.keys(currentUser).length <= 0) {
+          let newUser = {
+            TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
+            Item: {
+              userId: user.id,
+              name: profile.name,
+              email: user.email,
+              image: user.image,
+            },
+          }
+
+          await docClient.put(newUser).promise()
+        }
+      } catch (error) {
+        console.log(error.message)
+      }
+
       return true
     },
   },

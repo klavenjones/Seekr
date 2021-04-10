@@ -98,6 +98,8 @@ function Activities() {
   )
 }
 
+
+
 function Notes() {
   const [note, setNote] = useState(false)
 
@@ -167,6 +169,10 @@ function Notes() {
     </>
   )
 }
+
+
+
+
 
 function Contacts() {
   return (
@@ -691,6 +697,9 @@ function AddJob({ handleShow, show }) {
     </>
   )
 }
+
+
+
 
 function ViewJob() {
   return (
