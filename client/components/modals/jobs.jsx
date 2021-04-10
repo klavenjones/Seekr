@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Select from 'react-select'
 import { BsPaperclip, BsX } from 'react-icons/bs'
+import { FaPhoneAlt, FaEnvelope, FaEdit } from 'react-icons/fa'
 
 function Activities() {
   return (
@@ -98,55 +99,196 @@ function Activities() {
 }
 
 function Notes() {
-  return (
-    <>
-      <div className='grid grid-cols-1 gap-4 py-2 my-3'>
-        <div>
-          <label
-            htmlFor='description'
-            className='block text-sm font-medium text-gray-700'
-          >
-            Note
-          </label>
-          <div className='mt-1'>
-            <textarea
-              name='description'
-              id='description'
-              className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
-              placeholder='Add a Note'
-            ></textarea>
-            <div className='mt-2 flex md:justify-end'>
-              <button
-                type='button'
-                onClick={() => handleShow(!show)}
-                className='w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm'
-              >
-                Cancel
-              </button>
-              <button
-                type='button'
-                className='w-full ml-2 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'
-              >
-                Save
-              </button>
-            </div>
+  const [note, setNote] = useState(false)
+
+  const NoteForm = () => {
+    return (
+      <div className='mb-3'>
+        <label
+          htmlFor='description'
+          className='block text-sm font-medium text-gray-700'
+        >
+          Note
+        </label>
+        <div className='mt-1'>
+          <textarea
+            name='description'
+            id='description'
+            className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+            placeholder='Add a Note'
+          ></textarea>
+          <div className='mt-2 flex md:justify-end'>
+            <button
+              type='button'
+              onClick={() => setNote(false)}
+              className='w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm'
+            >
+              Discard
+            </button>
+            <button
+              type='button'
+              className='w-full ml-2 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'
+            >
+              Save
+            </button>
           </div>
         </div>
-        <div className="mt-4">
-          <p className='max-w-2xl text-sm text-gray-500'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero
-            molestiae nemo praesentium quis assumenda, quaerat illo quo error
-            reprehenderit, provident reiciendis nam culpa explicabo! Hic veniam
-            corporis possimus rem! Praesentium?
-          </p>
-        </div>
+      </div>
+    )
+  }
+
+  const NoteButton = () => {
+    return (
+      <div className='flex md:justify-start'>
+        <button
+          type='button'
+          onClick={() => setNote(true)}
+          className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:w-auto sm:text-sm'
+        >
+          New Note
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className='grid grid-cols-1 gap-4 my-4 py-2'>
+        {note ? <NoteForm handleNote={setNote} /> : <NoteButton />}
+      </div>
+      <div>
+        <p className='max-w-2xl text-sm text-gray-500'>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero
+          molestiae nemo praesentium quis assumenda, quaerat illo quo error
+          reprehenderit, provident reiciendis nam culpa explicabo! Hic veniam
+          corporis possimus rem! Praesentium?
+        </p>
       </div>
     </>
   )
 }
 
 function Contacts() {
-  return <h1>Contacts</h1>
+  return (
+    <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 mt-6'>
+      {/* Contact Item */}
+
+      <li className='col-span-1 bg-white rounded-lg border divide-y divide-gray-200'>
+        <div className='w-full flex items-center justify-between p-6 space-x-6'>
+          <div className='flex-1 truncate'>
+            <div className='flex items-center space-x-3'>
+              <h3 className='text-gray-900 text-sm font-medium truncate'>
+                Jane Cooper
+              </h3>
+              <span className='flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full'>
+                Admin
+              </span>
+            </div>
+            <p className='mt-1 text-gray-500 text-sm truncate'>
+              Regional Paradigm Technician
+            </p>
+          </div>
+          <img
+            className='w-10 h-10 bg-gray-300 rounded-full flex-shrink-0'
+            src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60'
+            alt
+          />
+        </div>
+        <div>
+          <div className='-mt-px flex divide-x divide-gray-200'>
+            <div className='w-0 flex-1 flex'>
+              <a
+                href='mailto:janecooper@example.com'
+                className='relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500'
+              >
+                {/* Heroicon name: solid/mail */}
+                <FaEnvelope className='w-5 h-5 text-gray-400' />
+                <span className='ml-3'>Email</span>
+              </a>
+            </div>
+            <div className='-ml-px w-0 flex-1 flex'>
+              <a
+                href='tel:+1-202-555-0170'
+                className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500'
+              >
+                {/* Heroicon name: solid/phone */}
+                <FaPhoneAlt className='w-5 h-5 text-gray-400' />
+
+                <span className='ml-3'>Call</span>
+              </a>
+            </div>
+            <div className='-ml-px w-0 flex-1 flex'>
+              <a
+                href='tel:+1-202-555-0170'
+                className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500'
+              >
+                {/* Heroicon name: solid/phone */}
+                <FaEdit className='w-5 h-5 text-gray-400' />
+                <span className='ml-3'>Edit</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li className='col-span-1 bg-white rounded-lg border divide-y divide-gray-200'>
+        <div className='w-full flex items-center justify-between p-6 space-x-6'>
+          <div className='flex-1 truncate'>
+            <div className='flex items-center space-x-3'>
+              <h3 className='text-gray-900 text-sm font-medium truncate'>
+                Jane Cooper
+              </h3>
+              <span className='flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full'>
+                Admin
+              </span>
+            </div>
+            <p className='mt-1 text-gray-500 text-sm truncate'>
+              Regional Paradigm Technician
+            </p>
+          </div>
+          <img
+            className='w-10 h-10 bg-gray-300 rounded-full flex-shrink-0'
+            src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60'
+            alt
+          />
+        </div>
+        <div>
+          <div className='-mt-px flex divide-x divide-gray-200'>
+            <div className='w-0 flex-1 flex'>
+              <a
+                href='mailto:janecooper@example.com'
+                className='relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500'
+              >
+                {/* Heroicon name: solid/mail */}
+                <FaEnvelope className='w-5 h-5 text-gray-400' />
+                <span className='ml-3'>Email</span>
+              </a>
+            </div>
+            <div className='-ml-px w-0 flex-1 flex'>
+              <a
+                href='tel:+1-202-555-0170'
+                className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500'
+              >
+                {/* Heroicon name: solid/phone */}
+                <FaPhoneAlt className='w-5 h-5 text-gray-400' />
+
+                <span className='ml-3'>Call</span>
+              </a>
+            </div>
+            <div className='-ml-px w-0 flex-1 flex'>
+              <a
+                href='tel:+1-202-555-0170'
+                className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500'
+              >
+                {/* Heroicon name: solid/phone */}
+                <FaEdit className='w-5 h-5 text-gray-400' />
+                <span className='ml-3'>Edit</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  )
 }
 
 function JobForm({ handleShow, show }) {
@@ -387,7 +529,7 @@ function EditJob({ handleShow, show }) {
         </div>
       </div>
       {/* Tabs */}
-      <div className='mt-3 mb-6'>
+      <div className='mt-3 mb-2'>
         <div className='sm:hidden'>
           <label htmlFor='tabs' className='sr-only'>
             Select a tab
