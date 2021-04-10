@@ -12,7 +12,7 @@ export default NextAuth({
   ],
   session: {
     jwt: true,
-    maxAge: 10 * 60,
+    maxAge: 1 * 60 * 60,
   },
   callbacks: {
     async signIn(user, account, profile) {
