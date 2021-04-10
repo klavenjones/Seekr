@@ -1,72 +1,158 @@
 import { useState } from 'react'
 import Select from 'react-select'
-import { BsPaperclip } from 'react-icons/bs'
+import { BsPaperclip, BsX } from 'react-icons/bs'
 
-function EditJob() {
+function Activities() {
   return (
     <>
-      <div className='sm:flex sm:items-start'>
-        <div className='mt-3 text-center  space-y-1 space-y-2 sm:mt-0  sm:text-left'>
-          <h3
-            className='text-2xl sm:text-3xl leading-6 font-medium text-gray-900'
-            id='modal-title'
-          >
-            Web Developer
-          </h3>
-          <p className='text-lg font-regular text-gray-900' id='modal-title'>
-            Company name
-          </p>
-          <div className='mt-6'></div>
-        </div>
-      </div>
-      {/* Tabs */}
-      <div className='mt-3 mb-6'>
-        <div className='sm:hidden'>
-          <label htmlFor='tabs' className='sr-only'>
-            Select a tab
+      <fieldset>
+        <legend className='sr-only'>Activities</legend>
+        <div className='relative rounded-md space-y-3'>
+          <label className='border border-gray-300 bg-white rounded-md relative px-4 p-2 flex flex-col cursor-pointer md:pl-2 md:pr-6 md:grid md:grid-cols-4'>
+            <div className='flex items-center text-xs'>
+              <input
+                type='checkbox'
+                name='completed'
+                defaultValue='Startup'
+                className='h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500'
+                aria-labelledby='pricing-plans-0-label'
+                aria-describedby='pricing-plans-0-description-0 pricing-plans-0-description-1'
+              />
+              <span
+                id='pricing-plans-0-label'
+                className='ml-3 font-medium text-gray-900'
+              >
+                Activity Name
+              </span>
+            </div>
+            <p
+              id='pricing-plans-0-description-0'
+              className='ml-6 pl-1 text-xs   md:ml-0 md:pl-0 md:text-center'
+            >
+              {/* Checked: "text-indigo-900", Not Checked: "text-gray-900" */}
+              <span className='text-gray-900 font-medium'>Web Developer</span>
+              {/* Checked: "text-indigo-700", Not Checked: "text-gray-500" */}
+              <span className='text-gray-500 ml-2'>(Google)</span>
+            </p>
+            <p
+              id='pricing-plans-0-description-0'
+              className='ml-6 pl-1 text-xs md:ml-0 md:pl-0 md:text-center'
+            >
+              {/* Checked: "text-indigo-900", Not Checked: "text-gray-900" */}
+              <span className='text-gray-900 font-medium'>Activity Type</span>
+            </p>
+            {/* Checked: "text-indigo-700", Not Checked: "text-gray-500" */}
+            <p
+              id='pricing-plans-0-description-1'
+              className='text-gray-400 ml-6 pl-1 text-xs md:ml-0 md:pl-0 md:text-right'
+            >
+              Due 4/30/2021
+            </p>
           </label>
-          <select
-            id='tabs'
-            name='tabs'
-            className='block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
-          >
-            <option>Job Info</option>
-            <option>Activities</option>
-            <option selected>Notes</option>
-            <option>Contacts</option>
-          </select>
+          <label className='border border-gray-300 bg-white rounded-md relative px-4 p-2 flex flex-col cursor-pointer md:pl-2 md:pr-6 md:grid md:grid-cols-4'>
+            <div className='flex items-center text-xs '>
+              <input
+                type='checkbox'
+                name='completed'
+                defaultValue='Startup'
+                className='h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500'
+                aria-labelledby='pricing-plans-0-label'
+                aria-describedby='pricing-plans-0-description-0 pricing-plans-0-description-1'
+              />
+              <span
+                id='pricing-plans-0-label'
+                className='ml-3 font-medium text-gray-900'
+              >
+                Activity Name
+              </span>
+            </div>
+            <p
+              id='pricing-plans-0-description-0'
+              className='ml-6 pl-1 text-xs md:ml-0 md:pl-0 md:text-center'
+            >
+              {/* Checked: "text-indigo-900", Not Checked: "text-gray-900" */}
+              <span className='text-gray-900 font-medium'>Web Developer</span>
+              {/* Checked: "text-indigo-700", Not Checked: "text-gray-500" */}
+              <span className='text-gray-500 ml-2'>(Google)</span>
+            </p>
+            <p
+              id='pricing-plans-0-description-0'
+              className='ml-6 pl-1 text-xs md:ml-0 md:pl-0 md:text-center'
+            >
+              {/* Checked: "text-indigo-900", Not Checked: "text-gray-900" */}
+              <span className='text-gray-900 font-medium'>Activity Type</span>
+              {/* Checked: "text-indigo-700", Not Checked: "text-gray-500" */}
+            </p>
+            {/* Checked: "text-indigo-700", Not Checked: "text-gray-500" */}
+            <p
+              id='pricing-plans-0-description-1'
+              className='text-gray-400 ml-6 pl-1 text-xs md:ml-0 md:pl-0 md:text-right'
+            >
+              Due 4/30/2021
+            </p>
+          </label>
         </div>
-        <div className='hidden sm:block'>
-          <nav className='flex space-x-4' aria-label='Tabs'>
-            {/* Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" */}
-            <a
-              href='#'
-              className='text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md'
-            >
-              Job Info
-            </a>
-            <a
-              href='#'
-              className='text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md'
-            >
-              Activities
-            </a>
-            <a
-              href='#'
-              className='bg-indigo-100 text-indigo-700 px-3 py-2 font-medium text-sm rounded-md'
-              aria-current='page'
-            >
-              Notes
-            </a>
-            <a
-              href='#'
-              className='text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md'
-            >
-              Contacts
-            </a>
-          </nav>
+      </fieldset>
+    </>
+  )
+}
+
+function Notes() {
+  return (
+    <>
+      <div className='grid grid-cols-1 gap-4 py-2 my-3'>
+        <div>
+          <label
+            htmlFor='description'
+            className='block text-sm font-medium text-gray-700'
+          >
+            Note
+          </label>
+          <div className='mt-1'>
+            <textarea
+              name='description'
+              id='description'
+              className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+              placeholder='Add a Note'
+            ></textarea>
+            <div className='mt-2 flex md:justify-end'>
+              <button
+                type='button'
+                onClick={() => handleShow(!show)}
+                className='w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm'
+              >
+                Cancel
+              </button>
+              <button
+                type='button'
+                className='w-full ml-2 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="mt-4">
+          <p className='max-w-2xl text-sm text-gray-500'>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero
+            molestiae nemo praesentium quis assumenda, quaerat illo quo error
+            reprehenderit, provident reiciendis nam culpa explicabo! Hic veniam
+            corporis possimus rem! Praesentium?
+          </p>
         </div>
       </div>
+    </>
+  )
+}
+
+function Contacts() {
+  return <h1>Contacts</h1>
+}
+
+function JobForm({ handleShow, show }) {
+  return (
+    <>
+      {' '}
       {/* ROW 1 */}
       <div className='grid grid-cols-1 gap-4 py-2 my-3 sm:grid-cols-2 '>
         <div>
@@ -281,7 +367,101 @@ function EditJob() {
   )
 }
 
-function AddJob() {
+function EditJob({ handleShow, show }) {
+  const [tabs, setTab] = useState('Info')
+
+  return (
+    <>
+      <div className='sm:flex sm:items-start'>
+        <div className='mt-3 text-center  space-y-1 space-y-2 sm:mt-0  sm:text-left'>
+          <h3
+            className='text-2xl sm:text-3xl leading-6 font-medium text-gray-900'
+            id='modal-title'
+          >
+            Web Developer
+          </h3>
+          <p className='text-lg font-regular text-gray-900' id='modal-title'>
+            Company name
+          </p>
+          <div className='mt-6'></div>
+        </div>
+      </div>
+      {/* Tabs */}
+      <div className='mt-3 mb-6'>
+        <div className='sm:hidden'>
+          <label htmlFor='tabs' className='sr-only'>
+            Select a tab
+          </label>
+          <select
+            id='tabs'
+            name='tabs'
+            onChange={(e) => setTab(e.target.value)}
+            className='block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
+          >
+            <option selected={tabs === 'Info'}>Job Info</option>
+            <option selected={tabs === 'Activities'}>Activities</option>
+            <option selected={tabs === 'Notes'}>Notes</option>
+            <option selected={tabs === 'Contacts'}>Contacts</option>
+          </select>
+        </div>
+        <div className='hidden sm:block'>
+          <nav className='flex space-x-4' aria-label='Tabs'>
+            {/* Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" */}
+            <button
+              onClick={() => setTab('Info')}
+              className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
+                tabs === 'Info'
+                  ? 'bg-indigo-100 text-indigo-700'
+                  : 'text-gray-500'
+              }`}
+            >
+              Job Info
+            </button>
+            <button
+              onClick={() => setTab('Activities')}
+              className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
+                tabs === 'Activities'
+                  ? 'bg-indigo-100 text-indigo-700'
+                  : 'text-gray-500'
+              }`}
+            >
+              Activities
+            </button>
+            <button
+              onClick={() => setTab('Notes')}
+              className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
+                tabs === 'Notes'
+                  ? 'bg-indigo-100 text-indigo-700'
+                  : 'text-gray-500'
+              }`}
+              aria-current='page'
+            >
+              Notes
+            </button>
+            <button
+              onClick={() => setTab('Contacts')}
+              className={`text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md ${
+                tabs === 'Contacts'
+                  ? 'bg-indigo-100 text-indigo-700'
+                  : 'text-gray-500'
+              }`}
+            >
+              Contacts
+            </button>
+          </nav>
+        </div>
+      </div>
+      {tabs === 'Info' && <JobForm handleShow={handleShow} show={show} />}
+      {tabs === 'Activities' && (
+        <Activities handleShow={handleShow} show={show} />
+      )}
+      {tabs === 'Contacts' && <Contacts handleShow={handleShow} show={show} />}
+      {tabs === 'Notes' && <Notes handleShow={handleShow} show={show} />}
+    </>
+  )
+}
+
+function AddJob({ handleShow, show }) {
   return (
     <>
       <div className=''>
@@ -350,6 +530,21 @@ function AddJob() {
             />
           </div>
         </div>
+      </div>
+      <div className='mt-8 sm:mt-6 sm:flex sm:flex-row-reverse'>
+        <button
+          type='button'
+          className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'
+        >
+          Save
+        </button>
+        <button
+          type='button'
+          onClick={() => handleShow(!show)}
+          className='mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm'
+        >
+          Cancel
+        </button>
       </div>
     </>
   )
@@ -435,7 +630,7 @@ function ViewJob() {
   )
 }
 
-export default function JobModal({ show, handleShow }) {
+export default function JobModal({ show, handleShow, modalType }) {
   return (
     <>
       {/* This example requires Tailwind CSS v2.0+ */}
@@ -478,27 +673,21 @@ export default function JobModal({ show, handleShow }) {
                 className='bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               >
                 <span className='sr-only'>Close</span>
-                {/* Heroicon name: outline/x */}
-                <svg
-                  className='h-6 w-6'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M6 18L18 6M6 6l12 12'
-                  />
-                </svg>
+
+                <BsX className='h-6 w-6' />
               </button>
             </div>
             {/* Modal Form and Title */}
 
-            <AddJob />
+            {modalType === 'Add' && (
+              <AddJob handleShow={handleShow} show={show} />
+            )}
+            {modalType === 'View' && (
+              <ViewJob handleShow={handleShow} show={show} />
+            )}
+            {modalType === 'Edit' && (
+              <EditJob handleShow={handleShow} show={show} />
+            )}
           </div>
         </div>
       </div>
