@@ -28,7 +28,7 @@ function FeatureWithPhoto() {
             <img
               className='rounded-lg shadow-xl ring-1 ring-black ring-opacity-5'
               src='https://tailwindui.com/img/component-images/green-project-app-screenshot.jpg'
-              alt
+              alt='Application screenshot'
             />
           </div>
         </div>

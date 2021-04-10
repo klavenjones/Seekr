@@ -10,7 +10,7 @@ export default function CTA() {
           <img
             className='w-full h-full object-cover'
             src='https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&sat=-100'
-            alt
+            alt='Worker finding work'
           />
           <div
             aria-hidden='true'
