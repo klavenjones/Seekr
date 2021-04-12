@@ -1,12 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
-const AWS = require('aws-sdk')
-
-const docClient = new AWS.DynamoDB.DocumentClient({
-  region: process.env.NEXT_PUBLIC_AWS_REGION,
-  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
-})
+import { docClient } from '../../../util/docclient'
 
 export default NextAuth({
   // Configure one or more authentication providers

@@ -661,8 +661,8 @@ function AddJob({ handleShow, show }) {
   })
 
   const onSubmit = async (data) => {
-    console.log(session)
-    console.log(data)
+    let response = await axios.post('/api/jobs/create', data)
+    console.log('RESPONSE', response)
   }
 
   return (
