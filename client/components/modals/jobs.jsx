@@ -2,6 +2,9 @@ import { useState } from 'react'
 import Select from 'react-select'
 import { BsPaperclip, BsX } from 'react-icons/bs'
 import { FaPhoneAlt, FaEnvelope, FaEdit } from 'react-icons/fa'
+import { useForm, useController } from 'react-hook-form'
+import { useSession } from 'next-auth/client'
+import axios from 'axios'
 
 function Activities() {
   return (
@@ -98,8 +101,6 @@ function Activities() {
   )
 }
 
-
-
 function Notes() {
   const [note, setNote] = useState(false)
 
@@ -169,10 +170,6 @@ function Notes() {
     </>
   )
 }
-
-
-
-
 
 function Contacts() {
   return (
@@ -298,6 +295,18 @@ function Contacts() {
 }
 
 function JobForm({ handleShow, show }) {
+  const { register, handleSubmit, watch, errors, control } = useForm()
+
+  const {
+    field: { ref, ...inputProps },
+  } = useController({
+    name: 'status',
+    control,
+    defaultValue: '',
+  })
+
+  const onSubmit = (data) => console.log(data)
+
   return (
     <>
       {' '}
@@ -315,6 +324,7 @@ function JobForm({ handleShow, show }) {
               type='text'
               name='company'
               id='company'
+              {...register('company')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Company Name'
             />
@@ -333,6 +343,7 @@ function JobForm({ handleShow, show }) {
               type='text'
               name='jobTitle'
               id='jobTitle'
+              {...register('jobTitle')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Web Developer'
             />
@@ -353,6 +364,7 @@ function JobForm({ handleShow, show }) {
               type='date'
               name='deadline'
               id='deadline'
+              {...register('deadline')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='01/22/22'
             />
@@ -370,6 +382,7 @@ function JobForm({ handleShow, show }) {
               type='text'
               name='jobURL'
               id='jobURL'
+              {...register('jobURL')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='https://jobposting.com'
             />
@@ -387,6 +400,7 @@ function JobForm({ handleShow, show }) {
               type='text'
               name='source'
               id='source'
+              {...register('source')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='LinkedIN'
             />
@@ -410,6 +424,7 @@ function JobForm({ handleShow, show }) {
               type='text'
               name='salary'
               id='salary'
+              {...register('salary')}
               className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md'
               placeholder={0.0}
               aria-describedby='salary-currency'
@@ -434,6 +449,7 @@ function JobForm({ handleShow, show }) {
               type='text'
               name='location'
               id='location'
+              {...register('location')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Brooklyn, NY'
             />
@@ -447,7 +463,29 @@ function JobForm({ handleShow, show }) {
             Status
           </label>
           <div className='mt-1'>
+            {/* <Controller
+              name='status'
+              control={control}
+              defaultValue={false}
+              options={[
+                { value: 'chocolate', label: 'Chocolate' },
+                { value: 'strawberry', label: 'Strawberry' },
+                { value: 'vanilla', label: 'Vanilla' },
+              ]}
+              onChange={([selected]) => {
+                // React Select return object instead of value for selection
+                return { value: selected }
+              }}
+              as={Select}
+            /> */}
             <Select
+              {...inputProps}
+              inputRef={ref}
+              options={[
+                { value: 'chocolate', label: 'Chocolate' },
+                { value: 'strawberry', label: 'Strawberry' },
+                { value: 'vanilla', label: 'Vanilla' },
+              ]}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               isSearchable={false}
               name='status'
@@ -490,6 +528,7 @@ function JobForm({ handleShow, show }) {
             <textarea
               name='description'
               id='description'
+              {...register('description')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Brief Description'
             ></textarea>
@@ -499,6 +538,7 @@ function JobForm({ handleShow, show }) {
       <div className='mt-8 sm:mt-6 sm:flex sm:flex-row-reverse'>
         <button
           type='button'
+          onClick={handleSubmit(onSubmit)}
           className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'
         >
           Save
@@ -610,6 +650,21 @@ function EditJob({ handleShow, show }) {
 }
 
 function AddJob({ handleShow, show }) {
+  const { register, handleSubmit, watch, errors, control } = useForm()
+  const [session, loading] = useSession()
+  const {
+    field: { ref, ...inputProps },
+  } = useController({
+    name: 'status',
+    control,
+    defaultValue: '',
+  })
+
+  const onSubmit = async (data) => {
+    console.log(session)
+    console.log(data)
+  }
+
   return (
     <>
       <div className=''>
@@ -638,6 +693,7 @@ function AddJob({ handleShow, show }) {
               type='text'
               name='company'
               id='company'
+              {...register('company')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Company Name'
             />
@@ -656,6 +712,7 @@ function AddJob({ handleShow, show }) {
               type='text'
               name='jobTitle'
               id='jobTitle'
+              {...register('jobTitle')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Web Developer'
             />
@@ -670,6 +727,16 @@ function AddJob({ handleShow, show }) {
           </label>
           <div className='mt-1'>
             <Select
+              {...inputProps}
+              inputRef={ref}
+              options={[
+                { value: 'wishlist', label: 'Wishlist' },
+                { value: 'applied', label: 'Applied' },
+                { value: 'interviews', label: 'Interviews' },
+                { value: 'offers', label: 'Offers' },
+                { value: 'rejected', label: 'Rejected' },
+                { value: 'ghosted', label: 'Ghosted' },
+              ]}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               isSearchable={false}
               name='status'
@@ -682,6 +749,7 @@ function AddJob({ handleShow, show }) {
       <div className='mt-8 sm:mt-6 sm:flex sm:flex-row-reverse'>
         <button
           type='button'
+          onClick={handleSubmit(onSubmit)}
           className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm'
         >
           Save
@@ -697,9 +765,6 @@ function AddJob({ handleShow, show }) {
     </>
   )
 }
-
-
-
 
 function ViewJob() {
   return (

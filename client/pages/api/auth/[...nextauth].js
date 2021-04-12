@@ -22,6 +22,13 @@ export default NextAuth({
     maxAge: 1 * 60 * 60,
   },
   callbacks: {
+    async session(session, user) {
+      console.log('Session')
+      console.log('USER', user)
+      session.user.userId = user.sub
+      console.log('SESSION', session)
+      return session
+    },
     async signIn(user, account, profile) {
       try {
         let params = {
