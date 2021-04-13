@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import JobDropdown from '../../dropdowns/dropdown'
-import JobModal from '../../modals/jobs'
-
-
+import JobModal from '../../modals/job'
 
 function WishList({ handleModal, handleType, showModal }) {
   return (
