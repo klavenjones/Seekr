@@ -2,7 +2,7 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
-import { getAllJobs } from '../../businessLogic/Jobs'
+import { getAllJobsByStatus } from '../../businessLogic/Jobs'
 import { createLogger } from '../../utils/logger'
 import { getUserId } from '../../utils/getUserId'
 
@@ -18,9 +18,10 @@ export const handler = middy(
 
     // const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
     const userId = getUserId(event)
-    // const userId = event.queryStringParameters.userId
-    logger.info('Getting User ID', { userId })
-    const jobs = await getAllJobs(userId)
+    const data = JSON.parse(event.body)
+    const status = event.queryStringParameters.status
+    logger.info('Processing Status event', { status })
+    const jobs = await getAllJobsByStatus(userId, status)
     return {
       statusCode: 200,
       headers: {

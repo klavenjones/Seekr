@@ -22,10 +22,39 @@ export class JobsDataAccess {
     const result = await this.docClient
       .query({
         TableName: this.jobsTable,
-        // IndexName: this.jobsByUserIndex,
+        // IndexName: 'IndexByUserId',
         KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {
           ':userId': userId,
+        },
+      })
+      .promise()
+
+    const jobs = result.Items
+
+    logger.info(
+      `Found ${jobs?.length} from ${this.jobsTable} for the user: ${userId}`
+    )
+
+    return jobs as Jobs[]
+  }
+
+  async getAllJobsByStatus(userId: string, status: string): Promise<Jobs[]> {
+    logger.info(
+      `Getting all jobs from the ${this.jobsTable} for this user: ${userId}`
+    )
+
+    const result = await this.docClient
+      .scan({
+        TableName: this.jobsTable,
+        // IndexName: 'IndexByJobID',
+        FilterExpression: 'userId = :userId and #status = :status',
+        ExpressionAttributeNames: {
+          '#status': 'status',
+        },
+        ExpressionAttributeValues: {
+          ':userId': userId,
+          ':status': status,
         },
       })
       .promise()

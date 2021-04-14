@@ -11,17 +11,24 @@ export default NextAuth({
       domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN,
     }),
   ],
+  // secret: process.env.SECRET,
   session: {
     jwt: true,
     maxAge: 1 * 60 * 60,
   },
+  jwt: {
+    secret: process.env.SECRET,
+  },
   callbacks: {
     async session(session, user) {
-      console.log('Session')
-      console.log('USER', user)
       session.user.userId = user.sub
-      console.log('SESSION', session)
       return session
+    },
+    async jwt(token, user, account, profile, isNewUser) {
+      if (user?.id) {
+        token.userId = user.id
+      }
+      return token
     },
     async signIn(user, account, profile) {
       try {

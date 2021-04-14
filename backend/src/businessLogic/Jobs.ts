@@ -19,6 +19,15 @@ export async function getAllJobs(userId: string): Promise<Jobs[]> {
   return await dataAccess.getAllJobs(userId)
 }
 
+//Get All Jobs By Status
+export async function getAllJobsByStatus(
+  userId: string,
+  status: string
+): Promise<Jobs[]> {
+  logger.info(`Retrieving all Jobs for user ${userId}`, { userId })
+  return await dataAccess.getAllJobsByStatus(userId, status)
+}
+
 //Get A Job
 export async function getJobs(jobId: string, userId: string): Promise<Jobs> {
   logger.info(`Retrieving a single job for user ${userId}`, { userId })

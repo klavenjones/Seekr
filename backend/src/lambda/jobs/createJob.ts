@@ -15,6 +15,7 @@ export const handler = middy(
     logger.info('Processing createJob event', { event })
 
     const userId = getUserId(event)
+    logger.info('GETTING ID', { userId })
     // const userId = uuid.v4()
     const newJobs: CreateJobsRequest = JSON.parse(event.body)
     // const newItem = await createJob(userId, newJobs)

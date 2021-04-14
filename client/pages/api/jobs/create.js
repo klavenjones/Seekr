@@ -2,7 +2,7 @@
 import { getSession } from 'next-auth/client'
 import axios from 'axios'
 
-const url = 'https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/jobs/'
+const url = 'https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/jobs'
 
 export default async (req, res) => {
   const session = await getSession({ req })

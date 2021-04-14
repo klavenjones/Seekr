@@ -20,6 +20,7 @@ provider:
     JOBS_TABLE: JOBS-${self:service}-${opt:stage, self:provider.stage}
     RESUME_TABLE: RESUME-${self:service}-${opt:stage, self:provider.stage}
     S3_BUCKET: seekr-klavenj-attachments-${self:provider.stage}
+    
 
 
 functions:
@@ -40,13 +41,30 @@ functions:
     handler: src/lambda/jobs/getAllJobs.handler
     events:
       - http:
-          path: jobs
-          method: get
+          path: alljobs
+          method: post
           cors: true
     iamRoleStatements:
       - Effect: Allow
         Action:
           - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+  
+  GetJobsByStatus:
+    handler: src/lambda/jobs/getAllJobsByStatus.handler
+    events:
+      - http:
+          path: jobs/status
+          method: post
+          cors: true
+          request: 
+            querystrings:
+              status: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
 
   UpdateJobs:
@@ -129,9 +147,9 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
          AttributeDefinitions:
-          - AttributeName: jobId
-            AttributeType: S
           - AttributeName: userId
+            AttributeType: S
+          - AttributeName: jobId
             AttributeType: S
          KeySchema:
           - AttributeName: userId
@@ -140,6 +158,16 @@ resources:
             KeyType: RANGE
          BillingMode: PAY_PER_REQUEST
          TableName: ${self:provider.environment.JOBS_TABLE}
+        #  LocalSecondaryIndexes:
+        #   - IndexName: ${self:provider.environment.INDEX_NAME}
+        #     KeySchema:
+        #       - AttributeName: userId
+        #         KeyType: HASH
+        #       - AttributeName: status
+        #         KeyType: RANGE
+        #     Projection:
+        #       ProjectionType: ALL # What attributes will be copied to an index
+
     #ACTIVITY TABLE
     ActivityTable:
       Type: AWS::DynamoDB::Table

@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SideNavigation from './sidenavigation'
 import Jobs from './jobs'
 import Activities from './activities'
 import Contacts from './contacts'
+import axios from 'axios'
 
 function renderPage(page) {
   switch (page) {
@@ -21,6 +22,12 @@ function renderPage(page) {
 
 export default function Dashboard() {
   const [page, setPage] = useState('Jobs')
+
+  useEffect(async () => {
+    const response = await axios.get('api/jobs')
+    console.log(response.data)
+  }, [])
+
   return (
     <>
       <SideNavigation page={page} handlePage={setPage}>
