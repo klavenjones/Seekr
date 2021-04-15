@@ -1,7 +1,7 @@
 import { BsX } from 'react-icons/bs'
 import { AddJob, ViewJob, EditJob } from './jobs'
 
-export default function JobModal({ show, handleShow, modalType }) {
+export default function JobModal({ show, handleShow, modalType, job }) {
   return (
     <>
       {/* This example requires Tailwind CSS v2.0+ */}
@@ -54,10 +54,10 @@ export default function JobModal({ show, handleShow, modalType }) {
               <AddJob handleShow={handleShow} show={show} />
             )}
             {modalType === 'View' && (
-              <ViewJob handleShow={handleShow} show={show} />
+              <ViewJob handleShow={handleShow} show={show} job={job} />
             )}
             {modalType === 'Edit' && (
-              <EditJob handleShow={handleShow} show={show} />
+              <EditJob handleShow={handleShow} show={show} job={job} />
             )}
           </div>
         </div>

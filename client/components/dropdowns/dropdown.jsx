@@ -25,9 +25,9 @@ export default function JobDropdown({ handleModal, handleType, showModal }) {
           </button>
         </div>
         <div
-          className={`origin-top-right absolute -right-40 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
+          className={`origin-top-right absolute -right-1 sm:-right-4 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
             show
-              ? 'transition ease-out duration-100 transform opacity-100 scale-100'
+              ? 'transition ease-out duration-100 transform opacity-100 scale-100 z-100'
               : 'transition ease-in duration-75 transform opacity-0 scale-95'
           }`}
           role='menu'

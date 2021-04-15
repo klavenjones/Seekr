@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import JobDropdown from '../dropdowns/dropdown'
 import JobModal from '../modals/job'
 
@@ -6,7 +7,7 @@ function JobItem({ job }) {
   const [type, setType] = useState('Edit')
   return (
     <>
-      <JobModal show={show} handleShow={setShow} modalType={type}  />
+      <JobModal show={show} handleShow={setShow} modalType={type} job={job} />
       <li className='col-span-1 flex shadow-sm rounded-md relative'>
         <div className='flex-shrink-0 flex items-center justify-center w-16 bg-indigo-600 text-white text-sm font-medium rounded-l-md'>
           GA
@@ -17,15 +18,15 @@ function JobItem({ job }) {
               href='#'
               className='text-gray-900 font-medium hover:text-gray-600'
             >
-              Graph API
+              {job.title}
             </a>
-            <p className='text-gray-500'>16 Members</p>
+            <p className='text-gray-500'>{job.company}</p>
           </div>
           <div className='flex-shrink-0 pr-2'>
             <JobDropdown
-              handleModal={handleModal}
-              handleType={handleType}
-              showModal={showModal}
+              handleModal={setShow}
+              handleType={setType}
+              showModal={show}
             />
           </div>
         </div>
