@@ -15,7 +15,7 @@ export default function Testimonial() {
                 <img
                   className='object-cover lg:h-full lg:w-full'
                   src='https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80'
-                  alt
+                  alt='Picture of an woman on a phone'
                 />
               </div>
             </div>

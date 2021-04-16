@@ -2,107 +2,14 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import JobDropdown from '../../dropdowns/dropdown'
 import JobModal from '../../modals/job'
-import { JobList } from '../../listitems'
-import { Loader } from '../../loader'
-
-function WishList({ handleModal, handleType, showModal }) {
-  const [jobs, setJobs] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(async () => {
-    let response = await axios.post('/api/jobs/status', { status: 'wishlist' })
-    if (response.data.jobs) {
-      setLoading(false)
-      setJobs(response.data.jobs)
-    }
-  }, [])
-
-  return (
-    <>
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div>
-        <h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-          My Wishlist
-        </h2>
-        <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'>
-          {loading ? <Loader /> : <JobList jobs={jobs} />}
-        </ul>
-      </div>
-    </>
-  )
-}
-
-function Applied() {
-  return (
-    <>
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div>
-        <h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-          Applied Jobs
-        </h2>
-        <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'>
-          
-        </ul>
-      </div>
-    </>
-  )
-}
-
-function Interviews() {
-  return (
-    <>
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div>
-        <h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-          Jobs with pending interviews
-        </h2>
-        <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'></ul>
-      </div>
-    </>
-  )
-}
-
-function Offers() {
-  return (
-    <>
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div>
-        <h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-          Job Offers
-        </h2>
-        <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'></ul>
-      </div>
-    </>
-  )
-}
-
-function Rejected() {
-  return (
-    <>
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div>
-        <h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-          Jobs that rejected me
-        </h2>
-        <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'></ul>
-      </div>
-    </>
-  )
-}
-
-function Ghosted() {
-  return (
-    <>
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div>
-        <h2 className='text-gray-500 text-xs font-medium uppercase tracking-wide'>
-          Jobs that Ghosted
-        </h2>
-        <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'></ul>
-      </div>
-    </>
-  )
-}
+import {
+  WishList,
+  Applied,
+  Interviews,
+  Rejected,
+  Ghosted,
+  Offers,
+} from './jobtabs'
 
 function renderJobPage(tab, handleModal, handleType, showModal) {
   switch (tab) {
@@ -123,13 +30,7 @@ function renderJobPage(tab, handleModal, handleType, showModal) {
       break
 
     default:
-      return (
-        <WishList
-          handleModal={handleModal}
-          handleType={handleType}
-          showModal={showModal}
-        />
-      )
+      return <WishList />
       break
   }
 }

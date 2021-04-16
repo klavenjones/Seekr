@@ -8,11 +8,25 @@ import { Contacts } from './contacts'
 import { Notes } from './notes'
 import axios from 'axios'
 
+import currencyFormatter from '../../../util/currencyFormatter'
+
 export function JobForm({ handleShow, show, job }) {
   const { register, handleSubmit, watch, errors, control, reset } = useForm({
     defaultValues: {
-      jobTitle: job.title,
-      company: job.company,
+      jobTitle: job.title ? job.title : null,
+      company: job.company ? job.company : null,
+      deadline: job.deadline ? job.deadline : null,
+      location: job.location ? job.location : null,
+      url: job.url ? job.url : null,
+      source: job.platform ? job.platform : null,
+      salary: job.salary ? job.salary : null,
+      company: job.company ? job.company : null,
+      status: {
+        value: job.status ? job.status : null,
+        label: job.status
+          ? `${job.status.charAt(0).toUpperCase()}${job.status.slice(1)}` //Capitilize Letter
+          : null,
+      },
     },
   })
 
@@ -21,10 +35,16 @@ export function JobForm({ handleShow, show, job }) {
   } = useController({
     name: 'status',
     control,
-    defaultValue: job.status ? job.status : null,
   })
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    const jobId = job.jobId
+    let response = await axios.put('/api/jobs/update', { jobId, ...data })
+    reset()
+    handleShow(false)
+  }
+
+  // const onSubmit = (data) => console.log(data)
 
   return (
     <>
@@ -140,7 +160,7 @@ export function JobForm({ handleShow, show, job }) {
               <span className='text-gray-500 sm:text-sm'>$</span>
             </div>
             <input
-              type='text'
+              type='number'
               name='salary'
               id='salary'
               {...register('salary')}
@@ -201,9 +221,12 @@ export function JobForm({ handleShow, show, job }) {
               {...inputProps}
               inputRef={ref}
               options={[
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },
+                { value: 'wishlist', label: 'Wishlist' },
+                { value: 'applied', label: 'Applied' },
+                { value: 'interviews', label: 'Interviews' },
+                { value: 'offers', label: 'Offers' },
+                { value: 'rejected', label: 'Rejected' },
+                { value: 'ghosted', label: 'Ghosted' },
               ]}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               isSearchable={false}
@@ -378,11 +401,11 @@ export function AddJob({ handleShow, show }) {
   } = useController({
     name: 'status',
     control,
-    defaultValue: '',
   })
 
   const onSubmit = async (data) => {
     let response = await axios.post('/api/jobs/create', data)
+
     reset({ company: '', jobTitle: '', status: '' })
     handleShow(false)
   }

@@ -8,6 +8,8 @@ import Dashboard from '../components/pages/dashboard'
 export default function Page() {
   const [session, loading] = useSession()
 
+
+
   if (!session) {
     return <LandingPage />
   }

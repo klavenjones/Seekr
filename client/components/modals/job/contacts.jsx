@@ -29,7 +29,7 @@ export function Contacts() {
           <img
             className='w-10 h-10 bg-gray-300 rounded-full flex-shrink-0'
             src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60'
-            alt
+            alt='Contact photo'
           />
         </div>
         <div>
@@ -86,7 +86,7 @@ export function Contacts() {
           <img
             className='w-10 h-10 bg-gray-300 rounded-full flex-shrink-0'
             src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60'
-            alt
+            alt='Contact Photo'
           />
         </div>
         <div>

@@ -37,6 +37,20 @@ functions:
           - dynamodb:PutItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
   
+  GetJob:
+    handler: src/lambda/jobs/getAllJobs.handler
+    events:
+      - http:
+          path: job/{jobId}
+          method: post
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+
   GetJobs:
     handler: src/lambda/jobs/getAllJobs.handler
     events:

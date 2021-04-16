@@ -35,7 +35,7 @@ function JobItem({ job }) {
   )
 }
 
-export function JobList({ jobs }) {
+export function JobList({ jobs, handleRefresh }) {
   return (
     <>
       {jobs.map((job, i) => (

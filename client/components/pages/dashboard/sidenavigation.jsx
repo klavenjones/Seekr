@@ -113,7 +113,7 @@ export default function SideNavigation({ children, handlePage, page }) {
                       <img
                         className='inline-block h-10 w-10 rounded-full'
                         src='https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80'
-                        alt
+                        alt='User Avatar'
                       />
                     </div>
                     <div className='ml-3'>
@@ -200,7 +200,7 @@ export default function SideNavigation({ children, handlePage, page }) {
                   <img
                     className='block mx-auto h-10 w-10 rounded-full'
                     src='https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80'
-                    alt
+                    alt="User Avatar"
                   />
                   <div className='sr-only'>
                     <p>Lisa Marie</p>
