@@ -6,11 +6,14 @@ import { useSession } from 'next-auth/client'
 import { Activities } from './activities'
 import { Contacts } from './contacts'
 import { Notes } from './notes'
+
+import { useJobs } from '../../hooks/useJobs'
+
 import axios from 'axios'
 
-import currencyFormatter from '../../../util/currencyFormatter'
-
 export function JobForm({ handleShow, show, job }) {
+  const { editJob } = useJobs()
+
   const { register, handleSubmit, watch, errors, control, reset } = useForm({
     defaultValues: {
       jobTitle: job.title ? job.title : null,
@@ -18,9 +21,10 @@ export function JobForm({ handleShow, show, job }) {
       deadline: job.deadline ? job.deadline : null,
       location: job.location ? job.location : null,
       url: job.url ? job.url : null,
-      source: job.platform ? job.platform : null,
+      platform: job.platform ? job.platform : null,
       salary: job.salary ? job.salary : null,
       company: job.company ? job.company : null,
+      description: job.description ? job.description : null,
       status: {
         value: job.status ? job.status : null,
         label: job.status
@@ -38,8 +42,7 @@ export function JobForm({ handleShow, show, job }) {
   })
 
   const onSubmit = async (data) => {
-    const jobId = job.jobId
-    let response = await axios.put('/api/jobs/update', { jobId, ...data })
+    editJob(job.jobId, data)
     reset()
     handleShow(false)
   }
@@ -62,7 +65,6 @@ export function JobForm({ handleShow, show, job }) {
             <input
               type='text'
               name='company'
-              id='company'
               {...register('company')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Company Name'
@@ -81,7 +83,6 @@ export function JobForm({ handleShow, show, job }) {
             <input
               type='text'
               name='jobTitle'
-              id='jobTitle'
               {...register('jobTitle')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Web Developer'
@@ -102,7 +103,6 @@ export function JobForm({ handleShow, show, job }) {
             <input
               type='date'
               name='deadline'
-              id='deadline'
               {...register('deadline')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='01/22/22'
@@ -119,9 +119,8 @@ export function JobForm({ handleShow, show, job }) {
           <div className='mt-1'>
             <input
               type='text'
-              name='jobURL'
-              id='jobURL'
-              {...register('jobURL')}
+              name='url'
+              {...register('url')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='https://jobposting.com'
             />
@@ -137,11 +136,10 @@ export function JobForm({ handleShow, show, job }) {
           <div className='mt-1'>
             <input
               type='text'
-              name='source'
-              id='source'
-              {...register('source')}
+              name='platform'
+              {...register('platform')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
-              placeholder='LinkedIN'
+              placeholder='LinkedIn'
             />
           </div>
         </div>
@@ -160,12 +158,11 @@ export function JobForm({ handleShow, show, job }) {
               <span className='text-gray-500 sm:text-sm'>$</span>
             </div>
             <input
-              type='number'
+              type='text'
               name='salary'
-              id='salary'
               {...register('salary')}
               className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md'
-              placeholder={0.0}
+              placeholder={'0.0'}
               aria-describedby='salary-currency'
             />
             <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
@@ -187,7 +184,6 @@ export function JobForm({ handleShow, show, job }) {
             <input
               type='text'
               name='location'
-              id='location'
               {...register('location')}
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               placeholder='Brooklyn, NY'
@@ -231,7 +227,6 @@ export function JobForm({ handleShow, show, job }) {
               className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
               isSearchable={false}
               name='status'
-              id='status'
               placeholder='Select Job Status'
             />
           </div>
@@ -395,6 +390,7 @@ export function EditJob({ handleShow, show, job }) {
 
 export function AddJob({ handleShow, show }) {
   const { register, handleSubmit, watch, errors, control, reset } = useForm()
+
   const [session, loading] = useSession()
   const {
     field: { ref, ...inputProps },
@@ -405,7 +401,6 @@ export function AddJob({ handleShow, show }) {
 
   const onSubmit = async (data) => {
     let response = await axios.post('/api/jobs/create', data)
-
     reset({ company: '', jobTitle: '', status: '' })
     handleShow(false)
   }
@@ -558,7 +553,7 @@ export function ViewJob({ job }) {
             <div className='sm:col-span-1'>
               <dt className='text-sm font-medium text-gray-500'>Salary</dt>
               <dd className='mt-1 text-sm text-gray-900'>
-                {job.salary ? `$${job.salary}` : 'Not Assigned'}
+                {job.salary ? `${job.salary}` : 'Not Assigned'}
               </dd>
             </div>
             <div className='sm:col-span-2'>

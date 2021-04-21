@@ -3,5 +3,6 @@ export function currencyFormatter(number) {
     style: 'currency',
     currency: 'USD',
   })
+  console.log('FORMATTER', formatter.format(number))
   return formatter.format(number)
 }

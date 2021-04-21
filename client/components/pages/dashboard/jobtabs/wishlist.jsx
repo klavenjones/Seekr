@@ -1,29 +1,11 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-
+import { useJobs } from '../../../hooks/useJobs'
 import { JobList } from '../../../listitems'
 import { Loader } from '../../../loader'
 
 export function WishList() {
-  const [jobs, setJobs] = useState([])
-
-  const [loading, setLoading] = useState(true)
-
-  useEffect(async () => {
-    let response = await axios.post('/api/jobs/status', { status: 'wishlist' })
-    if (response.data.jobs) {
-      setLoading(false)
-      setJobs(response.data.jobs)
-    }
-  }, [])
-
-  useEffect(async () => {
-    // let response = await axios.post('/api/jobs/status', { status: 'wishlist' })
-    // if (response.data.jobs) {
-    //   setLoading(false)
-    //   setJobs(response.data.jobs)
-    // }
-  }, [])
+  const { jobs, loading } = useJobs('wishlist')
 
   return (
     <>

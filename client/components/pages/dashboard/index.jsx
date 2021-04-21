@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+
 import SideNavigation from './sidenavigation'
 import Jobs from './jobs'
 import Activities from './activities'

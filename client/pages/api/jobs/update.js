@@ -18,7 +18,6 @@ export default async (req, res) => {
     url,
     source,
     salary,
-    jobURL,
     description,
     status: { value },
   } = req.body
@@ -29,7 +28,7 @@ export default async (req, res) => {
   if (session) {
     let response = await axios.put(updateUrl, {
       ...req.body,
-      salary: currencyFormatter(Number(salary)),
+      salary: salary,
       userId: userId,
       jobId: jobId,
       title: jobTitle,
