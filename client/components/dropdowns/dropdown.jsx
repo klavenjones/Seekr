@@ -1,8 +1,15 @@
 import { useState } from 'react'
+import { useJobs } from '../hooks/useJobs'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 
-export default function JobDropdown({ handleModal, handleType, showModal }) {
+export default function JobDropdown({
+  handleModal,
+  handleType,
+  showModal,
+  job,
+}) {
   const [show, setShow] = useState(false)
+  const { deleteJob } = useJobs()
 
   return (
     <>
@@ -60,6 +67,10 @@ export default function JobDropdown({ handleModal, handleType, showModal }) {
             <button
               className='block text-left w-full px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700'
               role='menuitem'
+              onClick={() => {
+                deleteJob(job.jobId)
+                setShow(!show)
+              }}
             >
               Delete Job
             </button>

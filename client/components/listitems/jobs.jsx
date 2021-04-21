@@ -27,6 +27,7 @@ function JobItem({ job }) {
               handleModal={setShow}
               handleType={setType}
               showModal={show}
+              job={job}
             />
           </div>
         </div>

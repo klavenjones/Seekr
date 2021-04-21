@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useJobs } from '../../../hooks/useJobs'
 import { JobList } from '../../../listitems'
 import { Loader } from '../../../loader'
@@ -7,6 +7,7 @@ import { Loader } from '../../../loader'
 export function WishList() {
   const { jobs, loading } = useJobs('wishlist')
 
+  
   return (
     <>
       {/* This example requires Tailwind CSS v2.0+ */}

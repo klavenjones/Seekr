@@ -1,11 +1,13 @@
 import axios from 'axios'
-import { currencyFormatter } from '../../util/currencyFormatter'
-import { useEffect, useState } from 'react'
+import { usePrevious } from './usePrevious'
+import { useEffect, useState, useReducer } from 'react'
 
 export function useJobs(status) {
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
   const [refreshed, setRefreshed] = useState(0)
+  const [, forceUpdate] = useReducer((x) => x + 1, 0) // FORCE UPDATE HACK
+
 
   const fetchJobsByStatus = async (status) => {
     try {
@@ -24,15 +26,24 @@ export function useJobs(status) {
       jobId,
       ...data,
     })
+    setRefreshed((refreshed) => refreshed + 1)
   }
 
   const deleteJob = async (jobId) => {
-    await axios.delete('/api/jobs/update')
+    try {
+      await axios.delete(`/api/jobs/delete`, {
+        data: {
+          jobId: jobId,
+        },
+      })
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   useEffect(async () => {
     fetchJobsByStatus(status)
   }, [])
 
-  return { jobs, editJob, loading }
+  return { jobs, editJob, deleteJob, loading }
 }

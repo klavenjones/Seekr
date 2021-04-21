@@ -11,6 +11,7 @@ import {
   Offers,
 } from './jobtabs'
 
+
 function renderJobPage(tab, handleModal, handleType, showModal) {
   switch (tab) {
     case 'Applied':
