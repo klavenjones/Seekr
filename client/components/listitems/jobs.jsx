@@ -1,13 +1,9 @@
-import { useState } from 'react'
-import JobDropdown from '../dropdowns/dropdown'
-import JobModal from '../modals/job'
+import { JobDropdown } from '../'
 
-function JobItem({ job }) {
-  const [show, setShow] = useState(false)
-  const [type, setType] = useState('Edit')
+export function JobItem({ job }) {
   return (
     <>
-      <JobModal show={show} handleShow={setShow} modalType={type} job={job} />
+      {' '}
       <li className='col-span-1 flex shadow-sm rounded-md relative'>
         <div className='flex-shrink-0 flex items-center justify-center w-16 bg-indigo-600 text-white text-sm font-medium rounded-l-md'>
           GA
@@ -23,12 +19,7 @@ function JobItem({ job }) {
             <p className='text-gray-500'>{job.company}</p>
           </div>
           <div className='flex-shrink-0 pr-2'>
-            <JobDropdown
-              handleModal={setShow}
-              handleType={setType}
-              showModal={show}
-              job={job}
-            />
+            <JobDropdown />
           </div>
         </div>
       </li>
