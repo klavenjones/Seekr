@@ -5,7 +5,7 @@ import * as uuid from 'uuid'
 import { CreateActivityRequest } from '../../requests/CreateActivityRequest'
 import { createActivity } from '../../businessLogic/Activity'
 import { createLogger } from '../../utils/logger'
-// import { getUserId } from '../../utils'
+import { getUserId } from '../../utils/getUserId'
 
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
@@ -16,8 +16,7 @@ export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     logger.info('Processing createActivity event', { event })
 
-    // const userId = getUserId(event)
-    const userId = uuid.v4()
+    const userId = getUserId(event)
     const newActivity: CreateActivityRequest = JSON.parse(event.body)
     const newItem = await createActivity(userId, newActivity)
 

@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
-import { docClient } from '../../../lib/docclient'
+import { docClient } from '../../../util/docclient'
 
 export default NextAuth({
   // Configure one or more authentication providers

@@ -33,6 +33,8 @@ export default async (req, res) => {
       jobId: jobId,
       title: jobTitle,
       status: value,
+      description: description,
+      url: url,
     })
     res.send({ success: 'Successfully created user', user: response.data })
   } else {

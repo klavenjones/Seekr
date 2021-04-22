@@ -1,12 +1,10 @@
 import axios from 'axios'
-import { usePrevious } from './usePrevious'
-import { useEffect, useState, useReducer } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useJobs(status) {
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
-  const [refreshed, setRefreshed] = useState(0)
-  const [, forceUpdate] = useReducer((x) => x + 1, 0) // FORCE UPDATE HACK
+
 
 
   const fetchJobsByStatus = async (status) => {
@@ -26,7 +24,6 @@ export function useJobs(status) {
       jobId,
       ...data,
     })
-    setRefreshed((refreshed) => refreshed + 1)
   }
 
   const deleteJob = async (jobId) => {
