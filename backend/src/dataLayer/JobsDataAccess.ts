@@ -109,7 +109,7 @@ export class JobsDataAccess {
             jobId: jobId,
           },
           UpdateExpression:
-            'set company = :company, #location = :location, #title = :title, #url = :url, #description = :description, platform = :platform, #status = :status, #deadline = :deadline',
+            'set company = :company, #location = :location, #title = :title, #url = :url, #description = :description, platform = :platform, #status = :status, #deadline = :deadline, #salary = :salary',
           ExpressionAttributeNames: {
             '#location': 'location',
             '#url': 'url',
@@ -117,6 +117,7 @@ export class JobsDataAccess {
             '#title': 'title',
             '#description': 'description',
             '#deadline': 'deadline',
+            '#salary': 'salary',
           },
           ExpressionAttributeValues: {
             ':company': jobsUpdate.company,
@@ -127,6 +128,7 @@ export class JobsDataAccess {
             ':platform': jobsUpdate.platform,
             ':status': jobsUpdate.status,
             ':deadline': jobsUpdate.deadline,
+            ':salary': jobsUpdate.salary,
           },
         })
         .promise()

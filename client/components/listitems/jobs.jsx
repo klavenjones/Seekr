@@ -4,7 +4,7 @@ import { JobModal } from '../modals'
 
 export function JobItem({ job }) {
   const [open, setOpen] = useState(false)
-  const [type, setType] = useState('view')
+  const [type, setType] = useState('edit')
   return (
     <>
       <JobModal open={open} setOpen={setOpen} job={job} type={type} />

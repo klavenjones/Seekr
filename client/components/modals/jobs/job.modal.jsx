@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useState, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ViewJob } from './'
+import { ViewJob, EditJob, AddJob } from './'
 
 import { CheckIcon } from '@heroicons/react/outline'
 
@@ -35,7 +35,9 @@ export function JobModal({ job, open, type, setOpen }) {
           >
             &#8203;
           </span>
-          <ViewJob job={job} setOpen={setOpen} />
+          {type === 'view' && <ViewJob job={job} setOpen={setOpen} />}
+          {type === 'edit' && <EditJob job={job} setOpen={setOpen} />}
+          {type === 'add' && <AddJob setOpen={setOpen} />}
         </div>
       </Dialog>
     </Transition.Root>
