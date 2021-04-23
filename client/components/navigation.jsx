@@ -20,11 +20,11 @@ export function Navigation() {
             <div className='flex items-center justify-between h-16 '>
               <div className='flex items-center'>
                 <div className='flex-shrink-1'>
-                  <img
+                  {/* <img
                     className='h-8 w-8'
                     src='https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg'
                     alt='Workflow'
-                  />
+                  /> */}
                 </div>
 
                 <div className='hidden md:block'>

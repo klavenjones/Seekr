@@ -17,8 +17,8 @@ export const handler = middy(
     // TODO: Get all TODO items for a current user
 
     // const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
-    const userId = getUserId(event)
-    // const userId = event.queryStringParameters.userId
+    // const userId = getUserId(event)
+    const userId = event.pathParameters.userId
     logger.info('Getting User ID', { userId })
     const jobs = await getAllJobs(userId)
     return {

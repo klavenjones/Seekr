@@ -55,8 +55,8 @@ functions:
     handler: src/lambda/jobs/getAllJobs.handler
     events:
       - http:
-          path: alljobs
-          method: post
+          path: /{userId}/jobs
+          method: get
           cors: true
     iamRoleStatements:
       - Effect: Allow

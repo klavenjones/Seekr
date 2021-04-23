@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { docClient } from '../../../lib/docclient'
+import * as uuid from 'uuid'
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -21,12 +22,28 @@ export default NextAuth({
   },
   callbacks: {
     async session(session, user) {
-      session.user.userId = user.sub
+      let params = {
+        TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
+        FilterExpression: 'providerId = :providerId',
+        ExpressionAttributeValues: {
+          ':providerId': user.sub,
+        },
+      }
+      const currentUser = await docClient.scan(params).promise()
+      session.user.userId = currentUser.Items[0].userId
       return session
     },
     async jwt(token, user, account, profile, isNewUser) {
-      if (user?.id) {
-        token.userId = user.id
+      let params = {
+        TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
+        FilterExpression: 'providerId = :providerId',
+        ExpressionAttributeValues: {
+          ':providerId': token.sub,
+        },
+      }
+      const currentUser = await docClient.scan(params).promise()
+      if (currentUser.Items.length > 0) {
+        token.userId = currentUser.Items[0].userId
       }
       return token
     },
@@ -34,15 +51,20 @@ export default NextAuth({
       try {
         let params = {
           TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
-          Key: { userId: user.id },
+          FilterExpression: 'providerId = :providerId',
+          ExpressionAttributeValues: {
+            ':providerId': user.id,
+          },
         }
-        const currentUser = await docClient.get(params).promise()
+        const currentUser = await docClient.scan(params).promise()
+        if (currentUser.Items.length <= 0) {
+          let userId = uuid.v4()
 
-        if (Object.keys(currentUser).length <= 0) {
           let newUser = {
             TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
             Item: {
-              userId: user.id,
+              providerId: user.id,
+              userId: userId,
               name: profile.name,
               email: user.email,
               image: user.image,

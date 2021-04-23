@@ -9,15 +9,12 @@ function classNames(...classes) {
 
 export function JobDropdown() {
   return (
-    <Menu as='div' className='relative inline-block text-left'>
+    <Menu as='div' className='inline-block text-left'>
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className='inline-flex justify-center w-full px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'>
-              <ChevronDownIcon
-                className='-mr-1 ml-2 h-5 w-5'
-                aria-hidden='true'
-              />
+            <Menu.Button className='flex justify-center w-full px-2 py-2 bg-white text-sm font-medium text-gray-700  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-teal-500'>
+              <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
             </Menu.Button>
           </div>
 
@@ -33,7 +30,7 @@ export function JobDropdown() {
           >
             <Menu.Items
               static
-              className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
+              className='origin-top-right absolute top-5 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-30'
             >
               <div className='py-1'>
                 <Menu.Item>
