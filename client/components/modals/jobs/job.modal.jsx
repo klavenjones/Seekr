@@ -1,9 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ViewJob } from './'
 
-export default function JobModal({ job, open, type }) {
+import { CheckIcon } from '@heroicons/react/outline'
+
+export function JobModal({ job, open, type, setOpen }) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -11,7 +13,7 @@ export default function JobModal({ job, open, type }) {
         static
         className='fixed z-10 inset-0 overflow-y-auto'
         open={open}
-        onClose={setOpen}
+        onClose={() => setOpen(false)}
       >
         <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
           <Transition.Child
@@ -33,18 +35,7 @@ export default function JobModal({ job, open, type }) {
           >
             &#8203;
           </span>
-          <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-            enterTo='opacity-100 translate-y-0 sm:scale-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-            leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-          >
-            {/* Job Forms */}
-            <ViewJob job={job} />
-          </Transition.Child>
+          <ViewJob job={job} setOpen={setOpen} />
         </div>
       </Dialog>
     </Transition.Root>
