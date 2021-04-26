@@ -76,11 +76,9 @@ export function EditJob({ job, setOpen }) {
         salary: salary,
       }
 
-      let response = await axios.put(updateUrl, updatedJob)
-      reset()
+      let response = await axios.put(updateUrl, updatedJob) 
       setOpen(false)
       refreshData()
-      
     } catch (error) {
       console.log(error.message)
     }
@@ -281,6 +279,26 @@ export function EditJob({ job, setOpen }) {
                     className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
                     placeholder='LinkedIn'
                   />
+                </div>
+              </div>
+            </div>
+            {/* ROW 4 */}
+            <div className='grid grid-cols-1 gap-4 py-2 my-3'>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Description
+                </label>
+                <div className='mt-1'>
+                  <textarea
+                    name='description'
+                    id='description'
+                    {...register('description')}
+                    className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
+                    placeholder='Brief Description'
+                  ></textarea>
                 </div>
               </div>
             </div>

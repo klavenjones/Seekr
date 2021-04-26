@@ -23,7 +23,7 @@ export function JobItem({ job }) {
             <p className='text-gray-500'>{job.company}</p>
           </div>
           <div className='flex-shrink-0 pr-2'>
-            <JobDropdown openModal={setOpen} modalType={setType} />
+            <JobDropdown openModal={setOpen} modalType={setType} job={job} />
           </div>
         </div>
       </li>

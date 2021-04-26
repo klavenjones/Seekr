@@ -70,7 +70,7 @@ export function ViewJob({ job, setOpen }) {
               <div className='sm:col-span-1'>
                 <dt className='text-sm font-medium text-gray-500'>Salary</dt>
                 <dd className='mt-1 text-sm text-gray-900'>
-                  {job.salary ? job.salary : 'Not Assigned'}
+                  ${job.salary ? job.salary : 'Not Assigned'}
                 </dd>
               </div>
               <div className='sm:col-span-2'>

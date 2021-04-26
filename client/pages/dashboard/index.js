@@ -3,7 +3,10 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { Jobs } from '../../components/pages'
-import { Protected } from '../../components/protected'
+// import { Protected } from '../../components/protected'
+
+
+
 
 export default function Dashboard({ jobs }) {
   const [session, loading] = useSession()
@@ -15,11 +18,7 @@ export default function Dashboard({ jobs }) {
     }
   }, [session, loading])
 
-  return (
-    <Protected>
-      <Jobs jobs={jobs} />
-    </Protected>
-  )
+  return <Jobs jobs={jobs} />
 }
 
 export async function getServerSideProps(context) {

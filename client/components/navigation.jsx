@@ -1,17 +1,24 @@
 import { Fragment } from 'react'
+import { useSession } from 'next-auth/client'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { signOut } from 'next-auth/client'
 
-const navigation = ['Jobs', 'Activities', 'Clients']
+const navigation = [
+  { name: 'Jobs', href: '/dashboard' },
+  { name: 'Activities', href: '/dashboard/activities' },
+  { name: 'Contacts', href: '/dashboard/contacts' },
+]
 
-const profile = ['Your Profile', 'Settings', 'Log out']
+const profile = ['Log out']
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function Navigation() {
+export function Navigation({ page }) {
+  const [session, loading] = useSession()
+
   return (
     <Disclosure as='nav' className='bg-teal-600'>
       {({ open }) => (
@@ -30,22 +37,21 @@ export function Navigation() {
                 <div className='hidden md:block'>
                   <div className='ml-10 flex items-baseline space-x-4'>
                     {navigation.map((item, itemIdx) =>
-                      itemIdx === 0 ? (
-                        <Fragment key={item}>
+                      page === item.name ? (
+                        <Fragment key={itemIdx}>
                           <a
-                            href='#'
+                            href={item.href}
                             className='bg-teal-700 text-white px-3 py-2 rounded-md text-sm font-medium'
                           >
-                            {item}
+                            {item.name}
                           </a>
                         </Fragment>
                       ) : (
                         <a
-                          key={item}
-                          href='#'
+                          href={item.href}
                           className='text-white hover:bg-teal-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium'
                         >
-                          {item}
+                          {item.name}
                         </a>
                       )
                     )}
@@ -68,8 +74,12 @@ export function Navigation() {
                             <span className='sr-only'>Open user menu</span>
                             <img
                               className='h-8 w-8 rounded-full'
-                              src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                              alt=''
+                              src={`${
+                                session?.user.image
+                                  ? session?.user.image
+                                  : '/avatar.png'
+                              }`}
+                              alt='Profile Picture'
                             />
                           </Menu.Button>
                         </div>
@@ -140,19 +150,19 @@ export function Navigation() {
                 itemIdx === 0 ? (
                   <Fragment key={item}>
                     <a
-                      href='#'
+                      href={item.href}
                       className='bg-teal-700 text-white block px-3 py-2 rounded-md text-base font-medium'
                     >
-                      {item}
+                      {item.name}
                     </a>
                   </Fragment>
                 ) : (
                   <a
                     key={item}
-                    href='#'
+                    href={item.href}
                     className='text-white hover:bg-teal-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium'
                   >
-                    {item}
+                    {item.name}
                   </a>
                 )
               )}
@@ -162,16 +172,18 @@ export function Navigation() {
                 <div className='flex-shrink-1'>
                   <img
                     className='h-10 w-10 rounded-full'
-                    src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                    alt=''
+                    src={`${
+                      session?.user.image ? session?.user.image : '/avatar.png'
+                    }`}
+                    alt='Profile Picture'
                   />
                 </div>
                 <div className='ml-3'>
                   <div className='text-base font-medium text-white'>
-                    Tom Cook
+                    {session?.user.name ? session?.user.name : ''}
                   </div>
                   <div className='text-sm font-medium text-teal-300'>
-                    tom@example.com
+                    {session?.user.email ? session?.user.email : ''}
                   </div>
                 </div>
                 <button className='ml-auto bg-teal-600 flex-shrink-0 p-1 border-2 border-transparent rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
@@ -180,15 +192,25 @@ export function Navigation() {
                 </button>
               </div>
               <div className='mt-3 px-2 space-y-1'>
-                {profile.map((item) => (
-                  <a
-                    key={item}
-                    href='#'
-                    className='block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-teal-500 hover:bg-opacity-75'
-                  >
-                    {item}
-                  </a>
-                ))}
+                {profile.map((item) =>
+                  item === 'Log out' ? (
+                    <button
+                      key={item}
+                      onClick={() => signOut()}
+                      className='block text-left w-full px-3 py-2 rounded-md text-base font-medium text-white hover:bg-teal-500 hover:bg-opacity-75'
+                    >
+                      {item}
+                    </button>
+                  ) : (
+                    <a
+                      key={item}
+                      href='#'
+                      className='block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-teal-500 hover:bg-opacity-75'
+                    >
+                      {item}
+                    </a>
+                  )
+                )}
               </div>
             </div>
           </Disclosure.Panel>

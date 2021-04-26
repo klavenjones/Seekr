@@ -4,7 +4,7 @@ import 'source-map-support/register'
 
 import { deleteJob } from '../../businessLogic/Jobs'
 import { createLogger } from '../../utils/logger'
-// import { getUserId } from '../../utils/logger'
+import { getUserId } from '../../utils/getUserId'
 
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
@@ -14,8 +14,8 @@ const logger = createLogger('deleteJob')
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     logger.info('Processing deleteJob event', { event })
-    // const userId = getUserId(event)
-    const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
+    const userId = getUserId(event)
+    // const userId = '8cbb4b6d-93a5-4c42-82fe-fa05ae3a3466'
     const jobId = event.pathParameters.jobId
 
     // TODO: Remove a TODO item by id

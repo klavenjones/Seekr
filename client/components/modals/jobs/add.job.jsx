@@ -65,7 +65,7 @@ export function AddJob({ setOpen }) {
       leaveFrom='opacity-100 translate-y-0 sm:scale-100'
       leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
     >
-      <div className='inline-block w-full align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:p-6'>
+      <div className='inline-block w-full align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:p-6'>
         <div className='hidden sm:block absolute top-0 right-0 pt-4 pr-4'>
           <button
             type='button'
@@ -76,7 +76,7 @@ export function AddJob({ setOpen }) {
             <XIcon className='h-6 w-6' aria-hidden='true' />
           </button>
         </div>
-        <div className='bg-white overflow-hidden sm:rounded-lg'>
+        <div className='bg-white sm:rounded-lg'>
           <div className='mt-6 px-3 py-3'>
             <h3 className='text-lg leading-6 font-medium text-gray-900'>
               Add Job
@@ -140,7 +140,7 @@ export function AddJob({ setOpen }) {
                       { value: 'rejected', label: 'Rejected' },
                       { value: 'ghosted', label: 'Ghosted' },
                     ]}
-                    className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+                    className='z-20 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
                     isSearchable={false}
                     name='status'
                     placeholder='Select Job Status'

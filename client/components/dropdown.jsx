@@ -2,12 +2,44 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function JobDropdown({ openModal, modalType }) {
+export function JobDropdown({ openModal, modalType, job }) {
+  const [session, loading] = useSession()
+  const router = useRouter()
+
+  if (loading) return <h1>Loading</h1>
+
+  const {
+    user: { userId },
+  } = session
+
+  // DECOUPLE
+  const refreshData = () => {
+    router.replace(router.asPath)
+  }
+  //DECOUPLE
+  const deleteJob = async () => {
+    const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/jobs/${job.jobId}`
+
+    try {
+      await axios.delete(deleteUrl, {
+        data: {
+          userId: userId,
+        },
+      })
+      refreshData()
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
     <Menu as='div' className='inline-block text-left'>
       {({ open }) => (
@@ -70,6 +102,7 @@ export function JobDropdown({ openModal, modalType }) {
                   {({ active }) => (
                     <button
                       type='submit'
+                      onClick={() => deleteJob()}
                       className={classNames(
                         active ? 'bg-gray-100 text-gray-900' : 'text-red-600',
                         'block w-full text-left px-4 py-2 text-sm'
