@@ -96,7 +96,7 @@ export function Activities({ activities, jobs }) {
             {/* Content Container */}
             <div className='max-w-5xl mx-auto'>
               {/* Activity List */}
-              <ul className='space-y-3 mt-3 grid grid-cols-1 gap-1 sm:gap-6 sm:grid-cols-2'>
+              <ul className='mt-3 grid grid-cols-1 gap-2 sm:gap-4 sm:grid-cols-2'>
                 <ActivityList activities={activities} />
               </ul>
             </div>

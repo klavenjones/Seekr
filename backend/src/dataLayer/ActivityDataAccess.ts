@@ -121,16 +121,16 @@ export class ActivityDataAccess {
 
   //Update Activity
   async updateActivity(
-    jobId: string,
+    userId: string,
     activityId: string,
     activityUpdate: ActivityUpdate
   ) {
-    logger.info(`Updating activity for job: ${jobId}`)
+    logger.info(`Updating activity for job: ${userId}`)
     await this.docClient
       .update({
         TableName: this.activityTable,
         Key: {
-          jobId,
+          userId,
           activityId,
         },
         UpdateExpression:
