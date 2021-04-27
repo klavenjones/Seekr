@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Activities } from '../../components/pages'
 import { Protected } from '../../components/protected'
 
-export default function ActivityPage() {
+export default function ActivityPage({ activities, jobs }) {
   const [session, loading] = useSession()
   const router = useRouter()
 
@@ -15,7 +15,7 @@ export default function ActivityPage() {
   //   }
   // }, [session, loading])
 
-  return <Activities />
+  return <Activities activities={activities} jobs={jobs}/>
 }
 
 export async function getServerSideProps(context) {
@@ -32,13 +32,18 @@ export async function getServerSideProps(context) {
 
   const { userId } = session.user
 
-  // const res = await axios.get(
-  //   `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/${userId}/jobs`
-  // )
+  const actres = await axios.get(
+    `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/${userId}/activity`
+  )
+  const jobres = await axios.get(
+    `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/${userId}/jobs`
+  )
 
   return {
     props: {
       user: userId,
+      activities: actres.data.items,
+      jobs: jobres.data.items,
     },
   }
 }

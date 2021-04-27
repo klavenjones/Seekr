@@ -108,6 +108,64 @@ functions:
           - dynamodb:DeleteItem
           - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.JOBS_TABLE}
+
+  CreateActivity:
+    handler: src/lambda/activity/createActivity.handler
+    events:
+      - http:
+          path: activity
+          method: post
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACTIVITY_TABLE}
+
+  GetActivities:
+    handler: src/lambda/activity/getAllActivities.handler
+    events:
+      - http:
+          path: /{userId}/activity
+          method: get
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACTIVITY_TABLE}
+    
+
+  UpdateActivity:
+    handler: src/lambda/activity/updateActivity.handler
+    events:
+      - http:
+          path: activity/{activityId}
+          method: put
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACTIVITY_TABLE}
+
+
+  DeleteActivity:
+    handler: src/lambda/activity/deleteActivity.handler
+    events:
+      - http:
+          path: activity/{activityId}
+          method: delete
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACTIVITY_TABLE}
+
+        
      
 resources:
   Resources:
@@ -187,9 +245,9 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
          AttributeDefinitions:
-          - AttributeName: activityId
-            AttributeType: S
           - AttributeName: userId
+            AttributeType: S
+          - AttributeName: activityId
             AttributeType: S
          KeySchema:
           - AttributeName: userId

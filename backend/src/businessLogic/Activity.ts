@@ -114,8 +114,8 @@ export async function updateActivity(
   }
 
   dataAccess.updateActivity(
-    activityId,
     userId,
+    activityId,
     updateActivityRequest as ActivityUpdate
   )
 }

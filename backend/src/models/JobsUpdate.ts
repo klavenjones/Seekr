@@ -8,4 +8,5 @@ export interface JobsUpdate {
   location?: string
   description?: string
   platform?: string
+  note?: string
 }

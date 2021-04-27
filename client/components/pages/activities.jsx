@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Navigation } from '../navigation'
-import { ActivityItem } from '../listitems'
-import { JobModal } from '../modals'
+import { ActivityList } from '../listitems'
+import { ActivityModal } from '../modals'
 
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
@@ -10,13 +10,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function Activities() {
+export function Activities({ activities, jobs }) {
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('add')
   const [query, setQuery] = useState('')
-  
+
   return (
     <>
+      <ActivityModal open={open} setOpen={setOpen} type={type} jobs={jobs} />
       <Navigation page='Activities' />
       {/* Page Header */}
       <header className='bg-white'>
@@ -95,9 +96,9 @@ export function Activities() {
             {/* Content Container */}
             <div className='max-w-5xl mx-auto'>
               {/* Activity List */}
-              <div className='mt-3 grid grid-cols-1 gap-1 sm:gap-6 sm:grid-cols-2'>
-
-              </div>
+              <ul className='space-y-3 mt-3 grid grid-cols-1 gap-1 sm:gap-6 sm:grid-cols-2'>
+                <ActivityList activities={activities} />
+              </ul>
             </div>
           </div>
           {/* /End replace */}

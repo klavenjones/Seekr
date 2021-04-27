@@ -98,8 +98,8 @@ export class ActivityDataAccess {
       .get({
         TableName: this.activityTable,
         Key: {
-          userId,
-          activityId,
+          userId: userId,
+          activityId: activityId,
         },
       })
       .promise()
@@ -134,15 +134,20 @@ export class ActivityDataAccess {
           activityId,
         },
         UpdateExpression:
-          'set #type = :type, #start = :start, #end = :end, #done = :done',
+          'set #type = :type, #start = :start, #end = :end, #note = :note, #done = :done, #company = company, jobTitle = :jobTitle',
         ExpressionAttributeNames: {
           '#type': 'type',
+          '#note': 'note',
+          '#company': 'company',
         },
         ExpressionAttributeValues: {
           ':type': activityUpdate.type,
           ':start': activityUpdate.start,
           ':end': activityUpdate.end,
+          ':note': activityUpdate.note,
           ':done': activityUpdate.done,
+          ':jobTitle': activityUpdate.jobTitle,
+          ':company': activityUpdate.company,
         },
       })
       .promise()
@@ -150,13 +155,15 @@ export class ActivityDataAccess {
 
   //Delete Activity
   async deleteActivity(userId: string, activityId: string) {
-    logger.info(`Deleting Activity from job: ${activityId}`)
-    await this.docClient.delete({
-      TableName: this.activityTable,
-      Key: {
-        activityId,
-        userId,
-      },
-    })
+    logger.info(`Deleting Activity from job: ${activityId} and user ${userId}`)
+    await this.docClient
+      .delete({
+        TableName: this.activityTable,
+        Key: {
+          userId: userId,
+          activityId: activityId,
+        },
+      })
+      .promise()
   }
 }

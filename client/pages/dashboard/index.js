@@ -5,9 +5,6 @@ import axios from 'axios'
 import { Jobs } from '../../components/pages'
 // import { Protected } from '../../components/protected'
 
-
-
-
 export default function Dashboard({ jobs }) {
   const [session, loading] = useSession()
   const router = useRouter()
