@@ -137,8 +137,9 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
   }
   //DECOUPLE
   const deleteActivity = async () => {
-    const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/activity/${activity.activitiyId}`
+    const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/activity/${activity.activityId}`
 
+   
     try {
       await axios.delete(deleteUrl, {
         data: {
@@ -150,7 +151,7 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
       console.log(error.message)
     }
   }
-
+  console.log("Dropdown",activity)
   return (
     <Menu as='div' className='inline-block text-left'>
       {({ open }) => (

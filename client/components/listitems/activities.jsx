@@ -6,16 +6,24 @@ import {
   TagIcon,
   BriefcaseIcon,
 } from '@heroicons/react/solid'
-// import { ActivityModal } from '../modals'
+import { ActivityModal } from '../modals'
 
 export function ActivityItem({ activity }) {
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('edit')
   return (
     <>
+      <ActivityModal
+        open={open}
+        setOpen={setOpen}
+        type={type}
+        activity={activity}
+      />
       <li className='bg-white shadow-sm border flex justify-between items-center px-4 py-4 relative sm:rounded-md'>
         <div>
-          <p className='font-medium'>{activity.type}</p>
+          <p className='font-medium text-gray-600'>
+            {activity.title ? activity.title : activity.type}
+          </p>
           <div className='mt-2 sm:flex sm:justify-around'>
             <div className='sm:flex sm:space-x-3'>
               <p className='flex items-center text-xs text-gray-500'>

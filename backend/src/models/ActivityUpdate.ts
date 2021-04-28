@@ -1,5 +1,6 @@
 export interface ActivityUpdate {
   type?: string
+  title?: string
   company?: string
   jobTitle?: string
   start: string

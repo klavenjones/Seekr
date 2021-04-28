@@ -51,12 +51,14 @@ export function AddActivity({ setOpen, jobs }) {
     try {
       const {
         note,
+        title,
         end,
         type: { label },
       } = data
 
       let newActivity = {
         userId: userId,
+        title: title,
         end: end,
         note: note,
         type: label,
@@ -104,23 +106,23 @@ export function AddActivity({ setOpen, jobs }) {
           <div className='px-4 py-3'>
             <div className='grid grid-cols-1 gap-6 py-2 my-3 sm:grid-cols-4 relative'>
               {/* Row 1 */}
-              {/* <div className='col-span-2'>
+              <div className='col-span-4'>
                 <label
-                  htmlFor='company'
+                  htmlFor='title'
                   className='block text-sm font-medium text-gray-700'
                 >
-                  Company
+                  Title
                 </label>
                 <div className='mt-1'>
                   <input
                     type='text'
-                    name='company'
-                    {...register('company')}
+                    name='title'
+                    {...register('title')}
                     className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
-                    placeholder='Company Name'
+                    placeholder='Activity  Title'
                   />
                 </div>
-              </div> */}
+              </div>
 
               {/* Row 2 */}
               <div className='col-span-4'>

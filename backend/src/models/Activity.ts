@@ -2,6 +2,7 @@ export interface Activity {
   userId: string
   activityId: string
   jobId?: string
+  title?: string
   company?: string
   jobTitle?: string
   type?: string

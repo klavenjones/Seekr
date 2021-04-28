@@ -134,11 +134,12 @@ export class ActivityDataAccess {
           activityId,
         },
         UpdateExpression:
-          'set #type = :type, #start = :start, #end = :end, #note = :note, #done = :done, #company = company, jobTitle = :jobTitle',
+          'set #type = :type, #start = :start, #end = :end, #note = :note, #done = :done, #company = :company, #title = :title, jobTitle = :jobTitle',
         ExpressionAttributeNames: {
           '#type': 'type',
           '#note': 'note',
           '#company': 'company',
+          '#title': 'title',
         },
         ExpressionAttributeValues: {
           ':type': activityUpdate.type,
@@ -148,6 +149,7 @@ export class ActivityDataAccess {
           ':done': activityUpdate.done,
           ':jobTitle': activityUpdate.jobTitle,
           ':company': activityUpdate.company,
+          ':title': activityUpdate.title,
         },
       })
       .promise()
