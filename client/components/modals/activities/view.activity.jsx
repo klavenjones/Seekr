@@ -2,6 +2,8 @@ import { Fragment } from 'react'
 import { Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
+import { format } from 'date-fns'
+
 export function ViewActivity({ activity, setOpen }) {
   return (
     <Transition.Child
@@ -50,13 +52,17 @@ export function ViewActivity({ activity, setOpen }) {
               <div className='sm:col-span-1'>
                 <dt className='text-sm font-medium text-gray-500'>Start</dt>
                 <dd className='mt-1 text-sm text-gray-900'>
-                  {activity.start ? activity.start : 'Not Assigned'}
+                  {activity.start
+                    ? format(new Date(activity.start), 'MMMM dd, yy')
+                    : 'Not Assigned'}
                 </dd>
               </div>
               <div className='sm:col-span-1'>
                 <dt className='text-sm font-medium text-gray-500'>End</dt>
                 <dd className='mt-1 text-sm text-gray-900'>
-                  {activity.end ? activity.end : 'Not Assigned'}
+                  {activity.end
+                    ? format(new Date(activity.end), 'MMMM dd, yy')
+                    : 'Not Assigned'}
                 </dd>
               </div>
               <div className='sm:col-span-2'>

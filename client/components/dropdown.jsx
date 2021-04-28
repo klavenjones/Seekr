@@ -151,7 +151,7 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
       console.log(error.message)
     }
   }
-  console.log("Dropdown",activity)
+  
   return (
     <Menu as='div' className='inline-block text-left'>
       {({ open }) => (

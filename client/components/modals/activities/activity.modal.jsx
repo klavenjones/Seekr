@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState, useRef } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { AddActivity, ViewActivity } from './'
+import { AddActivity, ViewActivity, EditActivity } from './'
 
 import { CheckIcon } from '@heroicons/react/outline'
 
@@ -38,9 +38,9 @@ export function ActivityModal({ activity, open, type, setOpen, jobs }) {
           {type === 'view' && (
             <ViewActivity activity={activity} setOpen={setOpen} />
           )}
-          {/* {type === 'edit' && (
-            <EditActivity activity={activity} setOpen={setOpen} />
-          )} */}
+          {type === 'edit' && (
+            <EditActivity activity={activity} setOpen={setOpen} jobs={jobs} />
+          )}
           {type === 'add' && <AddActivity setOpen={setOpen} jobs={jobs} />}
         </div>
       </Dialog>

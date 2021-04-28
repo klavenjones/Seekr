@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { UpdateActivityRequest } from '../../requests/UpdateActivityRequest'
 import { updateActivity } from '../../businessLogic/Activity'
 import { createLogger } from '../../utils/logger'
-// import { getUserId } from '../../utils'
+import { getUserId } from '../../utils/getUserId'
 
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
@@ -16,8 +16,8 @@ export const handler = middy(
     logger.info('Processing updateTodo event', { event })
 
     // TODO: Update a TODO item with the provided id using values in the "updatedTodo" object
-    // const userId = getUserId(event)
-    const userId = event.pathParameters.userId
+    const userId = getUserId(event)
+    // const userId = event.pathParameters.userId
     const activityId = event.pathParameters.activityId
     const updatedTodo: UpdateActivityRequest = JSON.parse(event.body)
 

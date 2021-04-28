@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
   const { userId } = session.user
 
   const res = await axios.get(
-    `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/${userId}/jobs`
+    `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/${userId}/contacts`
   )
 
   return {

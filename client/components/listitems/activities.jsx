@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ActivityDropdown } from '..'
+import { format } from 'date-fns'
 import {
   CalendarIcon,
   ClipboardCheckIcon,
@@ -8,7 +9,7 @@ import {
 } from '@heroicons/react/solid'
 import { ActivityModal } from '../modals'
 
-export function ActivityItem({ activity }) {
+export function ActivityItem({ activity, jobs }) {
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('edit')
   return (
@@ -18,6 +19,7 @@ export function ActivityItem({ activity }) {
         setOpen={setOpen}
         type={type}
         activity={activity}
+        jobs={jobs}
       />
       <li className='bg-white shadow-sm border flex justify-between items-center px-4 py-4 relative sm:rounded-md'>
         <div>
@@ -39,7 +41,7 @@ export function ActivityItem({ activity }) {
                   className='flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400'
                   aria-hidden='true'
                 />
-                {activity.type}
+                {activity.jobTitle}
               </p>
 
               <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0'>
@@ -47,7 +49,7 @@ export function ActivityItem({ activity }) {
                   className='flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400'
                   aria-hidden='true'
                 />
-                {activity.type}
+                {format(new Date(activity.end), 'MMMM dd, yy')}
               </p>
             </div>
           </div>
@@ -64,11 +66,11 @@ export function ActivityItem({ activity }) {
   )
 }
 
-export function ActivityList({ activities }) {
+export function ActivityList({ activities, jobs }) {
   return (
     <>
       {activities.map((activity, i) => (
-        <ActivityItem activity={activity} key={i} />
+        <ActivityItem activity={activity} key={i} jobs={jobs} />
       ))}
     </>
   )

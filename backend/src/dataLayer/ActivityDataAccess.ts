@@ -134,12 +134,16 @@ export class ActivityDataAccess {
           activityId,
         },
         UpdateExpression:
-          'set #type = :type, #start = :start, #end = :end, #note = :note, #done = :done, #company = :company, #title = :title, jobTitle = :jobTitle',
+          'set #type = :type, #start = :start, #end = :end, #note = :note, #done = :done, #company = :company, #title = :title, #jobTitle = :jobTitle',
         ExpressionAttributeNames: {
           '#type': 'type',
           '#note': 'note',
           '#company': 'company',
           '#title': 'title',
+          '#jobTitle': 'jobTitle',
+          '#done': 'done',
+          '#end': 'end',
+          '#start': 'start',
         },
         ExpressionAttributeValues: {
           ':type': activityUpdate.type,

@@ -3,15 +3,34 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
 import { Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
+import { format } from 'date-fns'
 import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
 
 export function EditActivity({ setOpen, jobs, activity }) {
-  const { register, handleSubmit, errors, control, reset } = useForm()
+  const { register, handleSubmit, errors, control, reset } = useForm({
+    defaultValues: {
+      title: activity.title ? activity.title : null,
+      company: activity.company ? activity.company : null,
+      start: activity.start ? activity.start : null,
+      end: activity.end ? activity.end : null,
+      note: activity.note ? activity.note : null,
+      done: activity.done ? true : false,
+      type: {
+        value: activity.type ? activity.type : null,
+        label: activity.type ? activity.type : null,
+      },
+      jobTitle: {
+        value: activity.jobTitle ? activity.jobTitle : null,
+        label: activity.jobTitle ? activity.jobTitle : null,
+      },
+    },
+  })
+
   const [session, loading] = useSession()
   const router = useRouter()
-  const url = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/activity${activity.activityId}`
+  const url = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/activity/${activity.activityId}`
 
   const jobsData = jobs.map((item, i) => {
     return {
@@ -21,8 +40,6 @@ export function EditActivity({ setOpen, jobs, activity }) {
       company: item.company,
     }
   })
-
-  console.log('Modal', activityData)
 
   const {
     user: { userId },
@@ -51,24 +68,27 @@ export function EditActivity({ setOpen, jobs, activity }) {
       const {
         note,
         title,
-        company,
         jobTitle,
         start,
         end,
         type: { label },
+        job: { value, company },
       } = data
 
       let editActivity = {
         userId: userId,
+        activityId: activity.activityId,
         title: title,
         company: company,
-        jobTitle: jobTitle,
+        jobTitle: value,
         start: start,
         end: end,
         note: note,
         type: label,
+        done: false,
       }
 
+    
       let response = await axios.put(url, editActivity)
 
       reset()
@@ -105,7 +125,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
         <div className='bg-white sm:rounded-lg'>
           <div className='mt-6 px-3 py-3'>
             <h3 className='text-lg leading-6 font-medium text-gray-900'>
-              Add Activity
+              Edit Activity
             </h3>
           </div>
           <div className='px-4 py-3'>
@@ -124,7 +144,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
                     name='title'
                     {...register('title')}
                     className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
-                    placeholder='Activity  Title'
+                    placeholder='Activity Title'
                   />
                 </div>
               </div>
@@ -230,7 +250,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
                   />
                 </div>
               </div>
-              <div className='col-span-2'>
+              <div className='col-span-4'>
                 <label
                   htmlFor='type'
                   className='block text-sm font-medium text-gray-700'
@@ -252,7 +272,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
               {/* Row 3 */}
               <div className='col-span-2'>
                 <label
-                  htmlFor='deadline'
+                  htmlFor='start'
                   className='block text-sm font-medium text-gray-700'
                 >
                   Start
@@ -261,13 +281,13 @@ export function EditActivity({ setOpen, jobs, activity }) {
                   <input
                     type='date'
                     name='start'
-                    {...register('end')}
+                    {...register('start')}
                     className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
-                    placeholder='01/22/22'
+                    placeholder={`01/22/22`}
                   />
                 </div>
               </div>
-              
+
               <div className='col-span-2'>
                 <label
                   htmlFor='deadline'
@@ -317,9 +337,9 @@ export function EditActivity({ setOpen, jobs, activity }) {
             <button
               type='button'
               className='inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-700 focus:outline-none  sm:text-sm'
-              onClick={handleSubmit(addActivity)}
+              onClick={handleSubmit(editActivity)}
             >
-              Add Activity
+              Edit Activity
             </button>
           </div>
         </div>
