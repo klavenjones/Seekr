@@ -163,7 +163,7 @@ export function Activities({ activities, jobs }) {
                       className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
                       isSearchable={false}
                       name='filter_status'
-                      placeholder='Select Job Status'
+                      placeholder='Select Activity Type'
                     />
                   </div>
                 </div>

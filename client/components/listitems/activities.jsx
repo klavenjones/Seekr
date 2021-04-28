@@ -49,7 +49,7 @@ export function ActivityItem({ activity, jobs }) {
                   className='flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400'
                   aria-hidden='true'
                 />
-                {format(new Date(activity.end), 'MMMM dd, yy')}
+                {format(new Date(activity.end), 'MMM d, yyyy')}
               </p>
             </div>
           </div>

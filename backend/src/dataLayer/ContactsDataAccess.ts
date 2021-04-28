@@ -12,7 +12,7 @@ const logger = createLogger('ContactsDataAccess')
 export class ContactsDataAccess {
   constructor(
     private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
-    private readonly contactsTable = process.env.CONTACTS_TABLE
+    private readonly contactsTable = process.env.CONTACT_TABLE
   ) {}
 
   //Get All Contacts
@@ -21,6 +21,10 @@ export class ContactsDataAccess {
     const result = await this.docClient
       .query({
         TableName: this.contactsTable,
+        KeyConditionExpression: 'userId = :userId',
+        ExpressionAttributeValues: {
+          ':userId': userId,
+        },
       })
       .promise()
 
@@ -58,7 +62,7 @@ export class ContactsDataAccess {
   }
 
   //GET Contact
-  async getContact(contactId: string, userId: string): Promise<Contacts> {
+  async getContact(userId: string, contactId: string): Promise<Contacts> {
     logger.info(`Getting contacts from this user: ${userId}`)
 
     const result = await this.docClient
@@ -88,8 +92,8 @@ export class ContactsDataAccess {
 
   //Update Contacts
   async updateContact(
-    contactId: string,
     userId: string,
+    contactId: string,
     contactsUpdate: ContactsUpdate
   ) {
     logger.info(`Updating contacts for user: ${userId}`)
@@ -97,13 +101,18 @@ export class ContactsDataAccess {
       .update({
         TableName: this.contactsTable,
         Key: {
-          contactId,
           userId,
+          contactId,
         },
         UpdateExpression:
-          'set #name = :name, #company = :company, #email = :email, #title = :title, #phone = :phone',
+          'set #name = :name, #company = :company, #email = :email, #title = :title, #phone = :phone, #location = :location',
         ExpressionAttributeNames: {
           '#name': 'name',
+          '#title': 'title',
+          '#phone': 'phone',
+          '#company': 'company',
+          '#email': 'email',
+          '#location': 'location',
         },
         ExpressionAttributeValues: {
           ':name': contactsUpdate.name,
@@ -118,15 +127,16 @@ export class ContactsDataAccess {
   }
 
   //Delete Contacts
-  async deleteContact(contactId: string, userId: string, jobId?: string) {
-    logger.info(`Deleting Contacts from job: ${jobId}`)
-    await this.docClient.delete({
-      TableName: this.contactsTable,
-      Key: {
-        userId,
-        contactId,
-        jobId,
-      },
-    })
+  async deleteContact(userId: string, contactId: string) {
+    logger.info(`Deleting Contacts from user: ${userId}`)
+    await this.docClient
+      .delete({
+        TableName: this.contactsTable,
+        Key: {
+          userId,
+          contactId,
+        },
+      })
+      .promise()
   }
 }

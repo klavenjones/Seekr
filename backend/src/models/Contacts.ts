@@ -1,8 +1,8 @@
 export interface Contacts {
   userId: string
   contactId: string
-  jobId?: string,
   name: string
+  jobId?: string,
   company?: string
   email?: string
   phone?: string

@@ -165,7 +165,59 @@ functions:
           - dynamodb:GetItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ACTIVITY_TABLE}
 
+  CreateContact:
+    handler: src/lambda/contacts/createContact.handler
+    events:
+      - http:
+          path: contact
+          method: post
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CONTACT_TABLE}
         
+  GetContacts:
+    handler: src/lambda/contacts/getAllContacts.handler
+    events:
+      - http:
+          path: /{userId}/contacts
+          method: get
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CONTACT_TABLE}
+
+  UpdateContact:
+    handler: src/lambda/contacts/updateContact.handler
+    events:
+      - http:
+          path: contact/{contactId}
+          method: put
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CONTACT_TABLE}
+
+  DeleteContact:
+    handler: src/lambda/contacts/deleteContact.handler
+    events:
+      - http:
+          path: contact/{contactId}
+          method: delete
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+          - dynamodb:GetItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CONTACT_TABLE}
      
 resources:
   Resources:
@@ -256,6 +308,23 @@ resources:
             KeyType: RANGE
          BillingMode: PAY_PER_REQUEST
          TableName: ${self:provider.environment.ACTIVITY_TABLE}
+    
+    #Contact TABLE
+    ContactTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+         AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: contactId
+            AttributeType: S
+         KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: contactId
+            KeyType: RANGE
+         BillingMode: PAY_PER_REQUEST
+         TableName: ${self:provider.environment.CONTACT_TABLE}
     
     UserTable:
       Type: AWS::DynamoDB::Table

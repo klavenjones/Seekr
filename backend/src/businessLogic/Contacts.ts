@@ -27,8 +27,8 @@ export async function getAllJobContacts(jobId: string): Promise<Contacts[]> {
 
 //Get Contact
 export async function getContact(
-  contactId: string,
-  userId: string
+  userId: string,
+  contactId: string
 ): Promise<Contacts> {
   logger.info(`Retrieving a single contacts for user ${userId}`, { userId })
   return await dataAccess.getContact(userId, contactId)
@@ -105,8 +105,8 @@ export async function updateContact(
   }
 
   dataAccess.updateContact(
-    contactId,
     userId,
+    contactId,
     updateContactsRequest as ContactsUpdate
   )
 }
@@ -132,5 +132,5 @@ export async function deleteContact(
     throw new Error('User is not authorized to delete item') // FIXME: 403?
   }
 
-  dataAccess.deleteContact(userId, contactId, jobId)
+  dataAccess.deleteContact(userId, contactId)
 }
