@@ -98,7 +98,7 @@ export function Jobs({ jobs }) {
         </div>
       </div>
       {/* Content */}
-      <main>
+      <main className='pb-20'>
         <div className='max-w-7xl mx-auto  sm:px-6 lg:px-8'>
           {/* Replace with your content */}
           <div className='px-4 sm:px-0'>

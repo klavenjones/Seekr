@@ -14,7 +14,7 @@ export function JobDropdown({ openModal, modalType, job }) {
   const [session, loading] = useSession()
   const router = useRouter()
 
-  if (loading) return <h1>Loading</h1>
+  if (loading) return <div></div>
 
   const {
     user: { userId },
@@ -125,7 +125,7 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
   const [session, loading] = useSession()
   const router = useRouter()
 
-  if (loading) return <h1>Loading</h1>
+  if (loading) return <div></div>
 
   const {
     user: { userId },
@@ -139,7 +139,6 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
   const deleteActivity = async () => {
     const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/activity/${activity.activityId}`
 
-   
     try {
       await axios.delete(deleteUrl, {
         data: {
@@ -151,7 +150,7 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
       console.log(error.message)
     }
   }
-  
+
   return (
     <Menu as='div' className='inline-block text-left'>
       {({ open }) => (

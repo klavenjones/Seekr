@@ -105,7 +105,7 @@ export class ContactsDataAccess {
           contactId,
         },
         UpdateExpression:
-          'set #name = :name, #company = :company, #email = :email, #title = :title, #phone = :phone, #location = :location',
+          'set #name = :name, #company = :company, #email = :email, #title = :title, #phone = :phone, #location = :location,  #twitter = :twitter,  #github = :github, #linkedin = :linkedin',
         ExpressionAttributeNames: {
           '#name': 'name',
           '#title': 'title',
@@ -113,6 +113,9 @@ export class ContactsDataAccess {
           '#company': 'company',
           '#email': 'email',
           '#location': 'location',
+          '#twitter': 'twitter',
+          '#linkedin': 'linkedin',
+          '#github': 'github',
         },
         ExpressionAttributeValues: {
           ':name': contactsUpdate.name,
@@ -121,6 +124,9 @@ export class ContactsDataAccess {
           ':title': contactsUpdate.title,
           ':location': contactsUpdate.location,
           ':phone': contactsUpdate.phone,
+          ':twitter': contactsUpdate.twitter,
+          ':linkedin': contactsUpdate.linkedin,
+          ':github': contactsUpdate.github,
         },
       })
       .promise()

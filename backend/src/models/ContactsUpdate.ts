@@ -4,5 +4,8 @@ export interface ContactsUpdate {
   email?: string
   phone?: string
   title?: string
+  twitter?: string
+  linkedin?: string
+  github?: string
   location?: string
 }
