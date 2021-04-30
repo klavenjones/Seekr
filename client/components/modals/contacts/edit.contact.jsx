@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
 
+import { refreshData } from '../../../lib'
+
 export function EditContact({ setOpen, jobs, contact }) {
   const { register, handleSubmit, errors, control, reset } = useForm({
     defaultValues: {
@@ -51,10 +53,6 @@ export function EditContact({ setOpen, jobs, contact }) {
     control,
   })
 
-  const refreshData = () => {
-    router.replace(router.asPath, null, { scroll: false })
-  }
-
   const editContact = async (data) => {
     try {
       const {
@@ -86,7 +84,7 @@ export function EditContact({ setOpen, jobs, contact }) {
       let response = await axios.put(url, editContact)
 
       setOpen(false)
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }

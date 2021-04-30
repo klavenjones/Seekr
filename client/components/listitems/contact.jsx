@@ -11,6 +11,8 @@ import {
   TrashIcon,
 } from '@heroicons/react/solid'
 
+import { refreshData } from '../../lib'
+
 export function ContactItem({ contact, jobs }) {
   const [session, loading] = useSession()
   const [open, setOpen] = useState(false)
@@ -23,10 +25,6 @@ export function ContactItem({ contact, jobs }) {
     user: { userId },
   } = session
 
-  const refreshData = () => {
-    router.replace(router.asPath, null, { scroll: false })
-  }
-
   const deleteContact = async () => {
     const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/contact/${contact.contactId}`
 
@@ -36,7 +34,7 @@ export function ContactItem({ contact, jobs }) {
           userId: userId,
         },
       })
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }

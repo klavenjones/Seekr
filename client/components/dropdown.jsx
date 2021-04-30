@@ -18,18 +18,17 @@ export function JobDropdown({ openModal, modalType, job }) {
   if (loading) return <div></div>
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
-  //DECOUPLE
   const deleteJob = async () => {
     const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/jobs/${job.jobId}`
 
     try {
       await axios.delete(deleteUrl, {
         data: {
-          userId: userId,
-        },
+          userId: userId
+        }
       })
       refreshData(router)
     } catch (error) {
@@ -123,24 +122,19 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
   const router = useRouter()
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
-  // DECOUPLE
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
-  //DECOUPLE
   const deleteActivity = async () => {
     const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/activity/${activity.activityId}`
 
     try {
       await axios.delete(deleteUrl, {
         data: {
-          userId: userId,
-        },
+          userId: userId
+        }
       })
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }

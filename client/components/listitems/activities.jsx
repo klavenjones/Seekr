@@ -1,12 +1,7 @@
 import { useState } from 'react'
 import { ActivityDropdown } from '..'
 import { format } from 'date-fns'
-import {
-  CalendarIcon,
-  ClipboardCheckIcon,
-  TagIcon,
-  BriefcaseIcon,
-} from '@heroicons/react/solid'
+import { CalendarIcon, TagIcon, BriefcaseIcon } from '@heroicons/react/solid'
 import { ActivityModal } from '../modals'
 
 export function ActivityItem({ activity, jobs }) {

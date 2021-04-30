@@ -6,6 +6,7 @@ import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
+import { refreshData } from '../../../lib'
 
 export function AddJob({ setOpen }) {
   const { register, handleSubmit, errors, control, reset } = useForm()
@@ -23,10 +24,6 @@ export function AddJob({ setOpen }) {
     name: 'status',
     control,
   })
-
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
 
   const addJob = async (data) => {
     try {
@@ -47,7 +44,7 @@ export function AddJob({ setOpen }) {
 
       reset({ company: '', jobTitle: '', status: '' })
       setOpen(false)
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }

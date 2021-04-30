@@ -6,6 +6,7 @@ import { XIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
+import { refreshData } from '../../../lib'
 
 export function AddActivity({ setOpen, jobs }) {
   const { register, handleSubmit, errors, control, reset } = useForm()
@@ -22,8 +23,6 @@ export function AddActivity({ setOpen, jobs }) {
       company: item.company,
     }
   })
-
-  console.log('Modal', jobsData)
 
   const {
     user: { userId },
@@ -43,10 +42,6 @@ export function AddActivity({ setOpen, jobs }) {
     control,
   })
 
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
-
   const addActivity = async (data) => {
     try {
       const {
@@ -64,17 +59,14 @@ export function AddActivity({ setOpen, jobs }) {
         type: label,
       }
 
-      let response = await axios.post(url, newActivity)
-
-      reset({ note: '', type: '', end: '' })
+      await axios.post(url, newActivity)
+      reset()
       setOpen(false)
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }
   }
-
-  const onSubmit = (data) => console.log(data)
 
   return (
     <Transition.Child

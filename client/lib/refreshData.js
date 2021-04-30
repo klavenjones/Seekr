@@ -1,3 +1,3 @@
 export const refreshData = (router) => {
-  router.replace(router.asPath)
+  router.replace(router.asPath, null, { scroll: false })
 }

@@ -25,8 +25,8 @@ export class JobsDataAccess {
         // IndexName: 'IndexByUserId',
         KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {
-          ':userId': userId,
-        },
+          ':userId': userId
+        }
       })
       .promise()
 
@@ -50,12 +50,12 @@ export class JobsDataAccess {
         // IndexName: 'IndexByJobID',
         FilterExpression: 'userId = :userId and #status = :status',
         ExpressionAttributeNames: {
-          '#status': 'status',
+          '#status': 'status'
         },
         ExpressionAttributeValues: {
           ':userId': userId,
-          ':status': status,
-        },
+          ':status': status
+        }
       })
       .promise()
 
@@ -77,8 +77,8 @@ export class JobsDataAccess {
         TableName: this.jobsTable,
         Key: {
           userId,
-          jobId,
-        },
+          jobId
+        }
       })
       .promise()
     logger.info(`Result from ${jobId}: ${result.Item}`)
@@ -92,7 +92,7 @@ export class JobsDataAccess {
     await this.docClient
       .put({
         TableName: this.jobsTable,
-        Item: job,
+        Item: job
       })
       .promise()
   }
@@ -106,10 +106,10 @@ export class JobsDataAccess {
           TableName: this.jobsTable,
           Key: {
             userId: userId,
-            jobId: jobId,
+            jobId: jobId
           },
           UpdateExpression:
-            'set company = :company, #location = :location, #title = :title, #url = :url, #description = :description, platform = :platform, #status = :status, #deadline = :deadline, #salary = :salary, #note = :note,',
+            'set #company = :company, #location = :location, #title = :title, #url = :url, #description = :description, #platform = :platform, #status = :status, #deadline = :deadline, #salary = :salary',
           ExpressionAttributeNames: {
             '#location': 'location',
             '#url': 'url',
@@ -118,7 +118,8 @@ export class JobsDataAccess {
             '#description': 'description',
             '#deadline': 'deadline',
             '#salary': 'salary',
-            '#note': 'note',
+            '#company': 'company',
+            '#platform': 'platform'
           },
           ExpressionAttributeValues: {
             ':company': jobsUpdate.company,
@@ -129,8 +130,8 @@ export class JobsDataAccess {
             ':platform': jobsUpdate.platform,
             ':status': jobsUpdate.status,
             ':deadline': jobsUpdate.deadline,
-            ':salary': jobsUpdate.salary,
-          },
+            ':salary': jobsUpdate.salary
+          }
         })
         .promise()
     } catch (error) {
@@ -145,8 +146,8 @@ export class JobsDataAccess {
         TableName: this.jobsTable,
         Key: {
           userId: userId,
-          jobId: jobId,
-        },
+          jobId: jobId
+        }
       })
       .promise()
   }

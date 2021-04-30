@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
 
+import { refreshData } from '../../../lib'
+
 export function AddContact({ setOpen, jobs }) {
   const { register, handleSubmit, errors, control, reset } = useForm()
   const [session, loading] = useSession()
@@ -33,10 +35,6 @@ export function AddContact({ setOpen, jobs }) {
     name: 'job',
     control,
   })
-
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
 
   const addContact = async (data) => {
     try {
@@ -69,7 +67,7 @@ export function AddContact({ setOpen, jobs }) {
 
       reset()
       setOpen(false)
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }

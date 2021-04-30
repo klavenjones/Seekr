@@ -47,12 +47,14 @@ export function Navigation({ page }) {
                           </a>
                         </Fragment>
                       ) : (
-                        <a
-                          href={item.href}
-                          className='text-white hover:bg-teal-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium'
-                        >
-                          {item.name}
-                        </a>
+                        <Fragment key={itemIdx}>
+                          <a
+                            href={item.href}
+                            className='text-white hover:bg-teal-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium'
+                          >
+                            {item.name}
+                          </a>
+                        </Fragment>
                       )
                     )}
                   </div>
@@ -61,10 +63,10 @@ export function Navigation({ page }) {
 
               <div className='hidden md:block'>
                 <div className='ml-4 flex items-center md:ml-6'>
-                  <button className='bg-teal-600 p-1 rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
+                  {/* <button className='bg-teal-600 p-1 rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
                     <span className='sr-only'>View notifications</span>
                     <BellIcon className='h-6 w-6' aria-hidden='true' />
-                  </button>
+                  </button> */}
 
                   <Menu as='div' className='ml-3 relative'>
                     {({ open }) => (
@@ -97,8 +99,8 @@ export function Navigation({ page }) {
                             static
                             className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
                           >
-                            {profile.map((item) => (
-                              <Menu.Item key={item}>
+                            {profile.map((item, i) => (
+                              <Menu.Item key={i}>
                                 {({ active }) =>
                                   item === 'Log out' ? (
                                     <button
@@ -147,8 +149,8 @@ export function Navigation({ page }) {
           <Disclosure.Panel className='md:hidden'>
             <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
               {navigation.map((item, itemIdx) =>
-                itemIdx === 0 ? (
-                  <Fragment key={item}>
+                item.name === page ? (
+                  <Fragment key={itemIdx}>
                     <a
                       href={item.href}
                       className='bg-teal-700 text-white block px-3 py-2 rounded-md text-base font-medium'
@@ -157,13 +159,15 @@ export function Navigation({ page }) {
                     </a>
                   </Fragment>
                 ) : (
-                  <a
-                    key={item}
-                    href={item.href}
-                    className='text-white hover:bg-teal-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium'
-                  >
-                    {item.name}
-                  </a>
+                  <Fragment key={itemIdx}>
+                    <a
+                      key={item}
+                      href={item.href}
+                      className='text-white hover:bg-teal-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium'
+                    >
+                      {item.name}
+                    </a>
+                  </Fragment>
                 )
               )}
             </div>
@@ -186,10 +190,10 @@ export function Navigation({ page }) {
                     {session?.user.email ? session?.user.email : ''}
                   </div>
                 </div>
-                <button className='ml-auto bg-teal-600 flex-shrink-0 p-1 border-2 border-transparent rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
+                {/* <button className='ml-auto bg-teal-600 flex-shrink-0 p-1 border-2 border-transparent rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
                   <span className='sr-only'>View notifications</span>
                   <BellIcon className='h-6 w-6' aria-hidden='true' />
-                </button>
+                </button> */}
               </div>
               <div className='mt-3 px-2 space-y-1'>
                 {profile.map((item) =>

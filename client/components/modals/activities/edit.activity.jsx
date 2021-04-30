@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
 import { Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { format } from 'date-fns'
+import { refreshData } from '../../../lib'
 import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
@@ -21,9 +21,11 @@ export function EditActivity({ setOpen, jobs, activity }) {
         value: activity.type ? activity.type : null,
         label: activity.type ? activity.type : null,
       },
-      jobTitle: {
+      job: {
         value: activity.jobTitle ? activity.jobTitle : null,
         label: activity.jobTitle ? activity.jobTitle : null,
+        company: activity.company ? activity.company : null,
+        jobId: activity.jobId,
       },
     },
   })
@@ -59,16 +61,11 @@ export function EditActivity({ setOpen, jobs, activity }) {
     control,
   })
 
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
-
   const editActivity = async (data) => {
     try {
       const {
         note,
         title,
-        jobTitle,
         start,
         end,
         type: { label },
@@ -77,7 +74,6 @@ export function EditActivity({ setOpen, jobs, activity }) {
 
       let editActivity = {
         userId: userId,
-        activityId: activity.activityId,
         title: title,
         company: company,
         jobTitle: value,
@@ -85,21 +81,18 @@ export function EditActivity({ setOpen, jobs, activity }) {
         end: end,
         note: note,
         type: label,
-        done: false,
+        done: false
       }
 
-    
-      let response = await axios.put(url, editActivity)
+      await axios.put(url, editActivity)
 
       reset()
       setOpen(false)
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }
   }
-
-  const onSubmit = (data) => console.log(data)
 
   return (
     <Transition.Child

@@ -7,14 +7,14 @@ import axios from 'axios'
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
 
+import { refreshData } from '../../../lib'
+
 export function EditJob({ job, setOpen }) {
   const [session, loading] = useSession()
   const router = useRouter()
 
-  if (loading) return <h1>Loading</h1>
-
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
   const { register, handleSubmit, watch, errors, control, reset } = useForm({
@@ -24,7 +24,7 @@ export function EditJob({ job, setOpen }) {
       deadline: job.deadline ? job.deadline : null,
       location: job.location ? job.location : null,
       url: job.url ? job.url : null,
-      platform: job.platform ? job.platform : null,
+      source: job.platform ? job.platform : null,
       salary: job.salary ? job.salary : null,
       company: job.company ? job.company : null,
       description: job.description ? job.description : null,
@@ -32,21 +32,17 @@ export function EditJob({ job, setOpen }) {
         value: job.status ? job.status : null,
         label: job.status
           ? `${job.status.charAt(0).toUpperCase()}${job.status.slice(1)}` //Capitilize Letter
-          : null,
-      },
-    },
+          : null
+      }
+    }
   })
 
   const {
-    field: { ref, ...inputProps },
+    field: { ref, ...inputProps }
   } = useController({
     name: 'status',
-    control,
+    control
   })
-
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
 
   const editJob = async (data) => {
     try {
@@ -61,24 +57,26 @@ export function EditJob({ job, setOpen }) {
         source,
         salary,
         description,
-        status: { value },
+        status: { value }
       } = data
 
       let updatedJob = {
-        ...data,
         userId: userId,
-        jobId: job.jobId,
+        // jobId: job.jobId,
+        deadline: deadline,
+        company: company,
         title: jobTitle,
         status: value,
         platform: source,
+        location: location,
         description: description,
         url: url,
-        salary: salary,
+        salary: salary
       }
 
-      let response = await axios.put(updateUrl, updatedJob) 
+      await axios.put(updateUrl, updatedJob)
       setOpen(false)
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }
@@ -218,7 +216,7 @@ export function EditJob({ job, setOpen }) {
                       { value: 'interviews', label: 'Interviews' },
                       { value: 'offers', label: 'Offers' },
                       { value: 'rejected', label: 'Rejected' },
-                      { value: 'ghosted', label: 'Ghosted' },
+                      { value: 'ghosted', label: 'Ghosted' }
                     ]}
                     className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
                     isSearchable={false}
@@ -274,8 +272,8 @@ export function EditJob({ job, setOpen }) {
                 <div className='mt-1'>
                   <input
                     type='text'
-                    name='platform'
-                    {...register('platform')}
+                    name='source'
+                    {...register('source')}
                     className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
                     placeholder='LinkedIn'
                   />

@@ -67,7 +67,7 @@ export function Jobs({ jobs }) {
                     Filter Jobs
                   </h2>
                 </div>
-                <div>
+                <div className='col-span-4'>
                   <label
                     htmlFor='filter_status'
                     className='block text-sm font-medium text-gray-700'
@@ -83,7 +83,7 @@ export function Jobs({ jobs }) {
                         { value: 'interviews', label: 'Interviews' },
                         { value: 'offers', label: 'Offers' },
                         { value: 'rejected', label: 'Rejected' },
-                        { value: 'ghosted', label: 'Ghosted' },
+                        { value: 'ghosted', label: 'Ghosted' }
                       ]}
                       onChange={(data) => setQuery(data.value)}
                       className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
