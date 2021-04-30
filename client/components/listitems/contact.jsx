@@ -24,7 +24,7 @@ export function ContactItem({ contact, jobs }) {
   } = session
 
   const refreshData = () => {
-    router.replace(router.asPath)
+    router.replace(router.asPath, null, { scroll: false })
   }
 
   const deleteContact = async () => {

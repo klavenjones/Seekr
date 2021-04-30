@@ -52,7 +52,7 @@ export function EditContact({ setOpen, jobs, contact }) {
   })
 
   const refreshData = () => {
-    router.replace(router.asPath)
+    router.replace(router.asPath, null, { scroll: false })
   }
 
   const editContact = async (data) => {
@@ -154,7 +154,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                     name='title'
                     {...register('title')}
                     className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
-                    placeholder='Contact  Title'
+                    placeholder='Job Title'
                   />
                 </div>
               </div>

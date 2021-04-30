@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
+import { refreshData } from '../lib'
 import axios from 'axios'
 
 function classNames(...classes) {
@@ -20,10 +21,6 @@ export function JobDropdown({ openModal, modalType, job }) {
     user: { userId },
   } = session
 
-  // DECOUPLE
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
   //DECOUPLE
   const deleteJob = async () => {
     const deleteUrl = `https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/jobs/${job.jobId}`
@@ -34,7 +31,7 @@ export function JobDropdown({ openModal, modalType, job }) {
           userId: userId,
         },
       })
-      refreshData()
+      refreshData(router)
     } catch (error) {
       console.log(error.message)
     }
@@ -45,7 +42,7 @@ export function JobDropdown({ openModal, modalType, job }) {
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className='flex justify-center w-full px-2 py-2 bg-white text-sm font-medium text-gray-700  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-teal-500'>
+            <Menu.Button className='flex justify-center w-full px-2 py-2 bg-white text-sm font-medium text-gray-500  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-teal-500'>
               <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
             </Menu.Button>
           </div>
@@ -125,8 +122,6 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
   const [session, loading] = useSession()
   const router = useRouter()
 
-  if (loading) return <div></div>
-
   const {
     user: { userId },
   } = session
@@ -156,7 +151,7 @@ export function ActivityDropdown({ openModal, modalType, activity }) {
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className='flex justify-center w-full px-2 py-2 bg-white text-sm font-medium text-gray-700  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-teal-500'>
+            <Menu.Button className='flex justify-center w-full px-2 py-2 bg-white text-sm font-medium text-gray-400  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-teal-500'>
               <ChevronDownIcon className='h-5 w-5' aria-hidden='true' />
             </Menu.Button>
           </div>

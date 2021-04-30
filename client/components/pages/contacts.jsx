@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useSession } from 'next-auth/client'
 import { Navigation } from '../navigation'
 import { ContactList } from '../listitems'
 import { ContactModal } from '../modals'
+import { Loader } from '../loader'
 
 import { useForm, useController } from 'react-hook-form'
 import Select from 'react-select'
@@ -11,6 +13,7 @@ function classNames(...classes) {
 }
 
 export function Contacts({ contacts, jobs }) {
+  const [session, loading] = useSession()
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('add')
   const [query, setQuery] = useState('')
@@ -21,6 +24,8 @@ export function Contacts({ contacts, jobs }) {
     }
     return rows.filter((row) => row.type.toLowerCase().indexOf(query) > -1)
   }
+
+  if (loading) return <Loader />
 
   return (
     <>

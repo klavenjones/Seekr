@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useSession } from 'next-auth/client'
 import { Navigation } from '../navigation'
 import { JobList } from '../listitems'
 import { JobModal } from '../modals'
-
-import { useForm, useController } from 'react-hook-form'
+import { Loader } from '../loader'
 import Select from 'react-select'
 
 function classNames(...classes) {
@@ -11,11 +11,10 @@ function classNames(...classes) {
 }
 
 export function Jobs({ jobs }) {
+  const [session, loading] = useSession()
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('add')
   const [query, setQuery] = useState('')
-
-  const { register, handleSubmit, setValue, errors, control, reset } = useForm()
 
   function filter(rows) {
     if (query === 'all') {
@@ -23,6 +22,8 @@ export function Jobs({ jobs }) {
     }
     return rows.filter((row) => row.status.toLowerCase().indexOf(query) > -1)
   }
+
+  if (loading) return <Loader />
 
   return (
     <div>

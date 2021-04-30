@@ -1,16 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useSession } from 'next-auth/client'
 import { Navigation } from '../navigation'
 import { ActivityList } from '../listitems'
 import { ActivityModal } from '../modals'
-
-import { useForm, useController } from 'react-hook-form'
+import { Loader } from '../loader'
 import Select from 'react-select'
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export function Activities({ activities, jobs }) {
+  const [session, loading] = useSession()
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('add')
   const [query, setQuery] = useState('')
@@ -21,6 +18,8 @@ export function Activities({ activities, jobs }) {
     }
     return rows.filter((row) => row.type.toLowerCase().indexOf(query) > -1)
   }
+
+  if (loading) return <Loader />
 
   return (
     <>
