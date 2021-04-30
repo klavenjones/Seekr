@@ -21,19 +21,19 @@ export function AddContact({ setOpen, jobs }) {
       value: item.company,
       label: item.company,
       jobId: item.jobId,
-      company: item.company,
+      company: item.company
     }
   })
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
   const {
-    field: { jobRef, ...jobInputProps },
+    field: { jobRef, ...jobInputProps }
   } = useController({
     name: 'job',
-    control,
+    control
   })
 
   const addContact = async (data) => {
@@ -47,7 +47,7 @@ export function AddContact({ setOpen, jobs }) {
         job: { company },
         github,
         linkedin,
-        twitter,
+        twitter
       } = data
 
       let newContact = {
@@ -60,7 +60,7 @@ export function AddContact({ setOpen, jobs }) {
         twitter: twitter,
         linkedin: linkedin,
         github: github,
-        company: company,
+        company: company
       }
 
       let response = await axios.post(url, newContact)

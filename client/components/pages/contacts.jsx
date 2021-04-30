@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { useSession } from 'next-auth/client'
+import { useForm } from 'react-hook-form'
 import { Navigation } from '../navigation'
 import { ContactList } from '../listitems'
 import { ContactModal } from '../modals'
 import { Loader } from '../loader'
-
-import { useForm, useController } from 'react-hook-form'
-import Select from 'react-select'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -17,12 +15,17 @@ export function Contacts({ contacts, jobs }) {
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('add')
   const [query, setQuery] = useState('')
+  const { register, handleSubmit, errors, control, reset, watch } = useForm()
+
+  const handleChange = (data) => console.log(data)
 
   function filter(rows) {
-    if (query === 'all') {
+    if (query === '') {
       return contacts
     }
-    return rows.filter((row) => row.type.toLowerCase().indexOf(query) > -1)
+    return rows.filter(
+      (row) => row.name.toLowerCase().indexOf(query.toLocaleLowerCase()) > -1
+    )
   }
 
   if (loading) return <Loader />
@@ -69,7 +72,8 @@ export function Contacts({ contacts, jobs }) {
                     Filter Contacts
                   </h2>
                 </div>
-                <div className='col-span-4'>
+
+                <div className='col-span-4 sm:col-span-1'>
                   <label
                     htmlFor='filter_status'
                     className='block text-sm font-medium text-gray-700'
@@ -77,98 +81,13 @@ export function Contacts({ contacts, jobs }) {
                     Client
                   </label>
                   <div className='mt-3'>
-                    <Select
-                      options={[
-                        {
-                          value: 'all',
-                          label: 'All'
-                        },
-                        {
-                          value: 'on site interview',
-                          label: 'On Site Interview'
-                        },
-                        { value: 'apply', label: 'Apply' },
-                        { value: 'follow up', label: 'Follow up' },
-                        {
-                          value: 'prep cover letter',
-                          label: 'Prep Cover Letter'
-                        },
-                        { value: 'prep resume', label: 'Prep Resume' },
-                        { value: 'reach out', label: 'Reach out' },
-                        {
-                          value: 'prep for interview',
-                          label: 'Prep For Interview'
-                        },
-                        {
-                          value: 'phone interview',
-                          label: 'Phone Interview'
-                        },
-                        {
-                          value: 'offer received',
-                          label: 'Offer received'
-                        },
-                        {
-                          value: 'accept offer',
-                          label: 'Accept offer'
-                        },
-                        {
-                          value: 'decline offer',
-                          label: 'Decline offer'
-                        },
-                        {
-                          value: 'rejected',
-                          label: 'Rejected'
-                        },
-                        {
-                          value: 'rejected',
-                          label: 'Rejected'
-                        },
-                        {
-                          value: 'send thank you',
-                          label: 'Send thank you'
-                        },
-                        {
-                          value: 'email',
-                          label: 'Email'
-                        },
-                        {
-                          value: 'meeting',
-                          label: 'Meeting'
-                        },
-                        {
-                          value: 'phone call',
-                          label: 'Phone call'
-                        },
-                        {
-                          value: 'get reference',
-                          label: 'Get reference'
-                        },
-                        {
-                          value: 'send availability',
-                          label: 'Send Availability'
-                        },
-                        {
-                          value: 'assignment',
-                          label: 'Assignment'
-                        },
-                        {
-                          value: 'networking event',
-                          label: 'Networking event'
-                        },
-                        {
-                          value: 'other',
-                          label: 'Other'
-                        },
-                        {
-                          value: 'application withdrawn',
-                          label: 'Application Withdrawn'
-                        }
-                      ]}
-                      onChange={(data) => setQuery(data.value)}
-                      className='shadow-sm focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md'
-                      isSearchable={false}
-                      name='filter_status'
-                      placeholder='Select Contact Type'
+                    <input
+                      type='text'
+                      name='filter_client'
+                      className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
+                      placeholder='Contact Name'
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
                     />
                   </div>
                 </div>
@@ -186,7 +105,7 @@ export function Contacts({ contacts, jobs }) {
             <div className='max-w-5xl mx-auto'>
               {/* Contact List */}
               <ul className='mt-3 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2'>
-                <ContactList contacts={contacts} jobs={jobs} />
+                <ContactList contacts={filter(contacts)} jobs={jobs} />
               </ul>
             </div>
           </div>

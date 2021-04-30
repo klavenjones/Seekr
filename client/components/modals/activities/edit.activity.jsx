@@ -19,15 +19,15 @@ export function EditActivity({ setOpen, jobs, activity }) {
       done: activity.done ? true : false,
       type: {
         value: activity.type ? activity.type : null,
-        label: activity.type ? activity.type : null,
+        label: activity.type ? activity.type : null
       },
       job: {
         value: activity.jobTitle ? activity.jobTitle : null,
         label: activity.jobTitle ? activity.jobTitle : null,
         company: activity.company ? activity.company : null,
-        jobId: activity.jobId,
-      },
-    },
+        jobId: activity.jobId
+      }
+    }
   })
 
   const [session, loading] = useSession()
@@ -39,26 +39,26 @@ export function EditActivity({ setOpen, jobs, activity }) {
       value: item.title,
       label: item.title,
       jobId: item.jobId,
-      company: item.company,
+      company: item.company
     }
   })
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
   const {
-    field: { ref, ...inputProps },
+    field: { ref, ...inputProps }
   } = useController({
     name: 'type',
-    control,
+    control
   })
 
   const {
-    field: { jobRef, ...jobInputProps },
+    field: { jobRef, ...jobInputProps }
   } = useController({
     name: 'job',
-    control,
+    control
   })
 
   const editActivity = async (data) => {
@@ -69,7 +69,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
         start,
         end,
         type: { label },
-        job: { value, company },
+        job: { value, company }
       } = data
 
       let editActivity = {
@@ -157,84 +157,84 @@ export function EditActivity({ setOpen, jobs, activity }) {
                     options={[
                       {
                         value: 'on site interview',
-                        label: 'On Site Interview',
+                        label: 'On Site Interview'
                       },
                       { value: 'apply', label: 'Apply' },
                       { value: 'follow up', label: 'Follow up' },
                       {
                         value: 'prep cover letter',
-                        label: 'Prep Cover Letter',
+                        label: 'Prep Cover Letter'
                       },
                       { value: 'prep resume', label: 'Prep Resume' },
                       { value: 'reach out', label: 'Reach out' },
                       {
                         value: 'prep for interview',
-                        label: 'Prep For Interview',
+                        label: 'Prep For Interview'
                       },
                       {
                         value: 'phone interview',
-                        label: 'Phone Interview',
+                        label: 'Phone Interview'
                       },
                       {
                         value: 'offer received',
-                        label: 'Offer received',
+                        label: 'Offer received'
                       },
                       {
                         value: 'accept offer',
-                        label: 'Accept offer',
+                        label: 'Accept offer'
                       },
                       {
                         value: 'decline offer',
-                        label: 'Decline offer',
+                        label: 'Decline offer'
                       },
                       {
                         value: 'rejected',
-                        label: 'Rejected',
+                        label: 'Rejected'
                       },
                       {
                         value: 'rejected',
-                        label: 'Rejected',
+                        label: 'Rejected'
                       },
                       {
                         value: 'send thank you',
-                        label: 'Send thank you',
+                        label: 'Send thank you'
                       },
                       {
                         value: 'email',
-                        label: 'Email',
+                        label: 'Email'
                       },
                       {
                         value: 'meeting',
-                        label: 'Meeting',
+                        label: 'Meeting'
                       },
                       {
                         value: 'phone call',
-                        label: 'Phone call',
+                        label: 'Phone call'
                       },
                       {
                         value: 'get reference',
-                        label: 'Get reference',
+                        label: 'Get reference'
                       },
                       {
                         value: 'send availability',
-                        label: 'Send Availability',
+                        label: 'Send Availability'
                       },
                       {
                         value: 'assignment',
-                        label: 'Assignment',
+                        label: 'Assignment'
                       },
                       {
                         value: 'networking event',
-                        label: 'Networking event',
+                        label: 'Networking event'
                       },
                       {
                         value: 'other',
-                        label: 'Other',
+                        label: 'Other'
                       },
                       {
                         value: 'application withdrawn',
-                        label: 'Application Withdrawn',
-                      },
+                        label: 'Application Withdrawn'
+                      }
                     ]}
                     className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
                     isSearchable={false}

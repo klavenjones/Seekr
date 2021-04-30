@@ -2,8 +2,6 @@ import { Fragment } from 'react'
 import { Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
-
-
 export function ViewContact({ contact, setOpen }) {
   return (
     <Transition.Child

@@ -8,7 +8,7 @@ import {
   MailIcon,
   PencilAltIcon,
   EyeIcon,
-  TrashIcon,
+  TrashIcon
 } from '@heroicons/react/solid'
 
 import { refreshData } from '../../lib'
@@ -22,7 +22,7 @@ export function ContactItem({ contact, jobs }) {
   if (loading) return <div></div>
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
   const deleteContact = async () => {
@@ -31,8 +31,8 @@ export function ContactItem({ contact, jobs }) {
     try {
       await axios.delete(deleteUrl, {
         data: {
-          userId: userId,
-        },
+          userId: userId
+        }
       })
       refreshData(router)
     } catch (error) {
@@ -82,17 +82,17 @@ export function ContactItem({ contact, jobs }) {
                 {/* <span className='ml-3'>Email</span> */}
               </a>
             </div>
-            <div className='-ml-px w-0 flex-1 flex'>
+            {/* <div className='-ml-px w-0 flex-1 flex'>
               <a
                 href='tel:+1-917-615-5646'
                 className='relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500'
-              >
-                {/* Heroicon name: solid/phone */}
-                <PhoneIcon className='w-5 h-5 text-gray-400' />
+              > */}
+            {/* Heroicon name: solid/phone */}
+            {/* <PhoneIcon className='w-5 h-5 text-gray-400' /> */}
 
-                {/* <span className='ml-3'>Call</span> */}
-              </a>
-            </div>
+            {/* <span className='ml-3'>Call</span> */}
+            {/* </a>
+            </div> */}
             <div className='-ml-px w-0 flex-1 flex'>
               <button
                 onClick={() => {

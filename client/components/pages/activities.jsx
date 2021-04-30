@@ -63,7 +63,7 @@ export function Activities({ activities, jobs }) {
                     Filter Activities
                   </h2>
                 </div>
-                <div className='col-span-4'>
+                <div className='col-span-4 sm:col-span-1'>
                   <label
                     htmlFor='filter_status'
                     className='block text-sm font-medium text-gray-700'

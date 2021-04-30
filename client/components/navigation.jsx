@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/client'
 const navigation = [
   { name: 'Jobs', href: '/dashboard' },
   { name: 'Activities', href: '/dashboard/activities' },
-  { name: 'Contacts', href: '/dashboard/contacts' },
+  { name: 'Contacts', href: '/dashboard/contacts' }
 ]
 
 const profile = ['Log out']
@@ -24,14 +24,10 @@ export function Navigation({ page }) {
       {({ open }) => (
         <>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='flex items-center justify-between h-16 '>
+            <div className='flex items-center justify-between h-20'>
               <div className='flex items-center'>
                 <div className='flex-shrink-1'>
-                  {/* <img
-                    className='h-8 w-8'
-                    src='https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg'
-                    alt='Workflow'
-                  /> */}
+                  {/* <img className='h-14 w-14' src='/seekr.svg' alt='Workflow' /> */}
                 </div>
 
                 <div className='hidden md:block'>
@@ -63,7 +59,7 @@ export function Navigation({ page }) {
 
               <div className='hidden md:block'>
                 <div className='ml-4 flex items-center md:ml-6'>
-                  {/* <button className='bg-teal-600 p-1 rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
+                  {/* <button className='bg-teal-600 p-1 rounded-full text-cyan-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyan-600 focus:ring-white'>
                     <span className='sr-only'>View notifications</span>
                     <BellIcon className='h-6 w-6' aria-hidden='true' />
                   </button> */}
@@ -72,7 +68,7 @@ export function Navigation({ page }) {
                     {({ open }) => (
                       <>
                         <div>
-                          <Menu.Button className='max-w-xs bg-teal-600 rounded-full flex items-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
+                          <Menu.Button className='max-w-xs bg-teal-600 rounded-full flex items-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyan-600 focus:ring-white'>
                             <span className='sr-only'>Open user menu</span>
                             <img
                               className='h-8 w-8 rounded-full'
@@ -134,7 +130,7 @@ export function Navigation({ page }) {
               </div>
 
               <div className='-mr-2 flex md:hidden'>
-                <Disclosure.Button className='bg-teal-600 inline-flex items-center justify-center p-2 rounded-md text-teal-200 hover:text-white hover:bg-teal-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
+                <Disclosure.Button className='bg-teal-600 inline-flex items-center justify-center p-2 rounded-md text-cyan-200 hover:text-white hover:bg-teal-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyan-600 focus:ring-white'>
                   <span className='sr-only'>Open main menu</span>
                   {open ? (
                     <XIcon className='block h-6 w-6' aria-hidden='true' />
@@ -171,7 +167,7 @@ export function Navigation({ page }) {
                 )
               )}
             </div>
-            <div className='pt-4 pb-3 border-t border-teal-700'>
+            <div className='pt-4 pb-3 border-t border-cyan-700'>
               <div className='flex items-center px-5'>
                 <div className='flex-shrink-1'>
                   <img
@@ -186,11 +182,11 @@ export function Navigation({ page }) {
                   <div className='text-base font-medium text-white'>
                     {session?.user.name ? session?.user.name : ''}
                   </div>
-                  <div className='text-sm font-medium text-teal-300'>
+                  <div className='text-sm font-medium text-cyan-300'>
                     {session?.user.email ? session?.user.email : ''}
                   </div>
                 </div>
-                {/* <button className='ml-auto bg-teal-600 flex-shrink-0 p-1 border-2 border-transparent rounded-full text-teal-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-600 focus:ring-white'>
+                {/* <button className='ml-auto bg-teal-600 flex-shrink-0 p-1 border-2 border-transparent rounded-full text-cyan-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyan-600 focus:ring-white'>
                   <span className='sr-only'>View notifications</span>
                   <BellIcon className='h-6 w-6' aria-hidden='true' />
                 </button> */}

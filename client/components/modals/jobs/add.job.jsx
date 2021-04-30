@@ -15,14 +15,14 @@ export function AddJob({ setOpen }) {
   const url = 'https://j29mwfcm7h.execute-api.us-east-2.amazonaws.com/dev/jobs'
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
   const {
-    field: { ref, ...inputProps },
+    field: { ref, ...inputProps }
   } = useController({
     name: 'status',
-    control,
+    control
   })
 
   const addJob = async (data) => {
@@ -30,14 +30,14 @@ export function AddJob({ setOpen }) {
       const {
         company,
         jobTitle,
-        status: { value },
+        status: { value }
       } = data
 
       let newJob = {
         userId: userId,
         title: jobTitle,
         company: company,
-        status: value,
+        status: value
       }
 
       let response = await axios.post(url, newJob)
@@ -135,7 +135,7 @@ export function AddJob({ setOpen }) {
                       { value: 'interviews', label: 'Interviews' },
                       { value: 'offers', label: 'Offers' },
                       { value: 'rejected', label: 'Rejected' },
-                      { value: 'ghosted', label: 'Ghosted' },
+                      { value: 'ghosted', label: 'Ghosted' }
                     ]}
                     className='z-20 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md'
                     isSearchable={false}

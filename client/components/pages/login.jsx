@@ -54,7 +54,7 @@ export function Login() {
                   id='remember_me'
                   name='remember_me'
                   type='checkbox'
-                  className='h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded'
+                  className='h-4 w-4 text-cyan-600 focus:ring-teal-500 border-gray-300 rounded'
                 />
                 <label
                   htmlFor='remember_me'
@@ -67,7 +67,7 @@ export function Login() {
               <div className='text-sm'>
                 <a
                   href='#'
-                  className='font-medium text-teal-600 hover:text-teal-500'
+                  className='font-medium text-cyan-600 hover:text-cyan-500'
                 >
                   Forgot your password?
                 </a>

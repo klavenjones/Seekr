@@ -23,9 +23,9 @@ export function EditContact({ setOpen, jobs, contact }) {
       done: contact.done ? true : false,
       job: {
         value: contact.company ? contact.company : null,
-        label: contact.company ? contact.company : null,
-      },
-    },
+        label: contact.company ? contact.company : null
+      }
+    }
   })
 
   const [session, loading] = useSession()
@@ -38,19 +38,19 @@ export function EditContact({ setOpen, jobs, contact }) {
       value: item.company,
       label: item.company,
       jobId: item.jobId,
-      company: item.company,
+      company: item.company
     }
   })
 
   const {
-    user: { userId },
+    user: { userId }
   } = session
 
   const {
-    field: { jobRef, ...jobInputProps },
+    field: { jobRef, ...jobInputProps }
   } = useController({
     name: 'job',
-    control,
+    control
   })
 
   const editContact = async (data) => {
@@ -64,7 +64,7 @@ export function EditContact({ setOpen, jobs, contact }) {
         job: { value },
         github,
         linkedin,
-        twitter,
+        twitter
       } = data
 
       let editContact = {
@@ -78,7 +78,7 @@ export function EditContact({ setOpen, jobs, contact }) {
         twitter: twitter,
         linkedin: linkedin,
         github: github,
-        company: value,
+        company: value
       }
 
       let response = await axios.put(url, editContact)

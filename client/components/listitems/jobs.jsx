@@ -10,7 +10,7 @@ export function JobItem({ job }) {
       <JobModal open={open} setOpen={setOpen} job={job} type={type} />
       <li className='col-span-1 flex shadow-sm rounded-md relative'>
         <div className='flex-shrink-0 flex items-center justify-center w-16 bg-teal-600 text-white text-xl font-medium rounded-l-md'>
-          {job.company.slice(0,2)}
+          {job.company.slice(0, 2)}
         </div>
         <div className='flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate'>
           <div className='flex-1 px-4 py-2 text-sm truncate'>
