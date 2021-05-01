@@ -60,7 +60,7 @@ export function AddContact({ setOpen, jobs }) {
         twitter: twitter,
         linkedin: linkedin,
         github: github,
-        company: company
+        company: company ? company : null
       }
 
       let response = await axios.post(url, newContact)
