@@ -10,7 +10,15 @@ import Select from 'react-select'
 import { refreshData } from '../../../lib'
 
 export function AddContact({ setOpen, jobs }) {
-  const { register, handleSubmit, errors, control, reset } = useForm()
+  const { register, handleSubmit, errors, control, reset } = useForm({
+    defaultValues: {
+      job: {
+        value: null,
+        label: 'Select Job',
+        company: null
+      }
+    }
+  })
   const [session, loading] = useSession()
   const router = useRouter()
   const url =
@@ -60,7 +68,7 @@ export function AddContact({ setOpen, jobs }) {
         twitter: twitter,
         linkedin: linkedin,
         github: github,
-        company: company ? company : null
+        company: company
       }
 
       let response = await axios.post(url, newContact)
