@@ -64,4 +64,4 @@ SECRET=JWT Secret
 
 ## Here is the project live:
 
-[https://seekr-h0ei8xte2-klavenjones.vercel.app/](https://seekr-h0ei8xte2-klavenjones.vercel.app/)
+[https://seekr-2ib2y0t3r-klavenjones.vercel.app/](https://seekr-2ib2y0t3r-klavenjones.vercel.app/)
