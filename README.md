@@ -14,11 +14,11 @@ This application allows for creating, reading, updating and deleting items. Each
 
 ---
 
-![Seekr%20App%20665787fcad3546e394492579ace9e3b4/seekrapp.png](Seekr%20App%20665787fcad3546e394492579ace9e3b4/seekrapp.png)
+![seekrapp.png](seekrapp.png)
 
-![Seekr%20App%20665787fcad3546e394492579ace9e3b4/activitypage.png](Seekr%20App%20665787fcad3546e394492579ace9e3b4/activitypage.png)
+![activitypage.png](activitypage.png)
 
-![Seekr%20App%20665787fcad3546e394492579ace9e3b4/contactpage.png](Seekr%20App%20665787fcad3546e394492579ace9e3b4/contactpage.png)
+![contactpage.png](contactpage.png)
 
 # Backend
 
