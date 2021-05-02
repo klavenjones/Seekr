@@ -1,4 +1,5 @@
 import { signIn } from 'next-auth/client'
+import router from 'next/router'
 import React from 'react'
 
 export default function Hero() {
@@ -40,16 +41,19 @@ export default function Hero() {
                 </h1>
                 <p className='mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl'>
                   Keep track of every detail about your job opportunities
-                  regardless of where you found them. Track contacts,
-                  dates, tasks, job descriptions, salaries, locations, company
-                  data and more.
+                  regardless of where you found them. Track contacts, dates,
+                  tasks, job descriptions, salaries, locations, company data and
+                  more.
                 </p>
                 <div className='mt-10 sm:mt-12'>
                   <div className='sm:max-w-xl sm:mx-auto lg:mx-0'>
                     <div className='sm:flex'>
                       <div className='mt-3 mx-auto sm:mt-0 lg:mx-0'>
                         <button
-                          onClick={() => signIn('auth0')}
+                          onClick={() => {
+                            signIn('auth0')
+                            router.push('/dashboard')
+                          }}
                           className='block py-3 px-4 rounded-md shadow bg-teal-600  text-white font-medium hover:bg-teal-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900'
                         >
                           Get Started

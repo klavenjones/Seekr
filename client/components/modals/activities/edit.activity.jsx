@@ -124,7 +124,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
           <div className='px-4 py-3'>
             <div className='grid grid-cols-1 gap-6 py-2 my-3 sm:grid-cols-4 relative'>
               {/* Row 1 */}
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='title'
                   className='block text-sm font-medium text-gray-700'
@@ -143,7 +143,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
               </div>
 
               {/* Row 2 */}
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='type'
                   className='block text-sm font-medium text-gray-700'
@@ -243,7 +243,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
                   />
                 </div>
               </div>
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='type'
                   className='block text-sm font-medium text-gray-700'
@@ -263,7 +263,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
                 </div>
               </div>
               {/* Row 3 */}
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='start'
                   className='block text-sm font-medium text-gray-700'
@@ -281,7 +281,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
                 </div>
               </div>
 
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='deadline'
                   className='block text-sm font-medium text-gray-700'
@@ -300,7 +300,7 @@ export function EditActivity({ setOpen, jobs, activity }) {
               </div>
 
               {/* Row 4 */}
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='note'
                   className='block text-sm font-medium text-gray-700'
