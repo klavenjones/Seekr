@@ -120,7 +120,7 @@ export function EditContact({ setOpen, jobs, contact }) {
           <div className='px-4 py-3'>
             <div className='grid grid-cols-1 gap-6 py-2 my-3 sm:grid-cols-4 relative'>
               {/* Row 1 */}
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='name'
                   className='block text-sm font-medium text-gray-700'
@@ -139,7 +139,7 @@ export function EditContact({ setOpen, jobs, contact }) {
               </div>
 
               {/* Row 2 */}
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='title'
                   className='block text-sm font-medium text-gray-700'
@@ -157,7 +157,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                 </div>
               </div>
 
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='type'
                   className='block text-sm font-medium text-gray-700'
@@ -178,7 +178,7 @@ export function EditContact({ setOpen, jobs, contact }) {
               </div>
 
               {/* Row 3 */}
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='phone'
                   className='block text-sm font-medium text-gray-700'
@@ -195,7 +195,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                   />
                 </div>
               </div>
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='email'
                   className='block text-sm font-medium text-gray-700'
@@ -212,7 +212,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                   />
                 </div>
               </div>
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='location'
                   className='block text-sm font-medium text-gray-700'
@@ -229,7 +229,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                   />
                 </div>
               </div>
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='linkedin'
                   className='block text-sm font-medium text-gray-700'
@@ -246,7 +246,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                   />
                 </div>
               </div>
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='twitter'
                   className='block text-sm font-medium text-gray-700'
@@ -264,7 +264,7 @@ export function EditContact({ setOpen, jobs, contact }) {
                 </div>
               </div>
               {/* Row 4 */}
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='github'
                   className='block text-sm font-medium text-gray-700'

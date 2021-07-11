@@ -82,7 +82,7 @@ export function AddJob({ setOpen }) {
           <div className='px-4 py-3'>
             <div className='grid grid-cols-1 gap-4 py-2 my-3 sm:grid-cols-4 relative'>
               {/* Row 1 */}
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='company'
                   className='block text-sm font-medium text-gray-700'
@@ -100,7 +100,7 @@ export function AddJob({ setOpen }) {
                 </div>
               </div>
               {/* Row 2 */}
-              <div className='col-span-2'>
+              <div className='col-span-1 sm:col-span-2'>
                 <label
                   htmlFor='jobTitle'
                   className='block text-sm font-medium text-gray-700'
@@ -118,7 +118,7 @@ export function AddJob({ setOpen }) {
                 </div>
               </div>
               {/* Row 3 */}
-              <div className='col-span-4'>
+              <div className='col-span-1 sm:col-span-4'>
                 <label
                   htmlFor='status'
                   className='block text-sm font-medium text-gray-700'
