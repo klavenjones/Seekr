@@ -73,7 +73,7 @@ export default function HomeNavigation() {
           </div>
           <div className='hidden md:flex md:items-center md:space-x-6'>
             <button
-              onClick={() => signIn('auth0')}
+              onClick={() => signIn()}
               className='inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700'
             >
               Sign up free

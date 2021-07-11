@@ -49,7 +49,7 @@ export default function Hero() {
                     <div className='sm:flex'>
                       <div className='mt-3 mx-auto sm:mt-0 lg:mx-0'>
                         <button
-                          onClick={() => signIn('auth0')}
+                          onClick={() => signIn()}
                           className='block py-3 px-4 rounded-md shadow bg-teal-600  text-white font-medium hover:bg-teal-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 focus:ring-offset-gray-900'
                         >
                           Get Started
