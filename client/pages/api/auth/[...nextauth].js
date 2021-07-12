@@ -6,11 +6,11 @@ import * as uuid from 'uuid'
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
-    Providers.Auth0({
-      clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
-      domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN
-    }),
+    // Providers.Auth0({
+    //   clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
+    //   clientSecret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
+    //   domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN
+    // }),
     // Providers.Email({
     //   server: {
     //     host: process.env.EMAIL_SERVER_HOST,
@@ -22,10 +22,10 @@ export default NextAuth({
     //   },
     //   from: process.env.EMAIL_FROM
     // }),
-    // Providers.GitHub({
-    //   clientId: process.env.GITHUB_ID,
-    //   clientSecret: process.env.GITHUB_SECRET
-    // })
+    Providers.GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    })
     // Providers.Google({
     //   clientId: process.env.GOOGLE_ID,
     //   clientSecret: process.env.GOOGLE_SECRET
@@ -43,9 +43,10 @@ export default NextAuth({
   jwt: {
     secret: process.env.SECRET
   },
-  debug: true,
+  debug: false,
   callbacks: {
     async session(session, user) {
+      console.log('SESSION')
       let params = {
         TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
         FilterExpression: 'providerId = :providerId',
@@ -58,6 +59,7 @@ export default NextAuth({
       return session
     },
     async jwt(token, user, account, profile, isNewUser) {
+      console.log('JWT')
       let params = {
         TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
         FilterExpression: 'providerId = :providerId',
@@ -72,12 +74,13 @@ export default NextAuth({
       return token
     },
     async signIn(user, account, profile) {
+      console.log('SIGN IN', user)
       try {
         let params = {
           TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
           FilterExpression: 'providerId = :providerId',
           ExpressionAttributeValues: {
-            ':providerId': user.id
+            ':providerId': user.id.toString()
           }
         }
         const currentUser = await docClient.scan(params).promise()
@@ -87,7 +90,7 @@ export default NextAuth({
           let newUser = {
             TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
             Item: {
-              providerId: user.id,
+              providerId: user.id.toString(),
               userId: userId,
               name: profile.name,
               email: user.email,
