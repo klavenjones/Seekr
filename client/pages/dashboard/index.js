@@ -3,11 +3,14 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { Jobs } from '../../components/pages'
+import { Loader } from '../../components'
 // import { Protected } from '../../components/protected'
 
 export default function Dashboard({ jobs }) {
   const [session, loading] = useSession()
   const router = useRouter()
+
+  if (loading) return <Loader />
 
   useEffect(() => {
     if (!(session || loading)) {
@@ -25,8 +28,8 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         destination: '/',
-        permanent: false,
-      },
+        permanent: false
+      }
     }
   }
 
@@ -39,7 +42,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       user: userId,
-      jobs: res.data.items,
-    },
+      jobs: res.data.items
+    }
   }
 }

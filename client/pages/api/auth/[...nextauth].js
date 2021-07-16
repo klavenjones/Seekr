@@ -25,11 +25,11 @@ export default NextAuth({
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET
+    }),
+    Providers.Google({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET
     })
-    // Providers.Google({
-    //   clientId: process.env.GOOGLE_ID,
-    //   clientSecret: process.env.GOOGLE_SECRET
-    // }),
     // Providers.Twitter({
     //   clientId: process.env.TWITTER_ID,
     //   clientSecret: process.env.TWITTER_SECRET
@@ -43,10 +43,9 @@ export default NextAuth({
   jwt: {
     secret: process.env.SECRET
   },
-  debug: false,
+  debug: true,
   callbacks: {
     async session(session, user) {
-      console.log('SESSION')
       let params = {
         TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
         FilterExpression: 'providerId = :providerId',
@@ -59,7 +58,6 @@ export default NextAuth({
       return session
     },
     async jwt(token, user, account, profile, isNewUser) {
-      console.log('JWT')
       let params = {
         TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
         FilterExpression: 'providerId = :providerId',

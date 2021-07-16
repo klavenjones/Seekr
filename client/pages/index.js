@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Loader } from '../components/loader'
 
 import { signIn, useSession } from 'next-auth/client'
