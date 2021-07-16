@@ -6,11 +6,11 @@ import * as uuid from 'uuid'
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
-    // Providers.Auth0({
-    //   clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
-    //   clientSecret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
-    //   domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN
-    // }),
+    Providers.Auth0({
+      clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
+      domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN
+    }),
     // Providers.Email({
     //   server: {
     //     host: process.env.EMAIL_SERVER_HOST,
@@ -22,14 +22,14 @@ export default NextAuth({
     //   },
     //   from: process.env.EMAIL_FROM
     // }),
-    Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
-    }),
-    Providers.Google({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
-    })
+    // Providers.GitHub({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET
+    // }),
+    // Providers.Google({
+    //   clientId: process.env.GOOGLE_ID,
+    //   clientSecret: process.env.GOOGLE_SECRET
+    // })
     // Providers.Twitter({
     //   clientId: process.env.TWITTER_ID,
     //   clientSecret: process.env.TWITTER_SECRET
