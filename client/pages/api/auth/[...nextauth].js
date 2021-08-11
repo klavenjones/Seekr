@@ -5,12 +5,13 @@ import * as uuid from 'uuid'
 
 export default NextAuth({
   // Configure one or more authentication providers
+  site: process.env.NEXTAUTH_URL,
   providers: [
     Providers.Auth0({
       clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET,
       domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN
-    }),
+    })
     // Providers.Email({
     //   server: {
     //     host: process.env.EMAIL_SERVER_HOST,
@@ -45,6 +46,12 @@ export default NextAuth({
   },
   debug: true,
   callbacks: {
+    redirect: async (url, _) => {
+      if (url === '/api/auth/signin') {
+        return Promise.resolve('/dashboard')
+      }
+      return Promise.resolve('/api/auth/signin')
+    },
     async session(session, user) {
       let params = {
         TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE,
