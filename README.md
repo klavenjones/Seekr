@@ -64,4 +64,4 @@ SECRET=JWT Secret
 
 ## Here is the project live:
 
-[Live Demo](seekr-iota.vercel.app)
+[Live Demo](https://seekr-iota.vercel.app/)
