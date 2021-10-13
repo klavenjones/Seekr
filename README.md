@@ -64,4 +64,4 @@ SECRET=JWT Secret
 
 ## Here is the project live:
 
-[https://admiring-galileo-b19898.netlify.app/](https://admiring-galileo-b19898.netlify.app/)
+[Live Demo](seekr-iota.vercel.app)
