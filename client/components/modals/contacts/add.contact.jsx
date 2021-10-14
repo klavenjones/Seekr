@@ -75,7 +75,8 @@ export function AddContact({ setOpen, jobs }) {
 
       reset()
       setOpen(false)
-      refreshData(router)
+      router.push('/dashboard/contacts')
+      // refreshData(router)
     } catch (error) {
       console.log(error.message)
     }

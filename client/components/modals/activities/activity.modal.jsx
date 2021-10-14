@@ -1,9 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { AddActivity, ViewActivity, EditActivity } from './'
 
-import { CheckIcon } from '@heroicons/react/outline'
 
 export function ActivityModal({ activity, open, type, setOpen, jobs }) {
   return (

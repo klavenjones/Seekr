@@ -44,7 +44,8 @@ export function AddJob({ setOpen }) {
 
       reset({ company: '', jobTitle: '', status: '' })
       setOpen(false)
-      refreshData(router)
+      router.push('/dashboard')
+      // refreshData(router)
     } catch (error) {
       console.log(error.message)
     }
