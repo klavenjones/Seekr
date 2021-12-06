@@ -10,7 +10,7 @@ Serverless Job Application tracker where a user can keep track of jobs, contacts
 
 This application allows for creating, reading, updating and deleting items. Each user will only has access to the items that they have created.
 
-# Images
+<!-- # Images
 
 ---
 
@@ -18,7 +18,7 @@ This application allows for creating, reading, updating and deleting items. Each
 
 ![activitypage.png](activitypage.png)
 
-![contactpage.png](contactpage.png)
+![contactpage.png](contactpage.png) -->
 
 # Backend
 
